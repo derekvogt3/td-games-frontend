@@ -9,17 +9,27 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import FriendList from "./pages/friends/FriendList";
 
 function App() {
-  const [currentUser, setCurrentUser] = useState([])
+  const [currentUser, setCurrentUser] = useState({})
+  const [userFriends, setUserFriends] = useState({})
   const [showFriends, setShowFriends] = useState(false)
+
+  useEffect(() => {
+    if (currentUser.id) {
+      fetch(`http://localhost:9292/friends/${currentUser.id}`)
+      .then(res => res.json())
+      .then(setUserFriends)
+    }
+  }, [currentUser])
   
   // packages for all states and functions to carry down to children
   const loginFormPackage = {currentUser, setCurrentUser, showFriends, setShowFriends}
+  const friendListPackage = {userFriends}
 
   return (
     <BrowserRouter>
       <Header loginFormPackage={loginFormPackage} />
       {showFriends ? (
-        <FriendList />
+        <FriendList friendListPackage={friendListPackage} />
       ) : (
         null
       )}

@@ -1,12 +1,27 @@
 #friend-list {
   position: fixed;
   width: 300px;
-  height: 500px;
+  max-height: 500px;
   top: 100px;
   right: 0;
+  background: linear-gradient(#423840, #66706b);
   border: 1px;
   border-style: solid;
   border-color: gray;
   border-radius: 10px;
   z-index: 100;
+  overflow-y: auto;
+}
+
+#add-friend{
+  display: flex;
+}
+
+#add-friend-img {
+  position: relative;
+  left: 230px;
+  height: 50px;
+  width: 50px;
+  padding: 10px;
+  cursor: pointer;
 }

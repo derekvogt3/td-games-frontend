@@ -38,28 +38,28 @@ function LoginForm({loginFormPackage}) {
   function onLogin(e) {
     e.preventDefault()
     checkUserExist(formInput.username.toLowerCase())
-      .then(result => {
-        if (result.exist) {
-          console.log(result)
-          checkPassword(formInput.username.toLowerCase(), stringToHashConversion(formInput.password).toString())
-            .then(match => {
-              if (match.matched) {
-                console.log("user logged in")
-                fetch(`http://localhost:9292/users/${result.id}`)
-                .then(res => res.json())
-                .then(data => {
-                  setCurrentUser(data)
-                  setFormInput({username: "", password: ""})
-                })
-                .catch(console.error)
-              } else {
-                alert("Wrong username or password")
-              }
-            })
-        } else {
-          alert("Wrong username or password")
-        }
-      })
+    .then(result => {
+      if (result.exist) {
+        console.log(result)
+        checkPassword(formInput.username.toLowerCase(), stringToHashConversion(formInput.password).toString())
+          .then(match => {
+            if (match.matched) {
+              console.log("user logged in")
+              fetch(`http://localhost:9292/users/${result.id}`)
+              .then(res => res.json())
+              .then(data => {
+                setCurrentUser(data)
+                setFormInput({username: "", password: ""})
+              })
+              .catch(console.error)
+            } else {
+              alert("Wrong username or password")
+            }
+          })
+      } else {
+        alert("Wrong username or password")
+      }
+    })
   }
 
   function onLogout() {
@@ -72,59 +72,59 @@ function LoginForm({loginFormPackage}) {
     const name = formInput.username.toLowerCase()
     
     checkUserExist(name)
-      .then(result => {
-        if (result.exist) {
-          alert("username already taken")
-        } else {
-          if(name.match(/^[\w]*$/g)) {
-            if (name.match(/^[A-Za-z]/g)) {
-              if (name.match(/^.{3,18}$/g)) {
-                console.log("username ok")
-    
-                //check if password meet all requirement
-                if (formInput.password.match(/^[\w\d~!@#$%^&*-=+?]+$/g)) {
-                  if (formInput.password.match(/^.{6,18}$/g)) {
-                    console.log("password ok")
-                    const password = stringToHashConversion(formInput.password).toString()
-                    // console.log(password)
-                    fetch(`http://localhost:9292/users`, {
-                      method: "POST",
-                      headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json"
-                      },
-                      body: JSON.stringify({
-                        username: name,
-                        password: password
-                      })
+    .then(result => {
+      if (result.exist) {
+        alert("username already taken")
+      } else {
+        if(name.match(/^[\w]*$/g)) {
+          if (name.match(/^[A-Za-z]/g)) {
+            if (name.match(/^.{3,18}$/g)) {
+              console.log("username ok")
+  
+              //check if password meet all requirement
+              if (formInput.password.match(/^[\w\d~!@#$%^&*-=+?]+$/g)) {
+                if (formInput.password.match(/^.{6,18}$/g)) {
+                  console.log("password ok")
+                  const password = stringToHashConversion(formInput.password).toString()
+                  // console.log(password)
+                  fetch(`http://localhost:9292/users`, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "Accept": "application/json"
+                    },
+                    body: JSON.stringify({
+                      username: name,
+                      password: password
                     })
-                    .then(res => res.json())
-                    .then(data => {
-                      setCurrentUser(data)
-                      setFormInput({
-                        username: "",
-                        password: ""
-                      })
-                      console.log(data)
+                  })
+                  .then(res => res.json())
+                  .then(data => {
+                    setCurrentUser(data)
+                    setFormInput({
+                      username: "",
+                      password: ""
                     })
-                    .catch(console.error)
-                  } else {
-                    alert("password need to be between 6 - 18 charaters")
-                  }
+                    console.log(data)
+                  })
+                  .catch(console.error)
                 } else {
-                  alert("password can only include alphabet letters, numbers and _~!@#$%^&*-=+?, cannot have space")
+                  alert("password need to be between 6 - 18 charaters")
                 }
               } else {
-                alert("username need to be between 3 - 18 charaters")
+                alert("password can only include alphabet letters, numbers and _~!@#$%^&*-=+?, cannot have space")
               }
             } else {
-              alert("username must start with letter")
+              alert("username need to be between 3 - 18 charaters")
             }
           } else {
-            alert("username can only include alphabet letters, numbers and '_', cannot have space")
+            alert("username must start with letter")
           }
+        } else {
+          alert("username can only include alphabet letters, numbers and '_', cannot have space")
         }
-      })
+      }
+    })
   }
 
   // conversts to 32bit integer
