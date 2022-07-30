@@ -1,9 +1,11 @@
 import Pixel from "../components/PixelArt";
+import Header from "./header/Header";
+import LoginForm from "./header/LoginForm";
 
-function HomePage() {
+function HomePage({loginFormPackage}) {
   return (
     <div>
-      <h1>home page</h1>
+      <Header loginFormPackage={loginFormPackage} />
       <Pixel></Pixel>
       <h2>test</h2>
     </div>
