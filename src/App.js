@@ -9,24 +9,27 @@ import HomePage from "./pages/HomePage";
 function App() {
   const [currentUser, setCurrentUser] = useState([])
   const [users, setUsers] = useState([])
-
+  
   const usersList = {}
   if (users.length > 0) {
     users.forEach(user => {
       usersList[user.username] = user.password
     })
   }
-
+  
   useEffect(() => {
     fetch(`http://localhost:9292/users`)
     .then(res => res.json())
     .then(setUsers)
   }, [currentUser])
+  
+  // packages for all states and functions to carry down to children
+  const loginFormPackage = {users, usersList, currentUser, setCurrentUser}
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage users={users} usersList={usersList} currentUser={currentUser} setCurrentUser={setCurrentUser} />}></Route>
+        <Route path="/" element={<HomePage loginFormPackage={loginFormPackage} />}></Route>
         <Route path="/tictactoe" element={<TicTacToe />}></Route>
       </Routes>
     </BrowserRouter>

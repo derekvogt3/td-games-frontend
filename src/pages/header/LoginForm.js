@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../stylesheets/LoginForm.css"
+import "./LoginForm.css"
 
-function LoginForm({users, usersList, currentUser, setCurrentUser}) {
+function LoginForm({loginFormPackage}) {
+  const {users, usersList, currentUser, setCurrentUser} = loginFormPackage
+
   const [formInput, setFormInput] = useState({
     username: "",
     password: ""

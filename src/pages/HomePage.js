@@ -1,11 +1,11 @@
 import Pixel from "../components/PixelArt";
-import LoginForm from "./LoginForm";
+import Header from "./header/Header";
+import LoginForm from "./header/LoginForm";
 
-function HomePage({users, usersList, currentUser, setCurrentUser}) {
+function HomePage({loginFormPackage}) {
   return (
     <div>
-      <h1>home page</h1>
-      <LoginForm users={users} usersList={usersList} currentUser={currentUser} setCurrentUser={setCurrentUser} />
+      <Header loginFormPackage={loginFormPackage} />
       <Pixel></Pixel>
       <h2>test</h2>
     </div>
