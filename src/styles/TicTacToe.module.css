@@ -1,10 +1,59 @@
 
-.gridContainer{
+.mainPageContainer{
+    display: flex;
+    justify-content: center;
+
+}
+
+.tttContainer{
     display: grid;
-    grid-template-columns: 100px 100px 100px;
-    background-color: white;
+    grid-template-columns: 10vw 10vw 10vw;
+    grid-template-rows: 10vw 10vw 10vw ;
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+    justify-items: stretch;
+    align-items: stretch;
+    gap: 5px;
 }
 
 .item {
-    background-color: black;
+    background-color:black;
+    display: flex;
+}
+
+.itemX{
+    background-color: red;
+  
+    /* Create the gradient. */
+    background-image: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    animation: gradient 15s ease infinite;
+    
+    /* Set the background size and repeat properties. */
+    background-size: 100% 100%;
+    background-repeat: repeat;
+  
+    /* Use the text as a mask for the background. */
+    /* This will show the gradient as a text color rather than element bg. */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    
+}
+
+
+
+
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
