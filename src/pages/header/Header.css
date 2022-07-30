@@ -1,5 +1,66 @@
+@font-face {
+  font-family: Pixel;
+  src: url(../../font/pixel_[allfont.net].ttf);
+}
+
 #header {
-  height: 15vh;
+  height: 100px;
   display: flex;
   justify-content: space-between;
+}
+
+#title {
+  color: #51ff0d;
+  font-family: "Pixel";
+}
+
+/* Add glitch effect to click me */
+#title::before {
+  content: "TD GAMES";
+  position: absolute;
+  left: -4px;
+  text-shadow: 1px 0 #4e73df;
+  top: 10px;
+  color: red;
+  background: black;
+  overflow: hidden;
+  clip: rect(0,900px,0,0);
+  animation: noise-anim 2s infinite linear alternate-reverse;
+}
+
+#title::after {
+  content: "TD GAMES";
+  position: absolute;
+  left: 6px;
+  text-shadow: -1px 0 #e74a3b;
+  top: 15px;
+  color: blue;
+  background: black;
+  overflow: hidden;
+  clip: rect(0,900px,0,0);
+  animation: noise-anim 3s infinite linear alternate-reverse;
+}
+
+@keyframes noise-anim{
+  0%{clip:rect(89px,9999px,100px,0)}
+  5%{clip:rect(4px,9999px,62px,0)}
+  10%{clip:rect(43px,9999px,16px,0)}
+  15%{clip:rect(2px,9999px,68px,0)}
+  20%{clip:rect(12px,9999px,6px,0)}
+  25%{clip:rect(89px,9999px,25px,0)}
+  30%{clip:rect(15px,9999px,38px,0)}
+  35%{clip:rect(57px,9999px,97px,0)}
+  40%{clip:rect(24px,9999px,72px,0)}
+  45%{clip:rect(81px,9999px,3px,0)}
+  50%{clip:rect(93px,9999px,26px,0)}
+  55%{clip:rect(68px,9999px,85px,0)}
+  60%{clip:rect(43px,9999px,28px,0)}
+  65%{clip:rect(44px,9999px,11px,0)}
+  70%{clip:rect(17px,9999px,33px,0)}
+  75%{clip:rect(74px,9999px,66px,0)}
+  80%{clip:rect(100px,9999px,4px,0)}
+  85%{clip:rect(92px,9999px,31px,0)}
+  90%{clip:rect(93px,9999px,98px,0)}
+  95%{clip:rect(23px,9999px,77px,0)}
+  100%{clip:rect(92px,9999px,8px,0)}
 }
