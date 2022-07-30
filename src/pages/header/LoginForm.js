@@ -59,7 +59,16 @@ function LoginForm({loginFormPackage}) {
           .then(match => {
             if (match.matched) {
               console.log("user logged in")
-              fetch(`http://localhost:9292/users/${result.id}`)
+              fetch(`http://localhost:9292/users/${result.id}`, {
+                method: "PATCH",
+                headers: {
+                  "Content-Type": "application/json",
+                  "Accept": "application/json"
+                },
+                body: JSON.stringify({
+                  is_login: true
+                })
+              })
               .then(res => res.json())
               .then(data => {
                 setCurrentUser(data)
@@ -77,11 +86,24 @@ function LoginForm({loginFormPackage}) {
   }
 
   function onLogout() {
-    setCurrentUser({})
-    setShowFriends(false)
-    setShowChats(false)
-    navigate("/")
-    console.log("user logged out")
+    fetch(`http://localhost:9292/users/${currentUser.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        is_login: false
+      })
+    })
+    .then(() => {
+      setCurrentUser({})
+      setShowFriends(false)
+      setShowChats(false)
+      navigate("/")
+      console.log("user logged out")
+    })
+    .catch(console.error)
   }
 
   // ----------------------------------------------------------- logic for sign up ---------------------------------------------------------
