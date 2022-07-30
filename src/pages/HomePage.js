@@ -1,6 +1,5 @@
 import Pixel from "../components/PixelArt";
 import Header from "./header/Header";
-import LoginForm from "./header/LoginForm";
 
 function HomePage({loginFormPackage}) {
   return (
