@@ -1,7 +1,8 @@
-@import "styles/TicTacToe.css";
+
 
 body{
 
-  background: black
+  background: black;
+  color: white;
 }
 

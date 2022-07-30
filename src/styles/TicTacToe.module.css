@@ -1,0 +1,10 @@
+
+.gridContainer{
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    background-color: white;
+}
+
+.item {
+    background-color: black;
+}
