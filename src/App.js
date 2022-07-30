@@ -21,7 +21,7 @@ function App() {
     fetch(`http://localhost:9292/users`)
     .then(res => res.json())
     .then(setUsers)
-  }, [])
+  }, [currentUser])
 
   return (
     <BrowserRouter>

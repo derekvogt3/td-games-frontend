@@ -17,14 +17,17 @@ function LoginForm({users, usersList, currentUser, setCurrentUser}) {
       [name]: value
     })
   }
-  console.log(usersList)
+
+  // ------ use to test encryption ------
+  // var input_str = "itmakesense";
+  // console.log("Input String: "+input_str);
+  // console.log("Hash Value: " + stringToHashConversion(input_str));
 
   function onLogin(e) {
     e.preventDefault()
     if (usersList[formInput.username.toLowerCase()]) {
       console.log(usersList[formInput.username.toLowerCase()])
-      // if (usersList[formInput.username.toLowerCase()] === stringToHashConversion(formInput.password).toString()) {
-      if (usersList[formInput.username.toLowerCase()] === formInput.password) {
+      if (usersList[formInput.username.toLowerCase()] === stringToHashConversion(formInput.password).toString()) {
         console.log("user logged in")
         const id = users.find(user => user.username === formInput.username.toLowerCase()).id
         fetch(`http://localhost:9292/users/${id}`)
@@ -65,7 +68,7 @@ function LoginForm({users, usersList, currentUser, setCurrentUser}) {
                 console.log("password ok")
                 const password = stringToHashConversion(formInput.password).toString()
                 // console.log(password)
-                fetch(`http://localhost:3000/users`, {
+                fetch(`http://localhost:9292/users`, {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
@@ -73,14 +76,12 @@ function LoginForm({users, usersList, currentUser, setCurrentUser}) {
                   },
                   body: JSON.stringify({
                     username: name,
-                    password: password,
-                    favorited: []
+                    password: password
                   })
                 })
                 .then(res => res.json())
                 .then(data => {
                   setCurrentUser(data)
-                  navigate("/favorited")
                   setFormInput({
                     username: "",
                     password: ""
