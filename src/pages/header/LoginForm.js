@@ -142,25 +142,35 @@ function LoginForm({loginFormPackage}) {
   return (
     <div id="login-status">
       {currentUser.username ?
-        (
-          <div id="logout">
-            <h3>Hi {currentUser.username.slice(0, 1).toUpperCase()}{currentUser.username.slice(1)}</h3>
-            <button className="btn" onClick={onLogout} >Logout</button>
+        ( 
+          <div id="user-menu">
+            <div id="logout">
+              <h3>Hi {currentUser.username.slice(0, 1).toUpperCase()}{currentUser.username.slice(1)}</h3>
+              <button id="logout-btn" onClick={onLogout} >Logout</button>
+            </div>
+            <div id="user-options">
+              <div>
+                <p>Friends</p>
+              </div>
+              <div>
+                <p>Chats</p>
+              </div>
+            </div>
           </div>
         ) : (
           <form id="login-form" onSubmit={onLogin} >
-            <div>
+            <div className="input-holder">
               <label htmlFor="username">Username:</label>
               <input type="text" id="username" name="username" placeholder="Username" value={formInput.username} onChange={controlFormInput} required />
             </div>
-            <div>
+            <div className="input-holder">
               <label htmlFor="password">Password:</label>
               <input type="password" id="password" name="password"
               placeholder='Password' value={formInput.password} onChange={controlFormInput} required />
             </div>
-            <div>
-              <input className="btn" type="submit" value="Login" />
-              <input className="btn" type="button" value="Sign up" onClick={onSignUp} />
+            <div className="form-buttons-holder">
+              <input id="login-btn" type="submit" value="Login" />
+              <input id="signup-btn" type="button" value="Sign up" onClick={onSignUp} />
             </div>
           </form>
         ) 

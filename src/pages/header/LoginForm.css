@@ -1,0 +1,61 @@
+.input-holder {
+  display: flex;
+  justify-content: space-between;
+  height: 30px;
+}
+
+.form-buttons-holder {
+  display: flex;
+  justify-content: flex-end;
+  height: 30px;
+}
+
+#login-btn, #signup-btn {
+  width: 30%;
+  height: 100%;
+  margin: 10px;
+  color: white;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+/* show user-menu after login */
+#user-menu {
+  height: 100px;
+  width: 200px;
+}
+
+#logout {
+  height: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#logout h3 {
+  margin: 0;
+}
+
+#logout-btn {
+  height: 30px;
+}
+
+#user-options {
+  display: flex;
+  height: 50%;
+}
+
+#user-options div {
+  width: 50%;
+  height: 100%;
+  align-items: center;
+  cursor: pointer;
+}
+
+#user-options div:hover {
+  background-color: rgb(44, 39, 39);
+}
+
+#user-options div p {
+  text-align: center;
+}
