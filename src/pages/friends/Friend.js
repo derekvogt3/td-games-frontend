@@ -6,8 +6,6 @@ function Friend({friend}) {
   const Img = profile_img ? profile_img : "https://wellbeingchirony.com/wp-content/uploads/2021/03/Deafult-Profile-Pitcher.png"
   const online = is_login ? {backgroundColor: "green"} : {backgroundColor: "red"}
 
-  console.log(friend)
-
   return (
     <div className="friend">
       <div className="profile-img-holder">

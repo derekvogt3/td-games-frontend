@@ -1,0 +1,17 @@
+.chat {
+  display: flex;
+}
+
+.chat-members {
+  display: flex;
+  overflow-x: auto;
+}
+
+.chat-member {
+  display: flex;
+}
+
+.chat-member-name {
+  display: flex;
+  align-items: center;
+}

@@ -23,12 +23,12 @@ function App() {
       .then(res => res.json())
       .then(setUserFriends)
 
-      fetch(`http://localhost:9292/friends/${currentUser.id}`)
+      fetch(`http://localhost:9292/chats/${currentUser.id}`)
       .then(res => res.json())
       .then(setUserChats)
     }
   }, [currentUser])
-  
+
   // packages for all states and functions to carry down to children
   const loginFormPackage = {currentUser, setCurrentUser, setShowFriends, setShowChats}
   const friendListPackage = {userFriends}
