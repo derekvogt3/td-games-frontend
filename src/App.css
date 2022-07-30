@@ -1,8 +1,12 @@
-
-
 body{
-
   background: black;
   color: white;
 }
+
+#content {
+  position: relative;
+  top: 100px;
+}
+
+
 

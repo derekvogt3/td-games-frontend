@@ -1,3 +1,8 @@
+#login-status {
+  position: absolute;
+  right: 0;
+}
+
 .input-holder {
   display: flex;
   justify-content: space-between;

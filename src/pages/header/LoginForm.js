@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./LoginForm.css"
 
 function LoginForm({loginFormPackage}) {
-  const {currentUser, setCurrentUser} = loginFormPackage
+  const {currentUser, setCurrentUser, showFriends, setShowFriends} = loginFormPackage
 
   const [formInput, setFormInput] = useState({
     username: "",
@@ -149,7 +149,7 @@ function LoginForm({loginFormPackage}) {
               <button id="logout-btn" onClick={onLogout} >Logout</button>
             </div>
             <div id="user-options">
-              <div>
+              <div onClick={() => setShowFriends(!showFriends)}>
                 <p>Friends</p>
               </div>
               <div>

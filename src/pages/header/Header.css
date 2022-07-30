@@ -4,9 +4,15 @@
 }
 
 #header {
+  position: fixed;
+  width: 100%;
   height: 100px;
   display: flex;
   justify-content: space-between;
+}
+
+#header>div{
+  width: 50%;
 }
 
 #title {
