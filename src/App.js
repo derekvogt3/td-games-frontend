@@ -16,14 +16,9 @@ function App() {
       usersList[user.username] = user.password
     })
   }
-
-  function checkUserExist(name) {
-    return fetch(`http://localhost:9292/user_check/${name}`)
-    .then(res => res.json())
-  }
   
   // packages for all states and functions to carry down to children
-  const loginFormPackage = {currentUser, setCurrentUser, checkUserExist}
+  const loginFormPackage = {currentUser, setCurrentUser}
 
   return (
     <BrowserRouter>

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./LoginForm.css"
 
 function LoginForm({loginFormPackage}) {
-  const {currentUser, setCurrentUser, checkUserExist} = loginFormPackage
+  const {currentUser, setCurrentUser} = loginFormPackage
 
   const [formInput, setFormInput] = useState({
     username: "",
@@ -20,6 +20,16 @@ function LoginForm({loginFormPackage}) {
     })
   }
 
+  function checkUserExist(name) {
+    return fetch(`http://localhost:9292/user_check/${name}`)
+    .then(res => res.json())
+  }
+
+  function checkPassword(name, pw) {
+    return fetch(`http://localhost:9292/password_check?name=${name}&pw=${pw}`)
+    .then(res => res.json())
+  }
+
   // ------ use to test encryption ------
   // var input_str = "itmakesense";
   // console.log("Input String: "+input_str);
@@ -31,18 +41,21 @@ function LoginForm({loginFormPackage}) {
       .then(result => {
         if (result.exist) {
           console.log(result)
-          if (result.password === stringToHashConversion(formInput.password).toString()) {
-            console.log("user logged in")
-            fetch(`http://localhost:9292/users/${result.id}`)
-            .then(res => res.json())
-            .then(data => {
-              setCurrentUser(data)
-              setFormInput({username: "", password: ""})
+          checkPassword(formInput.username.toLowerCase(), stringToHashConversion(formInput.password).toString())
+            .then(match => {
+              if (match.matched) {
+                console.log("user logged in")
+                fetch(`http://localhost:9292/users/${result.id}`)
+                .then(res => res.json())
+                .then(data => {
+                  setCurrentUser(data)
+                  setFormInput({username: "", password: ""})
+                })
+                .catch(console.error)
+              } else {
+                alert("Wrong username or password")
+              }
             })
-            .catch(console.error)
-          } else {
-            alert("Wrong username or password")
-          }
         } else {
           alert("Wrong username or password")
         }
