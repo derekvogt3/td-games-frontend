@@ -78,6 +78,8 @@ function LoginForm({loginFormPackage}) {
 
   function onLogout() {
     setCurrentUser({})
+    setShowFriends(false)
+    setShowChats(false)
     navigate("/")
     console.log("user logged out")
   }

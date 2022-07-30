@@ -26,6 +26,9 @@ function App() {
       fetch(`http://localhost:9292/chats/${currentUser.id}`)
       .then(res => res.json())
       .then(setUserChats)
+
+      setShowFriends(false)
+      setShowChats(false)
     }
   }, [currentUser])
 
