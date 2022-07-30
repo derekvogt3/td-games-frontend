@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./LoginForm.css"
 
 function LoginForm({loginFormPackage}) {
-  const {currentUser, setCurrentUser, showFriends, setShowFriends} = loginFormPackage
+  const {currentUser, setCurrentUser, setShowFriends, setShowChats} = loginFormPackage
 
   const [formInput, setFormInput] = useState({
     username: "",
@@ -20,6 +20,8 @@ function LoginForm({loginFormPackage}) {
     })
   }
 
+  // ------------------------------------------------- logic for login / logout ------------------------------------------------
+
   function checkUserExist(name) {
     return fetch(`http://localhost:9292/user_check/${name}`)
     .then(res => res.json())
@@ -34,6 +36,18 @@ function LoginForm({loginFormPackage}) {
   // var input_str = "itmakesense";
   // console.log("Input String: "+input_str);
   // console.log("Hash Value: " + stringToHashConversion(input_str));
+
+  // conversts to 32bit integer
+  function stringToHashConversion(string) {
+    var hashVal = 0;
+    if (string.length == 0) return hashVal;
+    for (let i = 0; i < string.length; i++) {
+    let char = string.charCodeAt(i);
+    hashVal = ((hashVal << 5) - hashVal) + char;
+    hashVal = hashVal & hashVal;
+      }
+    return hashVal;
+  }
 
   function onLogin(e) {
     e.preventDefault()
@@ -68,6 +82,7 @@ function LoginForm({loginFormPackage}) {
     console.log("user logged out")
   }
 
+  // ----------------------------------------------------------- logic for sign up ---------------------------------------------------------
   function onSignUp() {
     const name = formInput.username.toLowerCase()
     
@@ -127,16 +142,16 @@ function LoginForm({loginFormPackage}) {
     })
   }
 
-  // conversts to 32bit integer
-  function stringToHashConversion(string) {
-    var hashVal = 0;
-    if (string.length == 0) return hashVal;
-    for (let i = 0; i < string.length; i++) {
-    let char = string.charCodeAt(i);
-    hashVal = ((hashVal << 5) - hashVal) + char;
-    hashVal = hashVal & hashVal;
-      }
-    return hashVal;
+  // ----------------------------------------------------------------------------------------------------------------------------------
+
+  function showFriendList() {
+    setShowFriends(show => !show)
+    setShowChats(show => {if (show) {show = false}})
+  }
+
+  function showChatList() {
+    setShowChats(show => !show)
+    setShowFriends(show => {if (show) {show = false}})
   }
 
   return (
@@ -149,10 +164,10 @@ function LoginForm({loginFormPackage}) {
               <button id="logout-btn" onClick={onLogout} >Logout</button>
             </div>
             <div id="user-options">
-              <div onClick={() => setShowFriends(!showFriends)}>
+              <div id="show-friends" onClick={showFriendList}>
                 <p>Friends</p>
               </div>
-              <div>
+              <div id="show-chats" onClick={showChatList}>
                 <p>Chats</p>
               </div>
             </div>
