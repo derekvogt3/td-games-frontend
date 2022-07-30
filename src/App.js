@@ -1,10 +1,10 @@
 import "./App.css";
+import HomePage from "./pages/HomePage";
 import TicTacToe from "./pages/TicTacToe";
 
 import ReactDOM from "react-dom/client";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
 
 function App() {
   const [currentUser, setCurrentUser] = useState([])
@@ -16,15 +16,14 @@ function App() {
       usersList[user.username] = user.password
     })
   }
-  
-  useEffect(() => {
-    fetch(`http://localhost:9292/users`)
+
+  function checkUserExist(name) {
+    return fetch(`http://localhost:9292/user_check/${name}`)
     .then(res => res.json())
-    .then(setUsers)
-  }, [currentUser])
+  }
   
   // packages for all states and functions to carry down to children
-  const loginFormPackage = {users, usersList, currentUser, setCurrentUser}
+  const loginFormPackage = {currentUser, setCurrentUser, checkUserExist}
 
   return (
     <BrowserRouter>
