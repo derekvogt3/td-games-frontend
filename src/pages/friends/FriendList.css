@@ -51,7 +51,7 @@
   padding-bottom: 7px;
 }
 
-#add-friend {
+#add-friend form {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -64,10 +64,24 @@
   height: 30px;
 }
 
+#add-friend button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
 #add-friend-img {
   position: relative;
   height: 50px;
   width: 50px;
   padding: 10px;
   cursor: pointer;
+}
+
+#pending-invite-list > p {
+  text-align: center;
+  padding: 0;
+  color: gray;
+  font-size: 15px;
 }

@@ -2,22 +2,33 @@ import { useEffect, useState } from "react";
 import { fetchUrl } from "../../components/GlobalVariables";
 import Friend from "./Friend";
 import "./FriendList.css"
+import Invites from "./Invites";
 
 function FriendList({friendListPackage}) {
   const {currentUser, setShowFriends} = friendListPackage
   const [userFriends, setUserFriends] = useState([])
+  const [friendInvites, setFriendInvites] = useState([])
   const [inviteMode, setInviteMode] = useState(false)
+  const [formInput, setFormInput] = useState("")
 
   useEffect(() => {
     fetch(`${fetchUrl}/friends/${currentUser.id}`)
     .then(res => res.json())
     .then(setUserFriends)
 
+    fetch(`${fetchUrl}/friends_pending/${currentUser.id}`)
+    .then(res => res.json())
+    .then(setFriendInvites)
+
     // keep checking friends online status
     const intervalId = setInterval(() => {
       fetch(`${fetchUrl}/friends/${currentUser.id}`)
       .then(res => res.json())
       .then(setUserFriends)
+
+      fetch(`${fetchUrl}/friends_pending/${currentUser.id}`)
+      .then(res => res.json())
+      .then(setFriendInvites)
     }, 5000)
 
     return (() => {
@@ -25,7 +36,33 @@ function FriendList({friendListPackage}) {
     })
   }, [])
 
+  function addFriend(e) {
+    e.preventDefault()
+    if (inviteMode) {
+      fetch(`${fetchUrl}/friend_invite`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          user_id: currentUser.id,
+          friend: formInput.toLocaleLowerCase()
+        })
+      })
+      .then(res => res.json())
+      .then(console.log)
+      setFormInput("")
+      setInviteMode(!inviteMode)
+    } else {
+      setInviteMode(!inviteMode)
+    }
+  }
+
   const showFriends = userFriends.map(friend => <Friend key={friend.id} friend={friend} friendListPackage={friendListPackage} />)
+
+  const showInvites = friendInvites.map(friend => <Invites key={friend.id} friend={friend} />)
+  // console.log(showFriends)
 
   return (
     <div id="friend-list">
@@ -36,9 +73,29 @@ function FriendList({friendListPackage}) {
         </div>
       </div>
       {showFriends}
+      {
+        showInvites.length > 0 ? (
+          <div id="pending-invite-list">
+            <p>------------ Pending invities -----------</p>
+            {showInvites}
+          </div>
+        ) : (
+          null
+        )
+      }
       <div id="add-friend">
-        <input type="text" placeholder="Enter user name" />
-        <img id="add-friend-img" src="https://img.icons8.com/external-wanicon-two-tone-wanicon/64/000000/external-add-friend-friendship-wanicon-two-tone-wanicon.png" alt="add-friend-img"/>
+        <form>
+          {
+            inviteMode ? (
+              <input type="text" placeholder="Enter user name" value={formInput} onChange={e => setFormInput(e.target.value)} required />
+            ) : (
+              null
+            )
+          }
+          <button type="submit" onClick={addFriend}>
+            <img id="add-friend-img" src="https://img.icons8.com/external-wanicon-two-tone-wanicon/64/000000/external-add-friend-friendship-wanicon-two-tone-wanicon.png" alt="add-friend-img"/>
+          </button>
+        </form>
       </div>
     </div>
   );
