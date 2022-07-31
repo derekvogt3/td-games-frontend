@@ -16,6 +16,7 @@
 #message-list {
   height: 420px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #new-message {

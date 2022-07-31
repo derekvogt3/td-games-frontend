@@ -13,7 +13,7 @@
   font-size: 12px;
 }
 
-.message-time {
+.message-time, .message-edited-tag {
   font-size: 10px;
   margin-left: 10px;
   margin-right: 10px;
@@ -33,4 +33,45 @@
   word-wrap: break-word;
 }
 
+.edit-mode {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.message-edit-btn, .message-recall-btn {
+  width: 25px;
+  height: 25px;
+  position: relative;
+  top: 40px;
+  cursor: pointer;
+}
+
+.message-edit-form {
+  position: relative;
+  top: -10px;
+  left: -210px;
+  display: flex;
+}
+
+.message-edit-form input {
+  width: 200px;
+  height: 43px;
+  border-radius: 10px;
+}
+
+.message-edit-form button, .message-edit-form img{
+  width: 25px;
+  height: 25px;
+  background: transparent;
+  border: none;
+}
+
+.message-edit-form img {
+  position: relative;
+  top: -1px;
+  left: -4px;
+  z-index: 150;
+  cursor: pointer;
+}
 
