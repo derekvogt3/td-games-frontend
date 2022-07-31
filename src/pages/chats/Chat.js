@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Chat.css"
 
-function Chat({chat}) {
+function Chat({chat, setChatId}) {
   const {id} = chat 
   const [members, setMembers] = useState([])
 
@@ -15,7 +15,7 @@ function Chat({chat}) {
     const Img = member.profile_img ? member.profile_img : "https://wellbeingchirony.com/wp-content/uploads/2021/03/Deafult-Profile-Pitcher.png"
     const online = member.is_login ? {backgroundColor: "green"} : {backgroundColor: "red"}
     return (
-      <div className="chat-member">
+      <div key={member.id} className="chat-member">
         <div className="profile-img-holder">
           <img className="profile-img" src={Img} alt={member.username} />
           <div className="online-status" style={online}></div>

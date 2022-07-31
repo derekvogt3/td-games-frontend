@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import TicTacToe from "./pages/TicTacToe";
 import FriendList from "./pages/friends/FriendList";
 import ChatList from "./pages/chats/ChatList";
+import MessageList from "./pages/messages/MessageList";
 
 
 function App() {
@@ -16,6 +17,8 @@ function App() {
   const [userChats, setUserChats] = useState({})
   const [showFriends, setShowFriends] = useState(false)
   const [showChats, setShowChats] = useState(false)
+  const [showMessages, setShowMessages] = useState(false)
+  const [chatId, setChatId] = useState("")
 
   useEffect(() => {
     if (currentUser.id) {
@@ -33,9 +36,10 @@ function App() {
   }, [currentUser])
 
   // packages for all states and functions to carry down to children
-  const loginFormPackage = {currentUser, setCurrentUser, setShowFriends, setShowChats}
-  const friendListPackage = {userFriends}
-  const chatListPackage = {userChats}
+  const loginFormPackage = {currentUser, setCurrentUser, setShowFriends, setShowChats, setShowMessages}
+  const friendListPackage = {currentUser, userFriends, setChatId, setShowFriends, setShowChats, setShowMessages}
+  const chatListPackage = {userChats, setChatId}
+  const messageListPackage = {chatId}
 
   return (
     <BrowserRouter>
@@ -47,6 +51,11 @@ function App() {
       )}
       {showChats ? (
         <ChatList chatListPackage={chatListPackage} />
+      ) : (
+        null
+      )}
+      {showMessages ? (
+        <MessageList messageListPackage={messageListPackage} />
       ) : (
         null
       )}

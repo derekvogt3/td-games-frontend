@@ -7,11 +7,14 @@
   overflow-x: auto;
 }
 
-.chat-member {
-  display: flex;
-}
-
 .chat-member-name {
   display: flex;
   align-items: center;
+}
+
+.chat-member-name p {
+  position: relative;
+  left: 20px;
+  padding: 0;
+  margin: 0;
 }

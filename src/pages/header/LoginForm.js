@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./LoginForm.css"
 
 function LoginForm({loginFormPackage}) {
-  const {currentUser, setCurrentUser, setShowFriends, setShowChats} = loginFormPackage
+  const {currentUser, setCurrentUser, setShowFriends, setShowChats, setShowMessages} = loginFormPackage
 
   const [formInput, setFormInput] = useState({
     username: "",
@@ -100,6 +100,7 @@ function LoginForm({loginFormPackage}) {
       setCurrentUser({})
       setShowFriends(false)
       setShowChats(false)
+      setShowMessages(false)
       navigate("/")
       console.log("user logged out")
     })
@@ -170,12 +171,14 @@ function LoginForm({loginFormPackage}) {
 
   function showFriendList() {
     setShowFriends(show => !show)
-    setShowChats(show => {if (show) {show = false}})
+    setShowChats(false)
+    setShowMessages(false)
   }
 
   function showChatList() {
     setShowChats(show => !show)
-    setShowFriends(show => {if (show) {show = false}})
+    setShowFriends(false)
+    setShowMessages(false)
   }
 
   return (
