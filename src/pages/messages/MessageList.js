@@ -6,7 +6,7 @@ import Message from "./Message";
 function MessageList({messageListPackage}) {
   const [formInput, setFormInput] = useState("")
   const [messages, setMessages] = useState([])
-  const {currentUser, chatId} = messageListPackage
+  const {currentUser, chatId, setShowMessages} = messageListPackage
 
   
   useEffect(() => {
@@ -28,6 +28,9 @@ function MessageList({messageListPackage}) {
     })
   }, [])
   
+  const showMessages = messages.map(message => {
+    return <Message key={message.id} currentUser={currentUser} message={message}/>
+  })
   
   // keep the scroll on the bottom when there is new message
   const messageListRef = useRef()
@@ -41,10 +44,6 @@ function MessageList({messageListPackage}) {
       messageLengthRef.current = messages.length
     }
   }
-  
-  const showMessages = messages.map(message => {
-    return <Message key={message.id} currentUser={currentUser} message={message}/>
-  })
 
   function sendMessage(e) {
     e.preventDefault()
@@ -74,6 +73,12 @@ function MessageList({messageListPackage}) {
 
   return (
     <div id="message-window">
+      <div className="list-header">
+        <p>{currentUser.username.slice(0, 1).toUpperCase()}{currentUser.username.slice(1)}'s Messages</p>
+        <div className="exit-button" onClick={() => setShowMessages(false)}>
+          <p>x</p>
+        </div>
+      </div>
       <div id="message-list" ref={messageListRef}>
         {showMessages}
       </div>

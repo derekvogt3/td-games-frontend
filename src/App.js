@@ -39,8 +39,8 @@ function App() {
   // packages for all states and functions to carry down to children
   const loginFormPackage = {currentUser, setCurrentUser, setShowFriends, setShowChats, setShowMessages}
   const friendListPackage = {currentUser, userFriends, setChatId, setShowFriends, setShowChats, setShowMessages}
-  const chatListPackage = {userChats, setChatId, setShowFriends, setShowChats, setShowMessages}
-  const messageListPackage = {currentUser, chatId}
+  const chatListPackage = {currentUser, userChats, setChatId, setShowFriends, setShowChats, setShowMessages}
+  const messageListPackage = {currentUser, chatId, setShowMessages}
 
   return (
     <BrowserRouter>
