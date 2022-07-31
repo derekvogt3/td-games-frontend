@@ -1,14 +1,33 @@
-#message-list {
-  position: fixed;
-  width: 300px;
-  max-height: 500px;
-  top: 100px;
-  right: 0;
-  background: linear-gradient(#423840, #66706b);
-  border: 1px;
-  border-style: solid;
-  border-color: gray;
-  border-radius: 10px;
-  z-index: 100;
-  overflow-y: auto;
+.my-message {
+  display: flex;
 }
+
+.message-holder>div {
+  display: flex;
+  align-items: center;
+}
+
+.message-sender {
+  font-size: 12px;
+}
+
+.message-time {
+  font-size: 10px;
+  margin-left: 10px;
+  color: rgb(231, 181, 181);
+}
+
+.message {
+  width: 280px;
+  min-height: 50px;
+  background: linear-gradient(#99688f, #3a4741);
+  border-radius: 10px;
+}
+
+.message p{
+  margin: 0;
+  margin-left: 5px;
+  word-wrap: break-word;
+}
+
+

@@ -39,7 +39,7 @@ function App() {
   const loginFormPackage = {currentUser, setCurrentUser, setShowFriends, setShowChats, setShowMessages}
   const friendListPackage = {currentUser, userFriends, setChatId, setShowFriends, setShowChats, setShowMessages}
   const chatListPackage = {userChats, setChatId}
-  const messageListPackage = {chatId}
+  const messageListPackage = {currentUser, chatId}
 
   return (
     <BrowserRouter>
