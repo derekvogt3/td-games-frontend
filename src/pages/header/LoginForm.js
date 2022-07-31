@@ -55,31 +55,35 @@ function LoginForm({loginFormPackage}) {
     checkUserExist(formInput.username.toLowerCase())
     .then(result => {
       if (result.exist) {
-        console.log(result)
-        checkPassword(formInput.username.toLowerCase(), stringToHashConversion(formInput.password).toString())
-          .then(match => {
-            if (match.matched) {
-              console.log("user logged in")
-              fetch(`${fetchUrl}/users/${result.id}`, {
-                method: "PATCH",
-                headers: {
-                  "Content-Type": "application/json",
-                  "Accept": "application/json"
-                },
-                body: JSON.stringify({
-                  is_login: true
+        // console.log(result)
+        if (!result.is_login) {
+          checkPassword(formInput.username.toLowerCase(), stringToHashConversion(formInput.password).toString())
+            .then(match => {
+              if (match.matched) {
+                console.log("user logged in")
+                fetch(`${fetchUrl}/users/${result.id}`, {
+                  method: "PATCH",
+                  headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                  },
+                  body: JSON.stringify({
+                    is_login: true
+                  })
                 })
-              })
-              .then(res => res.json())
-              .then(data => {
-                setCurrentUser(data)
-                setFormInput({username: "", password: ""})
-              })
-              .catch(console.error)
-            } else {
-              alert("Wrong username or password")
-            }
-          })
+                .then(res => res.json())
+                .then(data => {
+                  setCurrentUser(data)
+                  setFormInput({username: "", password: ""})
+                })
+                .catch(console.error)
+              } else {
+                alert("Wrong username or password")
+              }
+            })
+        } else {
+          alert("User already logged in!")
+        }
       } else {
         alert("Wrong username or password")
       }

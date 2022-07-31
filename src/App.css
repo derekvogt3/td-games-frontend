@@ -3,10 +3,10 @@ body{
   color: white;
 }
 
-#content {
-  position: relative;
-  top: 100px;
+#header-placeholder {
+  height: 100px;
 }
+
 
 
 

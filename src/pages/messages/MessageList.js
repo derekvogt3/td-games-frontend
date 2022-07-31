@@ -4,9 +4,10 @@ import { fetchUrl } from "../../components/GlobalVariables";
 import Message from "./Message";
 
 function MessageList({messageListPackage}) {
+  const {currentUser, chatId, setShowMessages} = messageListPackage
   const [formInput, setFormInput] = useState("")
   const [messages, setMessages] = useState([])
-  const {currentUser, chatId, setShowMessages} = messageListPackage
+  const [usersStatus, setUsersStatus] = useState({})
 
   
   useEffect(() => {
@@ -19,6 +20,14 @@ function MessageList({messageListPackage}) {
       fetch(`${fetchUrl}/messages?chat_id=${chatId}`)
       .then(res => res.json())
       .then(setMessages)
+
+      fetch(`${fetchUrl}/chat_members/${chatId}`)
+      .then(res => res.json())
+      .then(data => {
+        const status = {}
+        data.forEach(member => status[member.username] = member.is_login)
+        setUsersStatus(status)
+      })
       // console.log("run interval")
     }, 2000)
     
@@ -29,7 +38,7 @@ function MessageList({messageListPackage}) {
   }, [])
   
   const showMessages = messages.map(message => {
-    return <Message key={message.id} currentUser={currentUser} message={message}/>
+    return <Message key={message.id} currentUser={currentUser} usersStatus={usersStatus} message={message}/>
   })
   
   // keep the scroll on the bottom when there is new message

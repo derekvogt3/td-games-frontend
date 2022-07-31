@@ -33,6 +33,7 @@ function App() {
 
       setShowFriends(false)
       setShowChats(false)
+      setShowMessages(false)
     }
   }, [currentUser])
 
@@ -45,21 +46,29 @@ function App() {
   return (
     <BrowserRouter>
       <Header loginFormPackage={loginFormPackage} />
-      {showFriends ? (
-        <FriendList friendListPackage={friendListPackage} />
-      ) : (
-        null
-      )}
-      {showChats ? (
-        <ChatList chatListPackage={chatListPackage} />
-      ) : (
-        null
-      )}
-      {showMessages ? (
-        <MessageList messageListPackage={messageListPackage} />
-      ) : (
-        null
-      )}
+      {/* only show the following list when corrsponding button are clicked */}
+      {
+        showFriends ? (
+          <FriendList friendListPackage={friendListPackage} />
+        ) : (
+          null
+        )
+      }
+      {
+        showChats ? (
+          <ChatList chatListPackage={chatListPackage} />
+        ) : (
+          null
+        )
+      }
+      {
+        showMessages ? (
+          <MessageList messageListPackage={messageListPackage} />
+        ) : (
+          null
+        )
+      }
+      <div id="header-placeholder"></div>
       <div id="content">
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
