@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { fetchUrl } from "../../components/GlobalVariables";
 import "./Chat.css"
 
-function Chat({chat, setChatId}) {
+function Chat({chat, chatListPackage}) {
   const {id} = chat 
+  const {setChatId, setShowFriends, setShowChats, setShowMessages} = chatListPackage
   const [members, setMembers] = useState([])
 
   useEffect(() => {
@@ -22,6 +23,13 @@ function Chat({chat, setChatId}) {
       clearInterval(intervalId)
     })
   }, [])
+
+  function goToChat() {
+    setChatId(id)
+    setShowFriends(false)
+    setShowChats(false)
+    setShowMessages(true)
+  }
 
   const showMembers = members.map(member => {
     const Img = member.profile_img ? member.profile_img : "https://wellbeingchirony.com/wp-content/uploads/2021/03/Deafult-Profile-Pitcher.png"
@@ -45,7 +53,7 @@ function Chat({chat, setChatId}) {
         {showMembers}
       </div>
       <div>
-        <img className="start-message" src="https://img.icons8.com/cotton/64/000000/chat.png"/>
+        <img className="start-message" src="https://img.icons8.com/cotton/64/000000/chat.png" onClick={goToChat}/>
       </div>
     </div>
   );
