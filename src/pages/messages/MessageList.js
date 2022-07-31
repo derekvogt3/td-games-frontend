@@ -1,5 +1,6 @@
 import "./MessageList.css"
 import { useEffect, useRef, useState } from "react";
+import { fetchUrl } from "../../components/GlobalVariables";
 import Message from "./Message";
 
 function MessageList({messageListPackage}) {
@@ -9,9 +10,13 @@ function MessageList({messageListPackage}) {
 
   
   useEffect(() => {
+    fetch(`${fetchUrl}/messages?chat_id=${chatId}`)
+    .then(res => res.json())
+    .then(setMessages)
+
     // keep checking new message from the server
     const intervalId = setInterval(() => {
-      fetch(`http://localhost:9292/messages?chat_id=${chatId}`)
+      fetch(`${fetchUrl}/messages?chat_id=${chatId}`)
       .then(res => res.json())
       .then(setMessages)
       // console.log("run interval")
@@ -43,7 +48,7 @@ function MessageList({messageListPackage}) {
 
   function sendMessage(e) {
     e.preventDefault()
-    fetch(`http://localhost:9292/messages`, {
+    fetch(`${fetchUrl}/messages`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -57,7 +62,7 @@ function MessageList({messageListPackage}) {
     })
     .then(() =>{
       setFormInput("")
-      fetch(`http://localhost:9292/messages?chat_id=${chatId}`)
+      fetch(`${fetchUrl}/messages?chat_id=${chatId}`)
       .then(res => res.json())
       .then(data => {
         setMessages(data)

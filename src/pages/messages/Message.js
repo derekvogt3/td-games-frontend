@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { fetchUrl } from "../../components/GlobalVariables";
 import "./Message.css"
 
 function MyMessage({currentUser, message}) {
@@ -9,7 +10,7 @@ function MyMessage({currentUser, message}) {
   const online = sender.is_login ? {backgroundColor: "green"} : {backgroundColor: "red"}
 
   useEffect(() => {
-    fetch(`http://localhost:9292/users/${message.user_id}`)
+    fetch(`${fetchUrl}/users/${message.user_id}`)
     .then(res => res.json())
     .then(setSender)
   }, [])

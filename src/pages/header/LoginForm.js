@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { fetchUrl } from "../../components/GlobalVariables";
 import "./LoginForm.css"
 
 function LoginForm({loginFormPackage}) {
@@ -23,12 +24,12 @@ function LoginForm({loginFormPackage}) {
   // ------------------------------------------------- logic for login / logout ------------------------------------------------
 
   function checkUserExist(name) {
-    return fetch(`http://localhost:9292/user_check/${name}`)
+    return fetch(`${fetchUrl}/user_check/${name}`)
     .then(res => res.json())
   }
 
   function checkPassword(name, pw) {
-    return fetch(`http://localhost:9292/password_check?name=${name}&pw=${pw}`)
+    return fetch(`${fetchUrl}/password_check?name=${name}&pw=${pw}`)
     .then(res => res.json())
   }
 
@@ -59,7 +60,7 @@ function LoginForm({loginFormPackage}) {
           .then(match => {
             if (match.matched) {
               console.log("user logged in")
-              fetch(`http://localhost:9292/users/${result.id}`, {
+              fetch(`${fetchUrl}/users/${result.id}`, {
                 method: "PATCH",
                 headers: {
                   "Content-Type": "application/json",
@@ -86,7 +87,7 @@ function LoginForm({loginFormPackage}) {
   }
 
   function onLogout() {
-    fetch(`http://localhost:9292/users/${currentUser.id}`, {
+    fetch(`${fetchUrl}/users/${currentUser.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -127,7 +128,7 @@ function LoginForm({loginFormPackage}) {
                   console.log("password ok")
                   const password = stringToHashConversion(formInput.password).toString()
                   // console.log(password)
-                  fetch(`http://localhost:9292/users`, {
+                  fetch(`${fetchUrl}/users`, {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",

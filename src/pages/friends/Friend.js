@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { fetchUrl } from "../../components/GlobalVariables";
 import "./Friend.css"
 
 function Friend({friend_id, friendListPackage}) {
@@ -6,12 +7,13 @@ function Friend({friend_id, friendListPackage}) {
   const {currentUser, setChatId, setShowFriends, setShowChats, setShowMessages} = friendListPackage
 
   useEffect(() => {
-    fetch(`http://localhost:9292/users/${friend_id}`)
+    fetch(`${fetchUrl}/users/${friend_id}`)
     .then(res => res.json())
     .then(setFriend)
 
+    // keep checking friends online status
     const intervalId = setInterval(() => {
-      fetch(`http://localhost:9292/users/${friend_id}`)
+      fetch(`${fetchUrl}/users/${friend_id}`)
       .then(res => res.json())
       .then(setFriend)
     }, 5000)
@@ -29,7 +31,7 @@ function Friend({friend_id, friendListPackage}) {
   }
 
   function findMessages() {
-    fetch(`http://localhost:9292/find_chats?user_id=${currentUser.id}&friend_id=${friend.id}`)
+    fetch(`${fetchUrl}/find_chats?user_id=${currentUser.id}&friend_id=${friend.id}`)
     .then(res => res.json())
     .then(data => {
       setChatId(data.id)

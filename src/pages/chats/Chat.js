@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { fetchUrl } from "../../components/GlobalVariables";
 import "./Chat.css"
 
 function Chat({chat, setChatId}) {
@@ -6,12 +7,13 @@ function Chat({chat, setChatId}) {
   const [members, setMembers] = useState([])
 
   useEffect(() => {
-    fetch(`http://localhost:9292/chat_members/${id}`)
+    fetch(`${fetchUrl}/chat_members/${id}`)
     .then(res => res.json())
     .then(setMembers)
 
+    // keep checking friends online status
     const intervalId = setInterval(() => {
-      fetch(`http://localhost:9292/chat_members/${id}`)
+      fetch(`${fetchUrl}/chat_members/${id}`)
       .then(res => res.json())
       .then(setMembers)
     }, 5000)

@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { fetchUrl } from "./components/GlobalVariables";
 
 import "./App.css";
 import Header from "./pages/header/Header";
@@ -22,11 +23,11 @@ function App() {
 
   useEffect(() => {
     if (currentUser.id) {
-      fetch(`http://localhost:9292/friends/${currentUser.id}`)
+      fetch(`${fetchUrl}/friends/${currentUser.id}`)
       .then(res => res.json())
       .then(setUserFriends)
 
-      fetch(`http://localhost:9292/chats/${currentUser.id}`)
+      fetch(`${fetchUrl}/chats/${currentUser.id}`)
       .then(res => res.json())
       .then(setUserChats)
 
