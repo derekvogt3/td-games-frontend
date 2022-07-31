@@ -1,14 +1,35 @@
+import { useEffect, useState } from "react"
 import "./Friend.css"
 
-function Friend({friend, friendListPackage}) {
+function Friend({friend_id, friendListPackage}) {
+  const [friend, setFriend] = useState({})
   const {currentUser, setChatId, setShowFriends, setShowChats, setShowMessages} = friendListPackage
-  const {id, username, profile_img, is_login} = friend
 
-  const Img = profile_img ? profile_img : "https://wellbeingchirony.com/wp-content/uploads/2021/03/Deafult-Profile-Pitcher.png"
-  const online = is_login ? {backgroundColor: "green"} : {backgroundColor: "red"}
+  useEffect(() => {
+    fetch(`http://localhost:9292/users/${friend_id}`)
+    .then(res => res.json())
+    .then(setFriend)
+
+    const intervalId = setInterval(() => {
+      fetch(`http://localhost:9292/users/${friend_id}`)
+      .then(res => res.json())
+      .then(setFriend)
+    }, 5000)
+
+    return (() => {
+      clearInterval(intervalId)
+    })
+  }, [])
+
+  let Img, online
+
+  if (friend.id) {
+    Img = friend.profile_img ? friend.profile_img : "https://wellbeingchirony.com/wp-content/uploads/2021/03/Deafult-Profile-Pitcher.png"
+    online = friend.is_login ? {backgroundColor: "green"} : {backgroundColor: "red"}
+  }
 
   function findMessages() {
-    fetch(`http://localhost:9292/find_chats?user_id=${currentUser.id}&friend_id=${id}`)
+    fetch(`http://localhost:9292/find_chats?user_id=${currentUser.id}&friend_id=${friend.id}`)
     .then(res => res.json())
     .then(data => {
       setChatId(data.id)
@@ -19,18 +40,26 @@ function Friend({friend, friendListPackage}) {
   }
 
   return (
-    <div className="friend">
-      <div className="profile-img-holder">
-        <img className="profile-img" src={Img} alt={username} />
-        <div className="online-status" style={online}></div>
-      </div>
-      <div className="friend-name">
-        <p>{username.slice(0, 1).toUpperCase()}{username.slice(1)}</p>
-      </div>
-      <div>
-        <img className="start-message" src="https://img.icons8.com/cotton/64/000000/chat.png" onClick={findMessages}/>
-      </div>
-    </div>
+    <>
+      {
+        friend.id ? (
+          <div className="friend">
+            <div className="profile-img-holder">
+              <img className="profile-img" src={Img} alt={friend.username} />
+              <div className="online-status" style={online}></div>
+            </div>
+            <div className="friend-name">
+              <p>{friend.username.slice(0, 1).toUpperCase()}{friend.username.slice(1)}</p>
+            </div>
+            <div>
+              <img className="start-message" src="https://img.icons8.com/cotton/64/000000/chat.png" onClick={findMessages}/>
+            </div>
+          </div>
+        ) : (
+          null
+        )
+      }
+    </>
   );
 }
 

@@ -9,7 +9,17 @@ function Chat({chat, setChatId}) {
     fetch(`http://localhost:9292/chat_members/${id}`)
     .then(res => res.json())
     .then(setMembers)
-  }, [chat])
+
+    const intervalId = setInterval(() => {
+      fetch(`http://localhost:9292/chat_members/${id}`)
+      .then(res => res.json())
+      .then(setMembers)
+    }, 5000)
+
+    return (() => {
+      clearInterval(intervalId)
+    })
+  }, [])
 
   const showMembers = members.map(member => {
     const Img = member.profile_img ? member.profile_img : "https://wellbeingchirony.com/wp-content/uploads/2021/03/Deafult-Profile-Pitcher.png"

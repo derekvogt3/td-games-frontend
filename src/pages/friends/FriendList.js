@@ -3,7 +3,7 @@ import "./FriendList.css"
 
 function FriendList({friendListPackage}) {
   const {userFriends} = friendListPackage
-  const showFriends = userFriends.map(friend => <Friend key={friend.id} friend={friend} friendListPackage={friendListPackage} />)
+  const showFriends = userFriends.map(friend => <Friend key={friend.id} friend_id={friend.id} friendListPackage={friendListPackage} />)
 
   return (
     <div id="friend-list">

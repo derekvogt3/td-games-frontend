@@ -1,29 +1,45 @@
 import "./MessageList.css"
 import { useEffect, useRef, useState } from "react";
-import MyMessage from "./MyMessage";
+import Message from "./Message";
 
 function MessageList({messageListPackage}) {
   const [formInput, setFormInput] = useState("")
   const [messages, setMessages] = useState([])
   const {currentUser, chatId} = messageListPackage
 
-  const messageListRef = useRef()
   
   useEffect(() => {
-    fetch(`http://localhost:9292/messages?chat_id=${chatId}`)
-    .then(res => res.json())
-    .then(setMessages)
-  },[])
+    // keep checking new message from the server
+    const intervalId = setInterval(() => {
+      fetch(`http://localhost:9292/messages?chat_id=${chatId}`)
+      .then(res => res.json())
+      .then(setMessages)
+      // console.log("run interval")
+    }, 2000)
+    
+    return (() => {
+      clearInterval(intervalId)
+      // console.log("stop interval")
+    })
+  }, [])
   
-  const showMessages = messages.map(message => {
-    return <MyMessage key={message.id} message={message}/>
-  })
+  
+  // keep the scroll on the bottom when there is new message
+  const messageListRef = useRef()
+  const messageLengthRef = useRef(messages.length)
   
   if (messageListRef.current) {
-    setTimeout(() => {
-      messageListRef.current.scrollTop = messageListRef.current.scrollHeight
-    }, 100)
+    if (messages.length > messageLengthRef.current) {
+      setTimeout(() => {
+        messageListRef.current.scrollTop = messageListRef.current.scrollHeight
+      }, 100)
+      messageLengthRef.current = messages.length
+    }
   }
+  
+  const showMessages = messages.map(message => {
+    return <Message key={message.id} currentUser={currentUser} message={message}/>
+  })
 
   function sendMessage(e) {
     e.preventDefault()

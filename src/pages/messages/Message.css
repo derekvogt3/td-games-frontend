@@ -1,10 +1,12 @@
 .my-message {
   display: flex;
+  flex-direction: row;
 }
 
-.message-holder>div {
+.message-info {
   display: flex;
   align-items: center;
+  flex-direction: row;
 }
 
 .message-sender {
@@ -14,11 +16,12 @@
 .message-time {
   font-size: 10px;
   margin-left: 10px;
+  margin-right: 10px;
   color: rgb(231, 181, 181);
 }
 
 .message {
-  width: 280px;
+  width: 200px;
   min-height: 50px;
   background: linear-gradient(#99688f, #3a4741);
   border-radius: 10px;
