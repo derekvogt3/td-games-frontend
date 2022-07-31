@@ -2,33 +2,11 @@ import { useEffect, useState } from "react"
 import { fetchUrl } from "../../components/GlobalVariables";
 import "./Friend.css"
 
-function Friend({friend_id, friendListPackage}) {
-  const [friend, setFriend] = useState({})
+function Friend({friend, friendListPackage}) {
   const {currentUser, setChatId, setShowFriends, setShowChats, setShowMessages} = friendListPackage
 
-  useEffect(() => {
-    fetch(`${fetchUrl}/users/${friend_id}`)
-    .then(res => res.json())
-    .then(setFriend)
-
-    // keep checking friends online status
-    const intervalId = setInterval(() => {
-      fetch(`${fetchUrl}/users/${friend_id}`)
-      .then(res => res.json())
-      .then(setFriend)
-    }, 5000)
-
-    return (() => {
-      clearInterval(intervalId)
-    })
-  }, [])
-
-  let Img, online
-
-  if (friend.id) {
-    Img = friend.profile_img ? friend.profile_img : "https://wellbeingchirony.com/wp-content/uploads/2021/03/Deafult-Profile-Pitcher.png"
-    online = friend.is_login ? {backgroundColor: "green"} : {backgroundColor: "red"}
-  }
+  const Img = friend.profile_img ? friend.profile_img : "https://wellbeingchirony.com/wp-content/uploads/2021/03/Deafult-Profile-Pitcher.png"
+  const online = friend.is_login ? {backgroundColor: "green"} : {backgroundColor: "red"}
 
   function findMessages() {
     fetch(`${fetchUrl}/find_chats?user_id=${currentUser.id}&friend_id=${friend.id}`)

@@ -51,13 +51,21 @@
   padding-bottom: 7px;
 }
 
-#add-friend{
+#add-friend {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#add-friend input {
+  position: relative;
+  left: 20px;
+  width: 200px;
+  height: 30px;
 }
 
 #add-friend-img {
   position: relative;
-  left: 230px;
   height: 50px;
   width: 50px;
   padding: 10px;
