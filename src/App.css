@@ -5,6 +5,17 @@ body{
 
 #header-placeholder {
   height: 100px;
+  background-color: black;
+}
+
+#intro {
+  position: fixed;
+  background-color: black;
+  width: 100%;
+  height: 100;
+  z-index: 500;
+  opacity: 1;
+  transition: opacity 3s;
 }
 
 

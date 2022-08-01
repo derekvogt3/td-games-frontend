@@ -1,0 +1,21 @@
+#homepage {
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#games-showcase {
+  position: relative;
+  top: 100px;
+  width: 60%;
+  height: 60%;
+}
+
+#games-showcase img {
+  width: 500px;
+  height: 500px;
+  cursor: pointer;
+}
