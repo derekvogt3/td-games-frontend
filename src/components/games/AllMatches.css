@@ -1,9 +1,6 @@
-#invite-list {
-    position: fixed;
+#match-list {
     width: 300px;
     max-height: 500px;
-    top: 100px;
-    right: 0;
     background: linear-gradient(#423840, #66706b);
     border: 1px;
     border-style: solid;
