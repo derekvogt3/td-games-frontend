@@ -8,13 +8,39 @@
 }
 
 #games-showcase {
+  display: flex;
   position: relative;
-  top: 100px;
-  width: 60%;
+  top: 50px;
+  width: 500px;
   height: 60%;
+  overflow-y: hidden;
+  overflow-x: auto;
 }
 
-#games-showcase img {
+.game-poster {
+  width: 100%;
+}
+
+.game-poster div {
+  position: absolute;
+  width: 100%;
+  top: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-poster div h3 {
+  font-size: 30px;
+  margin: 10px;
+}
+
+.game-poster div p {
+  margin: 0;
+  font-size: 25px;
+}
+
+.game-poster img {
   width: 500px;
   height: 500px;
   cursor: pointer;

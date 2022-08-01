@@ -23,6 +23,8 @@ function App() {
   const [showChats, setShowChats] = useState(false);
   const [showMessages, setShowMessages] = useState(false);
   const [chatId, setChatId] = useState("");
+  
+  const timeOutIds = []
 
   useEffect(() => {
     let sessionUser = JSON.parse(sessionStorage.getItem("user"));
@@ -48,17 +50,25 @@ function App() {
   }, [currentUser]);
 
   useEffect(() => {
-    const timeOutIds = []
-    setTimeout(() => {
+    timeOutIds.push(setTimeout(() => {
       setIntroStyle({opacity: "0"})
       console.log("change")
-    }, 11000)
-    setTimeout(() => {
+    }, 11000))
+    timeOutIds.push(setTimeout(() => {
       setFirstEnter(false)
-    }, 14000)
+    }, 14000))
 
     return (() => timeOutIds.forEach(id => clearInterval(id)))
   }, [])
+
+  function skipIntro(e) {
+    e.target.style.pointEvents = "none"
+    setIntroStyle({opacity: "0"})
+    setTimeout(() => {
+      setFirstEnter(false)
+    }, 3000);
+    timeOutIds.forEach(id => clearInterval(id))
+  }
 
   // packages for all states and functions to carry down to children
   const loginFormPackage = {
@@ -88,7 +98,7 @@ function App() {
     <BrowserRouter>
       {
         firstEnter ? (
-          <div id="intro" style={introStyle}>
+          <div id="intro" style={introStyle} onClick={skipIntro}>
             <Pixel title="TD GAMES"/>
           </div>
         ) : (
