@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import { fetchUrl } from "../../components/GlobalVariables";
 import "./Friend.css"
 

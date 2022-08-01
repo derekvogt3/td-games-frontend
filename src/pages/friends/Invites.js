@@ -63,9 +63,9 @@ function Invites({currentUser, friend}) {
               invite.invited_by == currentUser.id ? (
                 <div className="invite-sender">
                   <div>
-                    {invite.accepted == "pending" ? <p className="invite-message" style={{color: "green"}}>Pending invite for</p> : null }
+                    {invite.status == "pending" ? <p className="invite-message" style={{color: "green"}}>Pending invite for</p> : null }
                     <p>{friend.username.slice(0, 1).toUpperCase()}{friend.username.slice(1)}</p>
-                    {invite.accepted == "declined" ? <p className="invite-message" style={{color: "red"}}>Declined your invitation!</p> : null }
+                    {invite.status == "declined" ? <p className="invite-message" style={{color: "red"}}>Declined your invitation!</p> : null }
                   </div>
                   <img src="https://img.icons8.com/external-happy-man-bomsymbols-/91/000000/external-cancel-happy-man-human-resource-and-life-style-set-1-happy-man-bomsymbols-.png" onClick={cancelInvite}/>
                 </div>

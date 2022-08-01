@@ -1,8 +1,30 @@
+import { useEffect, useState } from "react";
+import { fetchUrl } from "../../components/GlobalVariables";
 import "./ChatList.css"
 import Chat from "./Chat";
 
 function ChatList({chatListPackage}) {
-  const {currentUser, userChats, setShowChats} = chatListPackage
+  const {currentUser, setShowChats} = chatListPackage
+  const [userChats, setUserChats] = useState([])
+
+  useEffect(() => {
+    fetch(`${fetchUrl}/chats/${currentUser.id}`)
+      .then(res => res.json())
+      .then(setUserChats)
+
+    // keep checking friends online status
+    const intervalId = setInterval(() => {
+      fetch(`${fetchUrl}/chats/${currentUser.id}`)
+      .then(res => res.json())
+      .then(setUserChats)
+    }, 5000)
+
+    return (() => {
+      clearInterval(intervalId)
+    })
+  }, [])
+
+  console.log(userChats)
 
   const showChats = userChats.map(chat => <Chat key={chat.id} chat={chat} chatListPackage={chatListPackage} />)
   
