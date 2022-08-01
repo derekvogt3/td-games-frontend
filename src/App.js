@@ -1,15 +1,15 @@
 import ReactDOM from "react-dom/client";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { fetchUrl } from "./components/GlobalVariables";
+import { fetchUrl } from "./utilities/GlobalVariables";
 
 import "./App.css";
-import Header from "./pages/header/Header";
-import HomePage from "./pages/HomePage";
-import TicTacToe from "./pages/TicTacToe";
-import FriendList from "./pages/friends/FriendList";
-import ChatList from "./pages/chats/ChatList";
-import MessageList from "./pages/messages/MessageList";
+import Header from "./components/header/Header";
+import HomePage from "./components/homepage/HomePage";
+import TicTacToe from "./components/games/TicTacToe/TicTacToe";
+import FriendList from "./components/friends/FriendList";
+import ChatList from "./components/chats/ChatList";
+import MessageList from "./components/messages/MessageList";
 
 
 function App() {

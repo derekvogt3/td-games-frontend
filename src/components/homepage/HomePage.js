@@ -1,4 +1,5 @@
-import Pixel from "../components/PixelArt";
+import "./HomePage.css"
+import Pixel from "../../utilities/PixelArt";
 
 function HomePage() {
   return (

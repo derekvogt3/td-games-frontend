@@ -1,4 +1,4 @@
-import { fetchUrl } from "../../components/GlobalVariables";
+import { fetchUrl } from "../../utilities/GlobalVariables";
 import "./Friend.css"
 
 function Friend({friend, friendListPackage}) {

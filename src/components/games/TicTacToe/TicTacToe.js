@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import styles from "../styles/TicTacToe.module.css";
+import styles from "./TicTacToe.module.css";
 
 function TicTacToe() {
   const [boardGame, setboardGame] = useState([]);

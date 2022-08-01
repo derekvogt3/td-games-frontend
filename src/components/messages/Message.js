@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchUrl } from "../../components/GlobalVariables";
+import { fetchUrl } from "../../utilities/GlobalVariables";
 import "./Message.css"
 
 function MyMessage({currentUser, usersStatus, message}) {

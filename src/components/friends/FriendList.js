@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchUrl } from "../../components/GlobalVariables";
+import { fetchUrl } from "../../utilities/GlobalVariables";
 import Friend from "./Friend";
 import "./FriendList.css"
 import Invites from "./Invites";
