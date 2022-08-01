@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-function Pixel() {
+function Pixel({title}) {
   useEffect(() => {
     Math.Tau = Math.PI * 2;
 
@@ -13,7 +13,7 @@ function Pixel() {
       };
 
     var Teamkill = function () {
-      var text = "Tic Tac Toe";
+      var text = title;
       var font = "Helvetica";
       var fontSize = 100;
 

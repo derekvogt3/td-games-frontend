@@ -7,18 +7,22 @@ function HomePage() {
 
   let navigate = useNavigate()
 
+  function toGamePage(game) {
+    navigate(game)
+  }
+
   return (
     <div id="homepage">
       <div id="games-showcase">
         <Carousel>
           <Carousel.Item>
-            <NavLink to="/tictactoe">
               <img
                 className="d-block w-100"
                 src="https://m.media-amazon.com/images/I/61kjGo7vPtL._AC_SX679_.jpg"
                 alt="Tic Tac Toe"
+                onClick={() => toGamePage("/tictactoe")}
               />
-            </NavLink>
+              
             <Carousel.Caption>
               <h3>Tic Tac Toe</h3>
               <p>O X O X O</p>

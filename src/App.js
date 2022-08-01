@@ -11,9 +11,12 @@ import TicTacToe from "./components/games/TicTacToe/TicTacToe";
 import FriendList from "./components/friends/FriendList";
 import ChatList from "./components/chats/ChatList";
 import MessageList from "./components/messages/MessageList";
+import Pixel from "./utilities/PixelArt";
 
 
 function App() {
+  const [firstEnter, setFirstEnter] = useState(true)
+  const [introStyle, setIntroStyle] = useState({opacity: "1"})
   const [currentUser, setCurrentUser] = useState({})
   const [userFriends, setUserFriends] = useState({})
   const [userChats, setUserChats] = useState({})
@@ -38,6 +41,19 @@ function App() {
     }
   }, [currentUser])
 
+  useEffect(() => {
+    const timeOutIds = []
+    setTimeout(() => {
+      setIntroStyle({opacity: "0"})
+      console.log("change")
+    }, 11000)
+    setTimeout(() => {
+      setFirstEnter(false)
+    }, 14000)
+
+    return (() => timeOutIds.forEach(id => clearInterval(id)))
+  }, [])
+
   // packages for all states and functions to carry down to children
   const loginFormPackage = {currentUser, setCurrentUser, setShowFriends, setShowChats, setShowMessages}
   const friendListPackage = {currentUser, setChatId, setShowFriends, setShowChats, setShowMessages}
@@ -46,6 +62,15 @@ function App() {
 
   return (
     <BrowserRouter>
+      {
+        firstEnter ? (
+          <div id="intro" style={introStyle}>
+            <Pixel title="TD GAMES"/>
+          </div>
+        ) : (
+          null
+        )
+      }
       <Header loginFormPackage={loginFormPackage} />
       {/* only show the following list when corrsponding button are clicked */}
       {
