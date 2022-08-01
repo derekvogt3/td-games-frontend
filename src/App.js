@@ -2,7 +2,7 @@ import ReactDOM from "react-dom/client";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { fetchUrl } from "./utilities/GlobalVariables";
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 import "./App.css";
 import Header from "./components/header/Header";
