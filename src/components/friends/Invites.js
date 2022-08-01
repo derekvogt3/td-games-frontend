@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { fetchUrl } from "../../utilities/GlobalVariables";
 import "./Invites.css"
 
-function Invites({currentUser, friend}) {
+function Invites({currentUser, friend, showAlert}) {
   const [invite, setInvite] = useState({})
 
   useEffect(() => {
@@ -28,6 +28,7 @@ function Invites({currentUser, friend}) {
       method: "DELETE"
     })
     .then(res => res.json())
+    .then(() => showAlert({type:"alert", message:"Friend invite canceled!"}))
     .catch(console.error)
   }
 

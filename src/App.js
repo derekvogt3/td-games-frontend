@@ -12,6 +12,7 @@ import FriendList from "./components/friends/FriendList";
 import ChatList from "./components/chats/ChatList";
 import MessageList from "./components/messages/MessageList";
 import Pixel from "./utilities/PixelArt";
+import AlertBox from "./utilities/AlertBox";
 
 function App() {
   const [firstEnter, setFirstEnter] = useState(true)
@@ -22,6 +23,8 @@ function App() {
   const [showFriends, setShowFriends] = useState(false);
   const [showChats, setShowChats] = useState(false);
   const [showMessages, setShowMessages] = useState(false);
+  const [onAlert, setOnAlert] = useState(false);
+  const [alert, setAlert] = useState({type: "alert", message: "alert"})
   const [chatId, setChatId] = useState("");
   
   const timeOutIds = []
@@ -70,6 +73,11 @@ function App() {
     timeOutIds.forEach(id => clearInterval(id))
   }
 
+  function showAlert(message) {
+    setAlert(message)
+    setOnAlert(true)
+  }
+
   // packages for all states and functions to carry down to children
   const loginFormPackage = {
     currentUser,
@@ -77,6 +85,7 @@ function App() {
     setShowFriends,
     setShowChats,
     setShowMessages,
+    showAlert,
   };
   const friendListPackage = {
     currentUser,
@@ -84,6 +93,8 @@ function App() {
     setShowFriends,
     setShowChats,
     setShowMessages,
+    setAlert,
+    showAlert,
   };
   const chatListPackage = {
     currentUser,
@@ -91,8 +102,16 @@ function App() {
     setShowFriends,
     setShowChats,
     setShowMessages,
+    setAlert,
+    showAlert,
   };
-  const messageListPackage = { currentUser, chatId, setShowMessages };
+  const messageListPackage = { 
+    currentUser, 
+    chatId, 
+    setShowMessages,
+    setAlert,
+    showAlert,
+  };
 
   return (
     <BrowserRouter>
@@ -101,6 +120,13 @@ function App() {
           <div id="intro" style={introStyle} onClick={skipIntro}>
             <Pixel title="TD GAMES"/>
           </div>
+        ) : (
+          null
+        )
+      }
+      {
+        onAlert ? (
+          <AlertBox setOnAlert={setOnAlert} alert={alert} />
         ) : (
           null
         )

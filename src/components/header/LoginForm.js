@@ -10,6 +10,7 @@ function LoginForm({ loginFormPackage }) {
     setShowFriends,
     setShowChats,
     setShowMessages,
+    showAlert,
   } = loginFormPackage;
 
   const [formInput, setFormInput] = useState({
@@ -86,14 +87,14 @@ function LoginForm({ loginFormPackage }) {
               })
               .catch(console.error);
           } else {
-            alert("Wrong username or password");
+            showAlert({type: "alert", message: "Wrong username or password"})
           }
         });
         // } else {
         //   alert("User already logged in!");
         // }
       } else {
-        alert("Wrong username or password");
+        showAlert({type: "alert", message: "Wrong username or password"})
       }
     });
   }
@@ -165,23 +166,19 @@ function LoginForm({ loginFormPackage }) {
                     })
                     .catch(console.error);
                 } else {
-                  alert("password need to be between 6 - 18 charaters");
+                  showAlert({type: "alert", message: "password need to be between 6 - 18 charaters"});
                 }
               } else {
-                alert(
-                  "password can only include alphabet letters, numbers and _~!@#$%^&*-=+?, cannot have space"
-                );
+                showAlert({type: "alert", message: "password can only include alphabet letters, numbers and _~!@#$%^&*-=+?, cannot have space"});
               }
             } else {
-              alert("username need to be between 3 - 18 charaters");
+              showAlert({type: "alert", message: "username need to be between 3 - 18 charaters"});
             }
           } else {
-            alert("username must start with letter");
+            showAlert({type: "alert", message: "username must start with letter"});
           }
         } else {
-          alert(
-            "username can only include alphabet letters, numbers and '_', cannot have space"
-          );
+          showAlert({type: "alert", message: "username can only include alphabet letters, numbers and '_', cannot have space"});
         }
       }
     });

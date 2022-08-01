@@ -1,0 +1,16 @@
+#alert-box {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(134, 128, 128, 0.5);
+  z-index: 500;
+}
+
+#alert-message {
+  background-color: gray;
+  padding: 20px;
+  opacity: 1;
+}

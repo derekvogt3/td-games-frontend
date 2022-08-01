@@ -5,7 +5,7 @@ import "./FriendList.css"
 import Invites from "./Invites";
 
 function FriendList({friendListPackage}) {
-  const {currentUser, setShowFriends} = friendListPackage
+  const {currentUser, setShowFriends, showAlert} = friendListPackage
   const [userFriends, setUserFriends] = useState([])
   const [friendInvites, setFriendInvites] = useState([])
   const [inviteMode, setInviteMode] = useState(false)
@@ -51,7 +51,8 @@ function FriendList({friendListPackage}) {
         })
       })
       .then(res => res.json())
-      .then(console.log)
+      // .then(console.log)
+      .then(data => showAlert({type:"alert", message: data.result}))
       setFormInput("")
       setInviteMode(!inviteMode)
     } else {
@@ -59,9 +60,9 @@ function FriendList({friendListPackage}) {
     }
   }
 
-  const showFriends = userFriends.map(friend => <Friend key={friend.id} friend={friend} friendListPackage={friendListPackage} />)
+  const showFriends = userFriends.map(friend => <Friend key={friend.id} friend={friend} friendListPackage={friendListPackage}/>)
 
-  const showInvites = friendInvites.map(friend => <Invites key={friend.id} currentUser={currentUser} friend={friend} />)
+  const showInvites = friendInvites.map(friend => <Invites key={friend.id} currentUser={currentUser} friend={friend} showAlert={showAlert} />)
   // console.log(showFriends)
 
   return (
