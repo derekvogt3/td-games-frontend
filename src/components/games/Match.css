@@ -1,0 +1,40 @@
+.friend {
+    display: flex;
+  }
+  
+  .profile-img-holder{
+    display: flex;
+  }
+  
+  .profile-img {
+    height: 50px;
+    width: 50px;
+    padding: 10px;
+    border-radius: 50%;
+  }
+  
+  .online-status {
+    position: relative;
+    top: 40px;
+    left: -28px;
+    height: 17px;
+    width: 17px;
+    background-color: red;
+    border-radius: 50%;
+    border: 1px solid white;
+  }
+  
+  .friend-name {
+    width: 80px;
+    display: flex;
+    align-items: center;
+    overflow-y: hidden;
+    overflow-x: auto;
+  }
+  
+  .start-message {
+    height: 50px;
+    width: 50px;
+    padding: 10px;
+    cursor: pointer;
+  }

@@ -6,10 +6,10 @@ import { fetchUrl } from "./utilities/GlobalVariables";
 import "./App.css";
 import Header from "./components/header/Header";
 import HomePage from "./components/homepage/HomePage";
-import TicTacToe from "./components/games/TicTacToe/TicTacToe";
 import FriendList from "./components/friends/FriendList";
 import ChatList from "./components/chats/ChatList";
 import MessageList from "./components/messages/MessageList";
+import MatchMaking from "./components/games/MatchMaking";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -85,8 +85,8 @@ function App() {
           <Route
             path="/tictactoe"
             element={
-              currentUser != {} ? (
-                <TicTacToe currentUser={currentUser} />
+              currentUser.id ? (
+                <MatchMaking currentUser={currentUser} gameId={1} />
               ) : (
                 <h1>Login to Play Game</h1>
               )
