@@ -8,9 +8,8 @@ function TicTacToe() {
   return (
     <div className={styles.mainPageContainer}>
       <div className={styles.tttContainer}>
-        <div className={styles.item}>
-          <h1 className={styles.itemX}>X</h1>
-        </div>
+        <div className={styles.item}></div>
+
         <div className={styles.item}></div>
         <div className={styles.item}></div>
         <div className={styles.item}></div>
