@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchUrl } from "../../components/GlobalVariables";
+import { fetchUrl } from "../../utilities/GlobalVariables";
 import "./LoginForm.css"
 
 function LoginForm({loginFormPackage}) {

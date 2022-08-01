@@ -1,6 +1,6 @@
 import "./MessageList.css"
 import { useEffect, useRef, useState } from "react";
-import { fetchUrl } from "../../components/GlobalVariables";
+import { fetchUrl } from "../../utilities/GlobalVariables";
 import Message from "./Message";
 
 function MessageList({messageListPackage}) {

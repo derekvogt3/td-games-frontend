@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchUrl } from "../../components/GlobalVariables";
+import { fetchUrl } from "../../utilities/GlobalVariables";
 import "./ChatList.css"
 import Chat from "./Chat";
 
