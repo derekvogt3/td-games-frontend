@@ -20,26 +20,18 @@ function Friend({friend, friendListPackage}) {
   }
 
   return (
-    <>
-      {
-        friend.id ? (
-          <div className="friend">
-            <div className="profile-img-holder">
-              <img className="profile-img" src={Img} alt={friend.username} />
-              <div className="online-status" style={online}></div>
-            </div>
-            <div className="friend-name">
-              <p>{friend.username.slice(0, 1).toUpperCase()}{friend.username.slice(1)}</p>
-            </div>
-            <div>
-              <img className="start-message" src="https://img.icons8.com/cotton/64/000000/chat.png" onClick={findMessages}/>
-            </div>
-          </div>
-        ) : (
-          null
-        )
-      }
-    </>
+    <div className="friend">
+      <div className="profile-img-holder">
+        <img className="profile-img" src={Img} alt={friend.username} />
+        <div className="online-status" style={online}></div>
+      </div>
+      <div className="friend-name">
+        <p>{friend.username.slice(0, 1).toUpperCase()}{friend.username.slice(1)}</p>
+      </div>
+      <div>
+        <img className="start-message" src="https://img.icons8.com/cotton/64/000000/chat.png" onClick={findMessages}/>
+      </div>
+    </div>
   );
 }
 

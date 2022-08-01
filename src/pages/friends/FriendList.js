@@ -61,7 +61,7 @@ function FriendList({friendListPackage}) {
 
   const showFriends = userFriends.map(friend => <Friend key={friend.id} friend={friend} friendListPackage={friendListPackage} />)
 
-  const showInvites = friendInvites.map(friend => <Invites key={friend.id} friend={friend} />)
+  const showInvites = friendInvites.map(friend => <Invites key={friend.id} currentUser={currentUser} friend={friend} />)
   // console.log(showFriends)
 
   return (

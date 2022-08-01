@@ -25,9 +25,10 @@
 }
 
 .friend-name {
-  width: 150px;
+  width: 80px;
   display: flex;
   align-items: center;
+  overflow-y: hidden;
   overflow-x: auto;
 }
 

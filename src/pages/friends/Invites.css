@@ -1,0 +1,29 @@
+.invite{
+  display: flex;
+}
+
+.invite-sender, .invite-receiver {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.invite-sender div, .invite-receiver div{
+  display: flex;
+  flex-direction: column;
+}
+
+.invite-sender div p, .invite-receiver div p{
+  margin: 0;
+}
+
+.invite-sender img, .accept-invite, .decline-invite {
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.invite-message {
+  font-size: 12px;
+}
