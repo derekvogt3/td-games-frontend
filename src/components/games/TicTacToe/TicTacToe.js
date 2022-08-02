@@ -1,30 +1,47 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import styles from "./TicTacToe.module.css";
+import { fetchUrl } from "../../../utilities/GlobalVariables";
+import { useLocation } from "react-router-dom";
 
 function TicTacToe({ ticTacToePackage }) {
-  const {currentUser, showAlert} = ticTacToePackage
+  const { currentUser, showAlert } = ticTacToePackage;
   const [board, setboard] = useState(Array(9).fill(" "));
-  const [currentSide, setCurrentSide] = useState("X")
+  const [currentSide, setCurrentSide] = useState("");
   const [gameStarted, setGameStarted] = useState(false);
+  const [friend, setFriend] = useState({});
+  const [gameSettings, setGameSettings] = useState({});
 
-  const boardRef = useRef()
+  const location = useLocation();
+  const matchId = location.pathname.substring(
+    location.pathname.lastIndexOf("/") + 1
+  );
 
-  // temporary, until the invite match lead to this page
-  const matchId = 1
-  const friendId = 2
-  const friendName = "Derek"
-  // const sides = {"X": `${currentUser.username.slice(0, 1).toUpperCase()}${currentUser.username.slice(1)}`, "O": "Derek"}
-  const sides = {"X": 1, "O": 2}
+  const boardRef = useRef();
 
-  // to disable board if not current player
-  // useEffect(() => {
-  //   if (sides[current_player] == currentUser.id) {
-  //     boardRef.current.style.pointerEvents = "auto"
-  //   } else {
-  //     boardRef.current.style.pointerEvents = "none"
-  //   }
-  // }, [currentSide])
+  useEffect(() => {
+    fetch(`${fetchUrl}/tic_tac_toe_match_data?match_id=${matchId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.match.game_status);
+        setboard(JSON.parse(data.match.game_status).board);
+        console.log(JSON.parse(data.match.game_settings));
+        setGameSettings(JSON.parse(data.match.game_settings));
+        setCurrentSide(() => {
+          if (data.history === "new game") {
+            setCurrentSide("X");
+            console.log(won());
+          } else {
+            //
+            //data.history.history
+            // data;
+
+            console.log("aahahahahahlsdkfasdlkfjasdkfj");
+          }
+        });
+        console.log(data);
+      });
+  }, []);
 
   // --------------------------- tic tac toe logics -----------------------------
   const winCombinations = [
@@ -35,71 +52,91 @@ function TicTacToe({ ticTacToePackage }) {
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6]
-  ]
+    [2, 4, 6],
+  ];
 
   function move(index, currentSide) {
-    board[index] = currentSide
+    board[index] = currentSide;
   }
 
   function turn_count() {
-    return board.filter(index => index != " ").length
-  }
-
-  function current_player() {
-    return turn_count % 2 == 0 ? "O" : "X"
+    return board.filter((index) => index != " ").length;
   }
 
   function won() {
-    let win = false
-    winCombinations.forEach(combo => {
-      if (board[combo[0]] != " " && board[combo[0]] == board[combo[1]] && board[combo[1]] == board[combo[2]]) {
-        win = board[combo[0]]
-        if (sides[win] == currentUser.id) {
+    let win = false;
+    winCombinations.forEach((combo) => {
+      if (
+        board[combo[0]] != " " &&
+        board[combo[0]] == board[combo[1]] &&
+        board[combo[1]] == board[combo[2]]
+      ) {
+        win = board[combo[0]];
+        if (gameSettings[win] == currentUser.id) {
           setTimeout(() => {
-            showAlert({type:"winner", message: "You win!"})
-          }, 1000)
+            showAlert({ type: "winner", message: "You win!" });
+          }, 1000);
         } else {
           setTimeout(() => {
-            showAlert({type:"alert", message: "You lose!"})
-          }, 1000)
+            showAlert({ type: "alert", message: "You lose!" });
+          }, 1000);
         }
       }
-    })
-    return win
+    });
+    return win;
   }
 
   function full() {
-    return board.filter(index => index == " ").length == 0 ? !won() : false
+    return board.filter((index) => index == " ").length == 0 ? !won() : false;
   }
 
   function draw() {
-    return full() && !won()
+    return full() && !won();
   }
 
   function over() {
-    return draw() || won()
+    return draw() || won();
   }
 
-// ---------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------
 
   function play(e, index, currentSide) {
-    e.target.textContent = currentSide
-    currentSide == "X" ? e.target.style.color = "red" : e.target.style.color = "blue"
-    e.target.parentNode.style.transform = "rotateY(180deg)"
-    e.target.parentNode.style.pointerEvents = "none"
-    move(index, currentSide)
-    console.log(won())
+    let playObj = {
+      player: currentSide,
+      position: index,
+      user_id: currentUser.id,
+      match_id: matchId,
+      game_status: JSON.stringify({ board: board }),
+    };
+    fetch(`${fetchUrl}/tic_tac_toe_move`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(playObj),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+
+    e.target.textContent = currentSide;
+    currentSide == "X"
+      ? (e.target.style.color = "red")
+      : (e.target.style.color = "blue");
+    e.target.parentNode.style.transform = "rotateY(180deg)";
+    e.target.parentNode.style.pointerEvents = "none";
+    move(index, currentSide);
+    console.log(won());
     if (over()) {
       if (draw()) {
-        console.log("draw")
-      } else if(won()) {
-        e.target.parentNode.parentNode.parentNode.style.pointerEvents = "none"
-        console.log(won())
+        console.log("draw");
+      } else if (won()) {
+        e.target.parentNode.parentNode.parentNode.style.pointerEvents = "none";
+        console.log(won());
       }
     } else {
-      setCurrentSide(currentSide => currentSide == "X" ? "O" : "X")
-      console.log("continue")
+      setCurrentSide((currentSide) => (currentSide == "X" ? "O" : "X"));
+      console.log("continue");
     }
   }
 
@@ -108,47 +145,74 @@ function TicTacToe({ ticTacToePackage }) {
       <div className={styles.mainPageContainer}>
         <div className={styles.tttContainer} ref={boardRef}>
           <div className={styles.item}>
-            <div className={styles.front} onClick={e => play(e, 0, currentSide)}>
+            <div
+              className={styles.front}
+              onClick={(e) => play(e, 0, currentSide)}
+            >
               <div className={styles.back}></div>
             </div>
           </div>
           <div className={styles.item}>
-            <div className={styles.front} onClick={e => play(e, 1, currentSide)}>
+            <div
+              className={styles.front}
+              onClick={(e) => play(e, 1, currentSide)}
+            >
               <div className={styles.back}></div>
             </div>
           </div>
           <div className={styles.item}>
-            <div className={styles.front} onClick={e => play(e, 2, currentSide)}>
+            <div
+              className={styles.front}
+              onClick={(e) => play(e, 2, currentSide)}
+            >
               <div className={styles.back}></div>
             </div>
           </div>
           <div className={styles.item}>
-            <div className={styles.front} onClick={e => play(e, 3, currentSide)}>
+            <div
+              className={styles.front}
+              onClick={(e) => play(e, 3, currentSide)}
+            >
               <div className={styles.back}></div>
             </div>
           </div>
           <div className={styles.item}>
-            <div className={styles.front} onClick={e => play(e, 4, currentSide)}>
+            <div
+              className={styles.front}
+              onClick={(e) => play(e, 4, currentSide)}
+            >
               <div className={styles.back}></div>
             </div>
           </div>
           <div className={styles.item}>
-            <div className={styles.front} onClick={e => play(e, 5, currentSide)}>
+            <div
+              className={styles.front}
+              onClick={(e) => play(e, 5, currentSide)}
+            >
               <div className={styles.back}></div>
             </div>
           </div>
           <div className={styles.item}>
-            <div className={styles.front} onClick={e => play(e, 6, currentSide)}>
+            <div
+              className={styles.front}
+              onClick={(e) => play(e, 6, currentSide)}
+            >
               <div className={styles.back}></div>
             </div>
           </div>
           <div className={styles.item}>
-            <div className={styles.front} onClick={e => play(e, 7, currentSide)}>
+            <div
+              className={styles.front}
+              onClick={(e) => play(e, 7, currentSide)}
+            >
               <div className={styles.back}></div>
             </div>
           </div>
           <div className={styles.item}>
-            <div className={styles.front} onClick={e => play(e, 8, currentSide)}>
+            <div
+              className={styles.front}
+              onClick={(e) => play(e, 8, currentSide)}
+            >
               <div className={styles.back}></div>
             </div>
           </div>
