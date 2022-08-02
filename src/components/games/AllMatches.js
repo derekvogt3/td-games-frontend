@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { fetchUrl } from "../../utilities/GlobalVariables";
 import Match from "./Match";
 
-export default function AllMatches({ currentUser }) {
+export default function AllMatches({ currentUser, gameId }) {
   const [allMatches, setAllMatches] = useState([]);
   useEffect(() => {
     getMatches();
@@ -18,7 +18,7 @@ export default function AllMatches({ currentUser }) {
   }, []);
 
   function getMatches() {
-    fetch(`${fetchUrl}/all_matches/${currentUser.id}`)
+    fetch(`${fetchUrl}/all_matches?user_id=${currentUser.id}&game_id=${gameId}`)
       .then((res) => {
         return res.json();
       })

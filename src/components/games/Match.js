@@ -1,8 +1,11 @@
 import React from "react";
 import "./Match.css";
 import { fetchUrl } from "../../utilities/GlobalVariables";
+import { useNavigate } from "react-router-dom";
 
 export default function Match({ usermatch, friend, currentUser }) {
+  const navigate = useNavigate();
+
   function handleAccept() {
     let obj = { match_id: usermatch.match_id };
 
@@ -75,7 +78,12 @@ export default function Match({ usermatch, friend, currentUser }) {
         ) : (
           <>
             {usermatch.status == "in match" ? (
-              <button className="button-70">Go to Match</button>
+              <button
+                className="button-70"
+                onClick={() => navigate("/tictactoe/" + usermatch.match_id)}
+              >
+                Go to Match
+              </button>
             ) : (
               <p>
                 <i>

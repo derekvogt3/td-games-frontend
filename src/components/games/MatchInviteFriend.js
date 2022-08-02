@@ -56,7 +56,10 @@ export default function MatchInviteFriend({
             {currentUser.username.slice(0, 1).toUpperCase()}
             {currentUser.username.slice(1)}'s friend list
           </p>
-          <div className="exit-button" onClick={() => setShowInvite(false)}>
+          <div
+            className="match-exit-button"
+            onClick={() => setShowInvite(false)}
+          >
             <p>x</p>
           </div>
         </div>

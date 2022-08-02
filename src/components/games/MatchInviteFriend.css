@@ -1,9 +1,9 @@
 #invite-list {
-    position: fixed;
+
     width: 300px;
     max-height: 500px;
-    top: 200px;
-    left: 50px;
+    margin-top: 2rem;
+
     background: linear-gradient(#423840, #66706b);
     border: 1px;
     border-style: solid;
@@ -12,21 +12,9 @@
     overflow-y: auto;
     overflow-x: hidden;
   }
-  
-  .list-header {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid gray;
-  }
-  
-  .list-header > p{
-    margin: 0;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .exit-button {
-    position: absolute;
+
+  .match-exit-button {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,47 +28,13 @@
     transition: opacity 0.5s;
   }
   
-  .exit-button:hover {
+  .match-exit-button:hover {
     opacity: 1;
   }
   
-  .exit-button p {
+  .match-exit-button p {
     color: gray;
     padding-right: 1px;
     padding-bottom: 7px;
   }
   
-  #add-friend form {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  #add-friend input {
-    position: relative;
-    left: 20px;
-    width: 200px;
-    height: 30px;
-  }
-  
-  #add-friend button {
-    background: transparent;
-    border: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  #add-friend-img {
-    position: relative;
-    height: 50px;
-    width: 50px;
-    padding: 10px;
-    cursor: pointer;
-  }
-  
-  #pending-invite-list > p {
-    text-align: center;
-    padding: 0;
-    color: gray;
-    font-size: 15px;
-  }
