@@ -52,7 +52,13 @@ function FriendList({friendListPackage}) {
       })
       .then(res => res.json())
       // .then(console.log)
-      .then(data => showAlert({type:"alert", message: data.result}))
+      .then(data => {
+        if (data.result.match(/^Friend invite sent/)) {
+          showAlert({type:"winner", message: data.result})
+        } else {
+          showAlert({type:"alert", message: data.result})
+        }
+      })
       setFormInput("")
       setInviteMode(!inviteMode)
     } else {
