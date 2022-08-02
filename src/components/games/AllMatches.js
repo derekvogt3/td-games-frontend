@@ -7,12 +7,23 @@ import Match from "./Match";
 export default function AllMatches({ currentUser }) {
   const [allMatches, setAllMatches] = useState([]);
   useEffect(() => {
+    getMatches();
+    const intervalId = setInterval(() => {
+      getMatches();
+    }, 5000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
+  function getMatches() {
     fetch(`${fetchUrl}/all_matches/${currentUser.id}`)
       .then((res) => {
         return res.json();
       })
       .then(setAllMatches);
-  }, []);
+  }
 
   const MatchesToInclude = allMatches.map((obj) => {
     return (

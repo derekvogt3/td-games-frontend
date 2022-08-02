@@ -5,6 +5,8 @@ import MatchInviteFriend from "./MatchInviteFriend";
 import AllMatches from "./AllMatches";
 
 export default function MatchMaking({ currentUser, gameId }) {
+    
+
   const [showInvite, setShowInvite] = useState(false);
 
   return (
