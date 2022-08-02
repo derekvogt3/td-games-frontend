@@ -36,6 +36,8 @@ function TicTacToe({ ticTacToePackage }) {
             //data.history.history
             // data;
 
+            setCurrentSide(data.history.history == "X" ? "O" : "X");
+
             console.log("aahahahahahlsdkfasdlkfjasdkfj");
           }
         });
