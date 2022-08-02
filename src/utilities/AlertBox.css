@@ -10,7 +10,7 @@
 }
 
 #alert-message {
-  background-color: gray;
+  background-color: red;
   padding: 20px;
   opacity: 1;
 }

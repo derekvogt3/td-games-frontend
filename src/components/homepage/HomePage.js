@@ -18,7 +18,7 @@ function HomePage() {
             className="d-block w-100"
             src="https://m.media-amazon.com/images/I/61kjGo7vPtL._AC_SX679_.jpg"
             alt="Tic Tac Toe"
-            onClick={() => toGamePage("/tictactoe")}
+            onClick={() => toGamePage("/match-making")}
           />
           <div>
             <h3>Tic Tac Toe</h3>

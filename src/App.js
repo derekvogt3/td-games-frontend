@@ -12,6 +12,7 @@ import MessageList from "./components/messages/MessageList";
 import Pixel from "./utilities/PixelArt";
 import AlertBox from "./utilities/AlertBox";
 import MatchMaking from "./components/games/MatchMaking";
+import TicTacToe from "./components/games/TicTacToe/TicTacToe"
 
 function App() {
   const [firstEnter, setFirstEnter] = useState(true);
@@ -55,7 +56,6 @@ function App() {
     timeOutIds.push(
       setTimeout(() => {
         setIntroStyle({ opacity: "0" });
-        console.log("change");
       }, 11000)
     );
     timeOutIds.push(
@@ -64,7 +64,7 @@ function App() {
       }, 14000)
     );
 
-    return () => timeOutIds.forEach((id) => clearInterval(id));
+    return (() => timeOutIds.forEach((id) => clearInterval(id)));
   }, []);
 
   function skipIntro(e) {
@@ -76,6 +76,7 @@ function App() {
     timeOutIds.forEach((id) => clearInterval(id));
   }
 
+  // to show alert box
   function showAlert(message) {
     setAlert(message);
     setOnAlert(true);
@@ -96,7 +97,6 @@ function App() {
     setShowFriends,
     setShowChats,
     setShowMessages,
-    setAlert,
     showAlert,
   };
   const chatListPackage = {
@@ -105,14 +105,16 @@ function App() {
     setShowFriends,
     setShowChats,
     setShowMessages,
-    setAlert,
     showAlert,
   };
   const messageListPackage = {
     currentUser,
     chatId,
     setShowMessages,
-    setAlert,
+    showAlert,
+  };
+  const ticTacToePackage = {
+    currentUser,
     showAlert,
   };
 
@@ -138,7 +140,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
           <Route
-            path="/tictactoe"
+            path="/match-making"
             element={
               currentUser.id ? (
                 <MatchMaking currentUser={currentUser} gameId={1} />
@@ -147,6 +149,7 @@ function App() {
               )
             }
           ></Route>
+          <Route path="/tictactoe" element={<TicTacToe ticTacToePackage={ticTacToePackage} />} />
         </Routes>
       </div>
     </BrowserRouter>

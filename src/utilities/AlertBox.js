@@ -18,6 +18,15 @@ function AlertBox({setOnAlert, alert}) {
           null
         )
       }
+      {
+        alert.type == "winner" ? (
+          <div id="alert-message" style={{backgroundColor: "green"}}>
+            <h1>{alert.message}</h1>
+          </div>
+        ) : (
+          null
+        )
+      }
     </div>
   )
 }

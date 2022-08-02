@@ -6,6 +6,7 @@
 }
 
 .tttContainer{
+    position: relative;
     display: grid;
     grid-template-columns: 10vw 10vw 10vw;
     grid-template-rows: 10vw 10vw 10vw ;
@@ -15,17 +16,17 @@
     justify-items: stretch;
     align-items: stretch;
     gap: 5px;
+    top: 100px;
 }
 
 .item {
-    background-color:black;
     display: flex;
-    justify-items: stretch;
-    align-items: stretch;
-    
+    justify-content: center;
+    align-items: center;
+    background-color:black;
 }
 
-.itemX{
+.itemX {
     background-color: red;
     font-size: 10vh;
 
@@ -44,12 +45,32 @@
     -webkit-text-fill-color: transparent; 
     -moz-background-clip: text;
     -moz-text-fill-color: transparent;
-    
 }
 
+.front {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color:black;
+    transform-style: preserve-3d;
+    transition: z-index 2s linear 2s, transform 2s;
+}
 
+/* .front:hover {
+    transform: rotateY(180deg);
+} */
 
-
+.back {
+    cursor: pointer;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    font-size: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotateY(180deg) translateZ(1px);
+}
 
 @keyframes gradient {
 	0% {

@@ -24,8 +24,6 @@ function ChatList({chatListPackage}) {
     })
   }, [])
 
-  console.log(userChats)
-
   const showChats = userChats.map(chat => <Chat key={chat.id} chat={chat} chatListPackage={chatListPackage} />)
   
   return (
