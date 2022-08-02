@@ -140,7 +140,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
           <Route
-            path="/match-making"
+            path="/match-making/:game_id"
             element={
               currentUser.id ? (
                 <MatchMaking currentUser={currentUser} gameId={1} />
@@ -149,7 +149,7 @@ function App() {
               )
             }
           ></Route>
-          <Route path="/tictactoe" element={<TicTacToe ticTacToePackage={ticTacToePackage} />} />
+          <Route path="/tictactoe/:matcj_id" element={<TicTacToe ticTacToePackage={ticTacToePackage} />} />
         </Routes>
       </div>
     </BrowserRouter>

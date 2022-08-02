@@ -85,6 +85,7 @@ function TicTacToe({ ticTacToePackage }) {
 
   function play(e, index, currentSide) {
     e.target.textContent = currentSide
+    currentSide == "X" ? e.target.style.color = "red" : e.target.style.color = "blue"
     e.target.parentNode.style.transform = "rotateY(180deg)"
     e.target.parentNode.style.pointerEvents = "none"
     move(index, currentSide)
