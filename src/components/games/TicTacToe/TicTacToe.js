@@ -92,7 +92,9 @@ function TicTacToe({ ticTacToePackage }) {
     console.log(won())
     if (over()) {
       if (draw()) {
-        console.log("draw")
+        setTimeout(() => {
+          showAlert({type:"alert", message: "Draw!"})
+        }, 1000)
       } else if(won()) {
         e.target.parentNode.parentNode.parentNode.style.pointerEvents = "none"
         console.log(won())
