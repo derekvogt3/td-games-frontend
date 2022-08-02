@@ -12,14 +12,12 @@ import MessageList from "./components/messages/MessageList";
 import Pixel from "./utilities/PixelArt";
 import AlertBox from "./utilities/AlertBox";
 import MatchMaking from "./components/games/MatchMaking";
-import TicTacToe from "./components/games/TicTacToe/TicTacToe"
+import TicTacToe from "./components/games/TicTacToe/TicTacToe";
 
 function App() {
   const [firstEnter, setFirstEnter] = useState(true);
   const [introStyle, setIntroStyle] = useState({ opacity: "1" });
   const [currentUser, setCurrentUser] = useState({});
-  // const [userFriends, setUserFriends] = useState({})
-  // const [userChats, setUserChats] = useState({})
   const [showFriends, setShowFriends] = useState(false);
   const [showChats, setShowChats] = useState(false);
   const [showMessages, setShowMessages] = useState(false);
@@ -38,14 +36,6 @@ function App() {
 
   useEffect(() => {
     if (currentUser.id) {
-      // fetch(`${fetchUrl}/friends/${currentUser.id}`)
-      // .then(res => res.json())
-      // .then(setUserFriends)
-
-      // fetch(`${fetchUrl}/chats/${currentUser.id}`)
-      // .then(res => res.json())
-      // .then(setUserChats)
-
       setShowFriends(false);
       setShowChats(false);
       setShowMessages(false);
@@ -64,7 +54,7 @@ function App() {
       }, 14000)
     );
 
-    return (() => timeOutIds.forEach((id) => clearInterval(id)));
+    return () => timeOutIds.forEach((id) => clearInterval(id));
   }, []);
 
   function skipIntro(e) {
@@ -149,7 +139,10 @@ function App() {
               )
             }
           ></Route>
-          <Route path="/tictactoe/:matcj_id" element={<TicTacToe ticTacToePackage={ticTacToePackage} />} />
+          <Route
+            path="/tictactoe/:matcj_id"
+            element={<TicTacToe ticTacToePackage={ticTacToePackage} />}
+          />
         </Routes>
       </div>
     </BrowserRouter>
