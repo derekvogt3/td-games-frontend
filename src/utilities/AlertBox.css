@@ -5,12 +5,71 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(134, 128, 128, 0.5);
   z-index: 500;
 }
 
+#alert-box:before {
+  content: "";
+  background-image: url("https://c8.alamy.com/comp/2BRDGB3/callouts-titles-in-hud-style-futuristic-ui-design-callout-titles-layout-elements-for-sci-fi-design-web-cyber-events-video-content-info-call-box-2BRDGB3.jpg");
+  background-size: cover;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  opacity: 0.3;
+}
+
 #alert-message {
-  background-color: red;
-  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  width: 450px;
   opacity: 1;
+  clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%);
+  color: white;
+  font-size: 50px;
+  opacity: 1;
+  word-wrap: break-word;
+}
+
+#alert-message:before {
+  content: "";
+  /* background-image: url(https://img.freepik.com/premium-vector/text-box-internet-things_42077-3141.jpg?size=626&ext=jpg); */
+  /* background-size: contain; */
+  background-color: red;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  opacity: 0.7;
+}
+
+#win-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  width: 450px;
+  opacity: 1;
+  clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%);
+  color: white;
+  font-size: 30px;
+  opacity: 1;
+  word-wrap: break-word;
+}
+
+#win-message:before {
+  content: "";
+  /* background-image: url(https://img.freepik.com/premium-vector/text-box-internet-things_42077-3141.jpg?size=626&ext=jpg);
+  background-size: contain; */
+  background-color: green;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  opacity: 0.7;
 }
