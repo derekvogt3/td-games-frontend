@@ -116,6 +116,7 @@ function LoginForm({ loginFormPackage }) {
         setShowFriends(false);
         setShowChats(false);
         setShowMessages(false);
+        setShowSettings(false);
         navigate("/");
         console.log("user logged out");
         sessionStorage.clear("user");

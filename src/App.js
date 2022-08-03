@@ -41,6 +41,7 @@ function App() {
       setShowFriends(false);
       setShowChats(false);
       setShowMessages(false);
+      setShowSettings(false);
     }
   }, [currentUser]);
 
