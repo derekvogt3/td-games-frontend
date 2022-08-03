@@ -1,0 +1,11 @@
+.profile-pic-form{
+
+    display: flex;
+    align-items: center;
+}
+
+.profile-pic-input{
+    background: black;
+    color: white;
+    width: 170px;
+}

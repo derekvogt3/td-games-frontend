@@ -13,6 +13,7 @@ import Pixel from "./utilities/PixelArt";
 import AlertBox from "./utilities/AlertBox";
 import MatchMaking from "./components/matchMaking/MatchMaking";
 import TicTacToe from "./components/games/TicTacToe/TicTacToe";
+import Settings from "./components/settings/Settings";
 
 function App() {
   const [firstEnter, setFirstEnter] = useState(true);
@@ -21,6 +22,7 @@ function App() {
   const [showFriends, setShowFriends] = useState(false);
   const [showChats, setShowChats] = useState(false);
   const [showMessages, setShowMessages] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const [onAlert, setOnAlert] = useState(false);
   const [alert, setAlert] = useState({ type: "alert", message: "alert" });
   const [chatId, setChatId] = useState("");
@@ -80,6 +82,7 @@ function App() {
     setShowChats,
     setShowMessages,
     showAlert,
+    setShowSettings,
   };
   const friendListPackage = {
     currentUser,
@@ -88,6 +91,7 @@ function App() {
     setShowChats,
     setShowMessages,
     showAlert,
+    setShowSettings,
   };
   const chatListPackage = {
     currentUser,
@@ -96,6 +100,7 @@ function App() {
     setShowChats,
     setShowMessages,
     showAlert,
+    setShowSettings,
   };
   const messageListPackage = {
     currentUser,
@@ -106,6 +111,15 @@ function App() {
   const ticTacToePackage = {
     currentUser,
     showAlert,
+  };
+
+  const showSettingsPackage = {
+    currentUser,
+    setShowFriends,
+    setShowChats,
+    setShowMessages,
+    setShowSettings,
+    setCurrentUser,
   };
 
   return (
@@ -124,6 +138,9 @@ function App() {
       {showChats ? <ChatList chatListPackage={chatListPackage} /> : null}
       {showMessages ? (
         <MessageList messageListPackage={messageListPackage} />
+      ) : null}
+      {showSettings ? (
+        <Settings showSettingsPackage={showSettingsPackage} />
       ) : null}
       <div id="header-placeholder"></div>
       <div id="content">

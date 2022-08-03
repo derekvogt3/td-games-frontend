@@ -11,6 +11,7 @@ function LoginForm({ loginFormPackage }) {
     setShowChats,
     setShowMessages,
     showAlert,
+    setShowSettings,
   } = loginFormPackage;
 
   const [formInput, setFormInput] = useState({
@@ -87,14 +88,14 @@ function LoginForm({ loginFormPackage }) {
               })
               .catch(console.error);
           } else {
-            showAlert({type: "alert", message: "Wrong username or password"})
+            showAlert({ type: "alert", message: "Wrong username or password" });
           }
         });
         // } else {
         //   alert("User already logged in!");
         // }
       } else {
-        showAlert({type: "alert", message: "Wrong username or password"})
+        showAlert({ type: "alert", message: "Wrong username or password" });
       }
     });
   }
@@ -166,19 +167,36 @@ function LoginForm({ loginFormPackage }) {
                     })
                     .catch(console.error);
                 } else {
-                  showAlert({type: "alert", message: "password need to be between 6 - 18 charaters"});
+                  showAlert({
+                    type: "alert",
+                    message: "password need to be between 6 - 18 charaters",
+                  });
                 }
               } else {
-                showAlert({type: "alert", message: "password can only include alphabet letters, numbers and _~!@#$%^&*-=+?, cannot have space"});
+                showAlert({
+                  type: "alert",
+                  message:
+                    "password can only include alphabet letters, numbers and _~!@#$%^&*-=+?, cannot have space",
+                });
               }
             } else {
-              showAlert({type: "alert", message: "username need to be between 3 - 18 charaters"});
+              showAlert({
+                type: "alert",
+                message: "username need to be between 3 - 18 charaters",
+              });
             }
           } else {
-            showAlert({type: "alert", message: "username must start with letter"});
+            showAlert({
+              type: "alert",
+              message: "username must start with letter",
+            });
           }
         } else {
-          showAlert({type: "alert", message: "username can only include alphabet letters, numbers and '_', cannot have space"});
+          showAlert({
+            type: "alert",
+            message:
+              "username can only include alphabet letters, numbers and '_', cannot have space",
+          });
         }
       }
     });
@@ -190,12 +208,21 @@ function LoginForm({ loginFormPackage }) {
     setShowFriends((show) => !show);
     setShowChats(false);
     setShowMessages(false);
+    setShowSettings(false);
   }
 
   function showChatList() {
     setShowChats((show) => !show);
     setShowFriends(false);
     setShowMessages(false);
+    setShowSettings(false);
+  }
+
+  function showSettings() {
+    setShowSettings((show) => !show);
+    setShowFriends(false);
+    setShowMessages(false);
+    setShowChats(false);
   }
 
   return (
@@ -217,6 +244,9 @@ function LoginForm({ loginFormPackage }) {
             </div>
             <div id="show-chats" onClick={showChatList}>
               <p>Chats</p>
+            </div>
+            <div id="show-chats" onClick={showSettings}>
+              <p>Settings</p>
             </div>
           </div>
         </div>
