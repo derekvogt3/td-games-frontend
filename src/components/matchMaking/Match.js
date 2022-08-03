@@ -80,7 +80,7 @@ export default function Match({ usermatch, friend, currentUser }) {
           </>
         ) : (
           <>
-            {usermatch.status == "in match" ? (
+            {usermatch.status === "in match" ? (
               <button
                 className="button-70"
                 onClick={() => navigate("/tictactoe/" + usermatch.match_id)}

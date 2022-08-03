@@ -48,7 +48,7 @@ function LoginForm({ loginFormPackage }) {
   // conversts to 32bit integer
   function stringToHashConversion(string) {
     var hashVal = 0;
-    if (string.length == 0) return hashVal;
+    if (string.length === 0) return hashVal;
     for (let i = 0; i < string.length; i++) {
       let char = string.charCodeAt(i);
       hashVal = (hashVal << 5) - hashVal + char;

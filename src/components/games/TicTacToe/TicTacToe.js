@@ -41,7 +41,7 @@ function TicTacToe({ ticTacToePackage }) {
       .then((data) => {
         // console.log(data.match.game_status);
         const fetchBoard = JSON.parse(data.match.game_status).board
-        if (turn_count(fetchBoard) == 0) {
+        if (turn_count(fetchBoard) === 0) {
           setCurrentSide("X");
           setBoard(fetchBoard);
         } else {
@@ -49,14 +49,14 @@ function TicTacToe({ ticTacToePackage }) {
             // console.log(i, v)
             if (v != " ") {
               fieldRefs[i].current.textContent = v;
-              v == "X"
+              v === "X"
                 ? (fieldRefs[i].current.style.color = "red")
                 : (fieldRefs[i].current.style.color = "blue");
               fieldRefs[i].current.parentNode.style.transform = "rotateY(180deg)";
               fieldRefs[i].current.parentNode.style.pointerEvents = "none";
             }
           })
-          setCurrentSide(data.history.player == "X" ? "O" : "X");
+          setCurrentSide(data.history.player === "X" ? "O" : "X");
           setBoard(fetchBoard)
         }
         // console.log(data);
@@ -80,7 +80,7 @@ function TicTacToe({ ticTacToePackage }) {
           if (board[history.position] != history.player) {
             // console.log(history)
             fieldRefs[history.position].current.textContent = history.player;
-            history.player == "X"
+            history.player === "X"
               ? (fieldRefs[history.position].current.style.color = "red")
               : (fieldRefs[history.position].current.style.color = "blue");
             fieldRefs[history.position].current.parentNode.style.transform = "rotateY(180deg)";
@@ -90,7 +90,7 @@ function TicTacToe({ ticTacToePackage }) {
               setGameFinished(true)
               setBoard(board)
             } else {
-              setCurrentSide(history.player == "X" ? "O" : "X");
+              setCurrentSide(history.player === "X" ? "O" : "X");
               setBoard(board)
             }
           }
@@ -105,7 +105,7 @@ function TicTacToe({ ticTacToePackage }) {
   // to disable board if not current player
   useEffect(() => {
     if (gameSettings[currentSide]) {
-      if (gameSettings[currentSide][0] == currentUser.id) {
+      if (gameSettings[currentSide][0] === currentUser.id) {
         boardRef.current.style.pointerEvents = "auto"
       } else {
         boardRef.current.style.pointerEvents = "none"
@@ -155,14 +155,14 @@ function TicTacToe({ ticTacToePackage }) {
     let win = false;
     winCombinations.forEach((combo) => {
       if (
-        board[combo[0]] != " " &&
-        board[combo[0]] == board[combo[1]] &&
-        board[combo[1]] == board[combo[2]]
+        board[combo[0]] !== " " &&
+        board[combo[0]] === board[combo[1]] &&
+        board[combo[1]] === board[combo[2]]
       ) {
         win = board[combo[0]];
         console.log(intervalId)
         clearInterval(intervalId)
-        if (gameSettings[win][0] == currentUser.id) {
+        if (gameSettings[win][0] === currentUser.id) {
           if (!gameFinished) {
             setTimeout(() => {
               showAlert({ type: "winner", message: "You win!" });
@@ -181,7 +181,7 @@ function TicTacToe({ ticTacToePackage }) {
   }
 
   function full(board) {
-    return board.filter((index) => index == " ").length == 0 ? !won(board) : false;
+    return board.filter((index) => index === " ").length === 0 ? !won(board) : false;
   }
 
   function draw(board) {
@@ -238,7 +238,7 @@ function TicTacToe({ ticTacToePackage }) {
       .then((data) => console.log(data));
 
     e.target.textContent = currentSide;
-    currentSide == "X"
+    currentSide === "X"
       ? (e.target.style.color = "red")
       : (e.target.style.color = "blue");
     e.target.parentNode.style.transform = "rotateY(180deg)";
@@ -258,7 +258,7 @@ function TicTacToe({ ticTacToePackage }) {
         .then((data) => console.log(data));
       setGameFinished(true)
     } else {
-      setCurrentSide((currentSide) => (currentSide == "X" ? "O" : "X"));
+      setCurrentSide((currentSide) => (currentSide === "X" ? "O" : "X"));
     }
   }
 
