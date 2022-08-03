@@ -13,15 +13,27 @@
 
 .currentPlayer {
     height: 10vw;
+    height: 25%;
     width: 50%;
     display: flex;
     justify-content: center;
     font-size: 5vw;
+    animation: playerName 15s ease infinite;
+}
+
+.gameResult {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 4vw;
 }
 
 .currentPlayerName{
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .currentPlayerSide {
@@ -42,6 +54,7 @@
     justify-items: stretch;
     align-items: stretch;
     gap: 5px;
+    top: 1vw;
 }
 
 .item {
@@ -60,9 +73,9 @@
     transition: z-index 2s linear 2s, transform 2s;
 }
 
-/* .front:hover {
-    transform: rotateY(180deg);
-} */
+.front:hover {
+    background-color: rgb(71, 58, 58);
+}
 
 .back {
     cursor: pointer;
@@ -87,3 +100,18 @@
 		background-position: 0% 50%;
 	}
 }
+
+@keyframes playerName {
+    from {
+      color: #ee7752;
+    }
+    33% {
+      color: #e73c7e;
+    }
+    66% {
+      color: #23a6d5;
+    }
+    100% {
+      color: #23d5ab;
+    }
+  }
