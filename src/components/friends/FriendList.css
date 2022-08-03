@@ -62,6 +62,8 @@
   left: 20px;
   width: 200px;
   height: 30px;
+  color: white;
+  background: black;
 }
 
 #add-friend button {
