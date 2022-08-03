@@ -53,6 +53,7 @@ function FriendList({friendListPackage}) {
       .then(res => res.json())
       // .then(console.log)
       .then(data => {
+        console.log(data)
         if (data.result.match(/^Friend invite sent/)) {
           showAlert({type:"winner", message: data.result})
         } else {
