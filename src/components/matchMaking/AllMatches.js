@@ -10,7 +10,7 @@ export default function AllMatches({ currentUser, gameId }) {
     getMatches();
     const intervalId = setInterval(() => {
       getMatches();
-    }, 5000);
+    }, 500);
 
     return () => {
       clearInterval(intervalId);
@@ -22,7 +22,22 @@ export default function AllMatches({ currentUser, gameId }) {
       .then((res) => {
         return res.json();
       })
-      .then(setAllMatches);
+      .then((data) => {
+        let obj = { pending: 1, "in match": 2, finished: 3, rejected: 4 };
+        data.sort(function (a, b) {
+          if (obj[a.usermatch.status] < obj[b.usermatch.status]) {
+            return -1;
+          }
+
+          if (obj[a.usermatch.status] < obj[b.usermatch.status]) {
+            return 1;
+          }
+
+          return 0;
+        });
+
+        setAllMatches(data);
+      });
   }
 
   const MatchesToInclude = allMatches.map((obj) => {

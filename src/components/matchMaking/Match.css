@@ -6,6 +6,8 @@
 .match-row{
   display: flex;
   align-items: center;
+
+
 }
 
 .button-68 {
@@ -114,6 +116,7 @@
   border-style: none;
   box-shadow: rgba(39, 145, 174, 0.15) 0 4px 9px;
   box-sizing: border-box;
+
   color: #fff;
   cursor: pointer;
   display: inline-block;
@@ -153,4 +156,61 @@
 
 .button-70:hover {
   box-shadow: rgba(39, 145, 174, 0.2) 0 6px 12px;
+}
+
+.button-71 {
+  appearance: none;
+  backface-visibility: hidden;
+  background-color: #7127ae;
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: rgba(129, 39, 174, 0.15) 0 4px 9px;
+  box-sizing: border-box;
+  margin-left: 30px;
+
+  color: #fff;
+  cursor: pointer;
+
+  font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: normal;
+  line-height: 1.5;
+  outline: none;
+  overflow: hidden;
+  padding: 5px 9px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transform: translate3d(0, 0, 0);
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: nowrap;
+
+
+}
+
+.button-71:hover {
+
+  background-color: #6b1e84;
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: .35s;
+}
+
+.button-71:active {
+  transform: translateY(2px);
+  transition-duration: .35s;
+}
+
+.button-71:hover {
+  box-shadow: rgba(120, 39, 174, 0.2) 0 6px 12px;
+}
+
+
+.rejected-text{
+  color: red;
 }
