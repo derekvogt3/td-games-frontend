@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 function TicTacToe({ ticTacToePackage }) {
   const { currentUser, showAlert } = ticTacToePackage;
   const [board, setBoard] = useState(Array(9).fill(" "));
-  const [gameSettings, setGameSettings] = useState({});
+  const [gameSettings, setGameSettings] = useState({"X":[0,""],"O":[0,""]});
   const [currentSide, setCurrentSide] = useState("");
   const [gameFinished, setGameFinished] = useState(false);
   const [intervalId, setIntervalId] = useState(0)
@@ -68,7 +68,7 @@ function TicTacToe({ ticTacToePackage }) {
       });
   }, []);
 
-  //get latest game history every second and update the board
+  // get latest game history every second and update the board
   useEffect(() => {
     const id = setInterval(() => {
       fetch(`${fetchUrl}/tic_tac_toe_match_last_history/${matchId}`)
@@ -98,10 +98,12 @@ function TicTacToe({ ticTacToePackage }) {
 
   // to disable board if not current player
   useEffect(() => {
-    if (gameSettings[currentSide] == currentUser.id) {
-      boardRef.current.style.pointerEvents = "auto"
-    } else {
-      boardRef.current.style.pointerEvents = "none"
+    if (gameSettings[currentSide]) {
+      if (gameSettings[currentSide][0] == currentUser.id) {
+        boardRef.current.style.pointerEvents = "auto"
+      } else {
+        boardRef.current.style.pointerEvents = "none"
+      }
     }
   }, [currentSide])
 
@@ -112,7 +114,10 @@ function TicTacToe({ ticTacToePackage }) {
   }
 
   // console.log(board)
-  // console.log(gameSettings)
+  // if (gameSettings[currentSide]) {
+  //   console.log(gameSettings[currentSide][1])
+  //   console.log(gameSettings[currentSide === "X" ? "O" : "X"][1])
+  // }
   // console.log(currentSide)
   console.log(gameFinished)
   // console.log(intervalId)
@@ -148,7 +153,7 @@ function TicTacToe({ ticTacToePackage }) {
         win = board[combo[0]];
         console.log(intervalId)
         clearInterval(intervalId)
-        if (gameSettings[win] == currentUser.id) {
+        if (gameSettings[win][0] == currentUser.id) {
           setTimeout(() => {
             showAlert({ type: "winner", message: "You win!" });
           }, 1000);
@@ -240,8 +245,34 @@ function TicTacToe({ ticTacToePackage }) {
   }
 
   return (
-    <>
-      <div className={styles.mainPageContainer}>
+    <div className={styles.mainPageContainer}>
+      <div className={styles.currentPlayer}>
+        <div className={styles.currentPlayerName}>
+          {
+            gameSettings[currentSide] ? (
+              gameSettings[currentSide][0] === currentUser.id ? (
+                <div>Your Turn</div>
+              ) : (
+                <div>
+                  {gameSettings[currentSide === "X" ? "X" : "O"][1]}'s Turn
+                </div>
+              )
+            ) : (
+              null
+            )
+          }
+        </div>
+        <div className={styles.currentPlayerSide}>
+          {
+            currentSide === "X" ? (
+              <div style={{color: "red"}}>{currentSide}</div>
+            ) : (
+              <div style={{color: "blue"}}>{currentSide}</div>
+            )
+          }
+        </div>
+      </div>
+      <div className={styles.gamePlayground}>
         <div className={styles.tttContainer} ref={boardRef}>
           <div className={styles.item}>
             <div
@@ -317,7 +348,7 @@ function TicTacToe({ ticTacToePackage }) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
