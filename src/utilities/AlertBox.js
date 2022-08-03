@@ -10,7 +10,7 @@ function AlertBox({setOnAlert, alert}) {
   return (
     <div id="alert-box" onClick={noticedAlert}>
       {
-        alert.type == "alert" ? (
+        alert.type === "alert" ? (
           <div id="alert-message">
             {alert.message}
           </div>
@@ -19,7 +19,7 @@ function AlertBox({setOnAlert, alert}) {
         )
       }
       {
-        alert.type == "winner" ? (
+        alert.type === "winner" ? (
           <div id="win-message">
             <h1>{alert.message}</h1>
           </div>

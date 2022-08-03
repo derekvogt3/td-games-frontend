@@ -79,7 +79,7 @@ function MyMessage({currentUser, usersStatus, message}) {
             </div>
             {
               // only show element when the message were sent by user
-              currentUser.id == sender.id ? (
+              currentUser.id === sender.id ? (
                 <div className="edit-mode">
                   <img className="message-edit-btn" src="https://img.icons8.com/ios/50/000000/edit-chat-history.png" alt="edit" onClick={() => setEditMode(!editMode)}/>
                   <img className="message-recall-btn" src="https://img.icons8.com/external-solid-style-bomsymbols-/65/000000/external-bin-business-shop-finance-solid-style-set-2-solid-style-bomsymbols-.png" alt="recall" onClick={deleteMessage}/>

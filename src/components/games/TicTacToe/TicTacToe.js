@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import styles from "./TicTacToe.module.css";
 import { fetchUrl } from "../../../utilities/GlobalVariables";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function TicTacToe({ ticTacToePackage }) {
   const { currentUser, showAlert } = ticTacToePackage;
@@ -11,6 +11,8 @@ function TicTacToe({ ticTacToePackage }) {
   const [currentSide, setCurrentSide] = useState("");
   const [gameFinished, setGameFinished] = useState(false);
   const [intervalId, setIntervalId] = useState(0)
+
+  const navigate = useNavigate()
 
   const location = useLocation();
   const matchId = location.pathname.substring(
@@ -39,7 +41,7 @@ function TicTacToe({ ticTacToePackage }) {
       .then((data) => {
         // console.log(data.match.game_status);
         const fetchBoard = JSON.parse(data.match.game_status).board
-        if (turn_count(fetchBoard) == 0) {
+        if (turn_count(fetchBoard) === 0) {
           setCurrentSide("X");
           setBoard(fetchBoard);
         } else {
@@ -47,14 +49,14 @@ function TicTacToe({ ticTacToePackage }) {
             // console.log(i, v)
             if (v != " ") {
               fieldRefs[i].current.textContent = v;
-              v == "X"
+              v === "X"
                 ? (fieldRefs[i].current.style.color = "red")
                 : (fieldRefs[i].current.style.color = "blue");
               fieldRefs[i].current.parentNode.style.transform = "rotateY(180deg)";
               fieldRefs[i].current.parentNode.style.pointerEvents = "none";
             }
           })
-          setCurrentSide(data.history.player == "X" ? "O" : "X");
+          setCurrentSide(data.history.player === "X" ? "O" : "X");
           setBoard(fetchBoard)
         }
         // console.log(data);
@@ -78,15 +80,19 @@ function TicTacToe({ ticTacToePackage }) {
           if (board[history.position] != history.player) {
             // console.log(history)
             fieldRefs[history.position].current.textContent = history.player;
-            history.player == "X"
+            history.player === "X"
               ? (fieldRefs[history.position].current.style.color = "red")
               : (fieldRefs[history.position].current.style.color = "blue");
             fieldRefs[history.position].current.parentNode.style.transform = "rotateY(180deg)";
             fieldRefs[history.position].current.parentNode.style.pointerEvents = "none";
             board[history.position] = history.player
-            checkWinner(board)
-            setCurrentSide(history.player == "X" ? "O" : "X");
-            setBoard(board)
+            if (checkWinner(board)) {
+              setGameFinished(true)
+              setBoard(board)
+            } else {
+              setCurrentSide(history.player === "X" ? "O" : "X");
+              setBoard(board)
+            }
           }
         }
       })
@@ -99,7 +105,7 @@ function TicTacToe({ ticTacToePackage }) {
   // to disable board if not current player
   useEffect(() => {
     if (gameSettings[currentSide]) {
-      if (gameSettings[currentSide][0] == currentUser.id) {
+      if (gameSettings[currentSide][0] === currentUser.id) {
         boardRef.current.style.pointerEvents = "auto"
       } else {
         boardRef.current.style.pointerEvents = "none"
@@ -107,11 +113,14 @@ function TicTacToe({ ticTacToePackage }) {
     }
   }, [currentSide])
 
-  // if game is finished, no more need to fetching or access to the board
-  if (gameFinished) {
-    clearInterval(intervalId)
-    boardRef.current.style.pointerEvents = "none";
-  }
+  useEffect(() => {
+    // if game is finished, no more need to fetching or access to the board
+    if (gameFinished && boardRef) {
+      clearInterval(intervalId)
+      boardRef.current.style.pointerEvents = "none";
+    }
+  }, [gameFinished])
+
 
   // console.log(board)
   // if (gameSettings[currentSide]) {
@@ -119,7 +128,7 @@ function TicTacToe({ ticTacToePackage }) {
   //   console.log(gameSettings[currentSide === "X" ? "O" : "X"][1])
   // }
   // console.log(currentSide)
-  console.log(gameFinished)
+  // console.log(gameFinished)
   // console.log(intervalId)
 
   // --------------------------- tic tac toe logics -----------------------------
@@ -146,21 +155,25 @@ function TicTacToe({ ticTacToePackage }) {
     let win = false;
     winCombinations.forEach((combo) => {
       if (
-        board[combo[0]] != " " &&
-        board[combo[0]] == board[combo[1]] &&
-        board[combo[1]] == board[combo[2]]
+        board[combo[0]] !== " " &&
+        board[combo[0]] === board[combo[1]] &&
+        board[combo[1]] === board[combo[2]]
       ) {
         win = board[combo[0]];
         console.log(intervalId)
         clearInterval(intervalId)
-        if (gameSettings[win][0] == currentUser.id) {
-          setTimeout(() => {
-            showAlert({ type: "winner", message: "You win!" });
-          }, 1000);
+        if (gameSettings[win][0] === currentUser.id) {
+          if (!gameFinished) {
+            setTimeout(() => {
+              showAlert({ type: "winner", message: "You win!" });
+            }, 1000);
+          }
         } else {
-          setTimeout(() => {
-            showAlert({ type: "alert", message: "You lose!" });
-          }, 1000);
+          if (!gameFinished) {
+            setTimeout(() => {
+              showAlert({ type: "alert", message: "You lose!" });
+            }, 1000);
+          }
         }
       }
     });
@@ -168,7 +181,7 @@ function TicTacToe({ ticTacToePackage }) {
   }
 
   function full(board) {
-    return board.filter((index) => index == " ").length == 0 ? !won(board) : false;
+    return board.filter((index) => index === " ").length === 0 ? !won(board) : false;
   }
 
   function draw(board) {
@@ -180,12 +193,17 @@ function TicTacToe({ ticTacToePackage }) {
   }
 
   function checkWinner(board) {
+    let winner = false
     if (over(board)) {
       if (draw(board)) {
-        setTimeout(() => {
-          showAlert({ type: "alert", message: "Draw!" });
-        }, 1000);
+        winner = "Draw"
+        if (!gameFinished) {
+          setTimeout(() => {
+            showAlert({ type: "alert", message: "Draw!" });
+          }, 1000);
+        }
       } else if (won(board)) {
+        winner = won(board)
         boardRef.current.style.pointerEvents = "none";
       }
       return true
@@ -220,7 +238,7 @@ function TicTacToe({ ticTacToePackage }) {
       .then((data) => console.log(data));
 
     e.target.textContent = currentSide;
-    currentSide == "X"
+    currentSide === "X"
       ? (e.target.style.color = "red")
       : (e.target.style.color = "blue");
     e.target.parentNode.style.transform = "rotateY(180deg)";
@@ -240,37 +258,62 @@ function TicTacToe({ ticTacToePackage }) {
         .then((data) => console.log(data));
       setGameFinished(true)
     } else {
-      setCurrentSide((currentSide) => (currentSide == "X" ? "O" : "X"));
+      setCurrentSide((currentSide) => (currentSide === "X" ? "O" : "X"));
     }
   }
 
   return (
     <div className={styles.mainPageContainer}>
       <div className={styles.currentPlayer}>
-        <div className={styles.currentPlayerName}>
-          {
-            gameSettings[currentSide] ? (
-              gameSettings[currentSide][0] === currentUser.id ? (
-                <div>Your Turn</div>
-              ) : (
-                <div>
-                  {gameSettings[currentSide === "X" ? "X" : "O"][1]}'s Turn
-                </div>
-              )
-            ) : (
-              null
-            )
-          }
-        </div>
-        <div className={styles.currentPlayerSide}>
-          {
-            currentSide === "X" ? (
-              <div style={{color: "red"}}>{currentSide}</div>
-            ) : (
-              <div style={{color: "blue"}}>{currentSide}</div>
-            )
-          }
-        </div>
+        {
+          gameFinished ? (
+            <div className={styles.gameResult} onClick={() => navigate("/")}>
+              <div>Game Finished</div>
+              {
+                (gameSettings[currentSide]) ? (
+                  <div>
+                    {
+                      draw(board) ? (
+                        "Draw"
+                      ) : (
+                        `${gameSettings[won(board)][1]} Won!`
+                      )
+                    }
+                  </div>
+                ) : (
+                  null
+                )
+              }
+            </div>
+          ) : (
+            <>
+              <div className={styles.currentPlayerName}>
+                {
+                  gameSettings[currentSide] ? (
+                    gameSettings[currentSide][0] === currentUser.id ? (
+                      <div>Your Turn</div>
+                    ) : (
+                      <div>
+                        {gameSettings[currentSide === "X" ? "X" : "O"][1]}'s Turn
+                      </div>
+                    )
+                  ) : (
+                    null
+                  )
+                }
+              </div>
+              <div className={styles.currentPlayerSide}>
+                {
+                  currentSide === "X" ? (
+                    <div style={{color: "red"}}>{currentSide}</div>
+                  ) : (
+                    <div style={{color: "blue"}}>{currentSide}</div>
+                  )
+                }
+              </div>
+            </>
+          )
+        }
       </div>
       <div className={styles.gamePlayground}>
         <div className={styles.tttContainer} ref={boardRef}>

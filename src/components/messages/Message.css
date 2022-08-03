@@ -58,6 +58,8 @@
   width: 200px;
   height: 43px;
   border-radius: 10px;
+  color: white;
+  background: #99688f;
 }
 
 .message-edit-form button, .message-edit-form img{

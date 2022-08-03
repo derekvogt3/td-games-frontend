@@ -240,7 +240,7 @@ function Pixel({title}) {
           );
           engine.globalCompositeOperation = compositionNormal;
 
-          if (highlightTicker == highlightTickerMax) {
+          if (highlightTicker === highlightTickerMax) {
             setTimeout(changeDrawMode, 1000);
             setTimeout(changeDrawMode, changeTime);
           }
@@ -265,7 +265,7 @@ function Pixel({title}) {
 
         //redundant, in loop klatschen
 
-        if (target.x == pixel.x) {
+        if (target.x === pixel.x) {
           //do nothing
         } else if (range(pixel, target, "x") < targetLookReverse) {
           pixel.x = target.x;
@@ -288,7 +288,7 @@ function Pixel({title}) {
           pixel.x += pixel.moveX;
         }
 
-        if (target.y == pixel.y) {
+        if (target.y === pixel.y) {
           //do nothing
         } else if (range(pixel, target, "y") < targetLookReverse) {
           pixel.y = target.y;
