@@ -153,6 +153,7 @@ function LoginForm({ loginFormPackage }) {
                     body: JSON.stringify({
                       username: name,
                       password: password,
+                      is_login: true
                     }),
                   })
                     .then((res) => res.json())
