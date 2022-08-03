@@ -1,7 +1,10 @@
 import React from "react";
 import { fetchUrl } from "../../utilities/GlobalVariables";
+import { useState, useEffect } from "react";
 
 export default function MatchFriend({ friend, currentUser, gameId }) {
+  const [invited, setInvited] = useState(false);
+
   const Img = friend.profile_img
     ? friend.profile_img
     : "https://wellbeingchirony.com/wp-content/uploads/2021/03/Deafult-Profile-Pitcher.png";
@@ -24,12 +27,12 @@ export default function MatchFriend({ friend, currentUser, gameId }) {
       body: JSON.stringify(inviteObj),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => setInvited(true));
   }
 
   return (
     <div className="friend">
-      <div onClick={inviteFriend} className="profile-img-holder">
+      <div className="profile-img-holder">
         <img className="profile-img" src={Img} alt={friend.username} />
         <div className="online-status" style={online}></div>
       </div>
@@ -38,6 +41,18 @@ export default function MatchFriend({ friend, currentUser, gameId }) {
           {friend.username.slice(0, 1).toUpperCase()}
           {friend.username.slice(1)}
         </p>
+      </div>
+
+      <div className="match-row">
+        {invited ? (
+          <p>
+            <i>Invite Sent</i>
+          </p>
+        ) : (
+          <button className="button-70" onClick={inviteFriend}>
+            Invite to Game
+          </button>
+        )}
       </div>
     </div>
   );

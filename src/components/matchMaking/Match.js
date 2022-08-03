@@ -41,6 +41,7 @@ export default function Match({ usermatch, friend, currentUser }) {
   const online = friend.is_login
     ? { backgroundColor: "green" }
     : { backgroundColor: "red" };
+
   return (
     <div className="friend">
       <div className="profile-img-holder">
@@ -53,6 +54,8 @@ export default function Match({ usermatch, friend, currentUser }) {
           {friend.username.slice(1)}
         </p>
       </div>
+
+      {}
 
       <div className="match-row">
         {usermatch.status === "pending" ? (
@@ -85,12 +88,37 @@ export default function Match({ usermatch, friend, currentUser }) {
                 Go to Match
               </button>
             ) : (
-              <p>
-                <i>
-                  {usermatch.status.slice(0, 1).toUpperCase()}
-                  {usermatch.status.slice(1)}
-                </i>
-              </p>
+              <>
+                {usermatch.status === "finished" ? (
+                  <>
+                    <p>
+                      <i className>
+                        {usermatch.status.slice(0, 1).toUpperCase()}
+                        {usermatch.status.slice(1)}
+                      </i>
+                    </p>
+                    <button
+                      className="button-71"
+                      onClick={() =>
+                        navigate("/tictactoe/" + usermatch.match_id)
+                      }
+                    >
+                      See Results
+                    </button>
+                  </>
+                ) : (
+                  <p>
+                    <i
+                      className={
+                        usermatch.status === "rejected" ? "rejected-text" : ""
+                      }
+                    >
+                      {usermatch.status.slice(0, 1).toUpperCase()}
+                      {usermatch.status.slice(1)}
+                    </i>
+                  </p>
+                )}
+              </>
             )}
           </>
         )}
