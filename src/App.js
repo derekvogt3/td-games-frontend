@@ -11,7 +11,7 @@ import ChatList from "./components/chats/ChatList";
 import MessageList from "./components/messages/MessageList";
 import Pixel from "./utilities/PixelArt";
 import AlertBox from "./utilities/AlertBox";
-import MatchMaking from "./components/games/MatchMaking";
+import MatchMaking from "./components/matchMaking/MatchMaking";
 import TicTacToe from "./components/games/TicTacToe/TicTacToe";
 
 function App() {

@@ -30,9 +30,6 @@ function HomePage() {
       showCaseFrontRef.current.scrollLeft = (games.length - 1) * 500
     }
   }, [games])
-
-  console.log(backScrollWidth)
-  console.log(frontScrollWidth)
   
   // scroll to left
   function scrollLeft() {
