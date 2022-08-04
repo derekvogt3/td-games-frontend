@@ -61,7 +61,7 @@ export default function MatchFriend({ friend, currentUser, gameId }) {
         <p>Diffculty:</p>
         <select value={diffculty} onChange={e => setDiffculty(e.target.value)}>
           <option value="normal">Normal</option>
-          <option value="mid">Medium</option>
+          <option value="medium">Medium</option>
         </select>
       </div>
     </div>

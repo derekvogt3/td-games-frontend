@@ -276,6 +276,8 @@ function TicTacToe({ ticTacToePackage }) {
     )
   })
 
+  const winner = won(board)
+
   return (
     <div className={styles.mainPageContainer}>
       <div className={styles.currentPlayer}>
@@ -290,7 +292,11 @@ function TicTacToe({ ticTacToePackage }) {
                       draw(board) ? (
                         "Draw"
                       ) : (
-                        `${gameSettings[won(board)][1]} Won!`
+                        <div className={styles.winnerInfo}>
+                          <div>{gameSettings[winner][1]}</div>
+                          <div className={styles.winnerSide} style={winner == "X" ? {color: "red"} : {color: "blue"}}>{winner}</div>
+                          <div>Won!</div>
+                        </div>
                       )
                     }
                   </div>
@@ -334,6 +340,15 @@ function TicTacToe({ ticTacToePackage }) {
           {boardFields}
         </div>
       </div>
+      {
+        gameSettings[currentSide] ? (
+          <div className={styles.instruction}>
+            Connect 3 <div style={gameSettings["X"][0] == currentUser.id ? {color: "red"} : {color: "blue"}}>{gameSettings["X"][0] == currentUser.id ? "X" : "O"}</div> to win.
+          </div>
+        ) : (
+          null
+        )
+      }
     </div>
   );
 }

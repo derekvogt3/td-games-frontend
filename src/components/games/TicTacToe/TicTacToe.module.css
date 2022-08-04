@@ -30,6 +30,17 @@
     font-size: 4vw;
 }
 
+.winnerInfo {
+    display: flex;
+    align-items: center;
+}
+
+.winnerSide {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 5vw;
+}
+
 .currentPlayerName{
     display: flex;
     align-items: center;
@@ -87,6 +98,19 @@
     align-items: center;
     justify-content: center;
     transform: rotateY(180deg) translateZ(1px);
+}
+
+.instruction {
+    position: relative;
+    display: flex;
+    top: 30px;
+    font-size: 3vw;
+    animation: playerName 15s ease infinite;
+}
+
+.instruction div {
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 @keyframes gradient {

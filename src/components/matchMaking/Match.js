@@ -11,7 +11,7 @@ export default function Match({ usermatch, friend, currentUser }) {
   useEffect(() => {
     if (usermatch.diffculty === "normal") {
       setGameUrl("/tictactoe/")
-    } else if (usermatch.diffculty === "mid") {
+    } else if (usermatch.diffculty === "medium") {
       setGameUrl("/tictactoemid/")
     }
   }, []);
