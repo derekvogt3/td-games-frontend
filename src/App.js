@@ -15,6 +15,7 @@ import MatchMaking from "./components/matchMaking/MatchMaking";
 import TicTacToe from "./components/games/TicTacToe/TicTacToe";
 import Settings from "./components/settings/Settings";
 import WinLossMessage from "./utilities/WinLoseMessage";
+import Connect4 from "./components/games/Connect4/Connect4";
 
 function App() {
   const [firstEnter, setFirstEnter] = useState(true);
@@ -27,9 +28,9 @@ function App() {
   const [onAlert, setOnAlert] = useState(false);
   const [alert, setAlert] = useState({ type: "alert", message: "alert" });
   const [onWinLose, setonWinLose] = useState(false);
-  const [winLose, setwinLose] = useState({type: "draw", message: "Draw"});
+  const [winLose, setwinLose] = useState({ type: "draw", message: "Draw" });
   const [chatId, setChatId] = useState("");
-  const [unreadMessages, setUnreadMessages] = useState([])
+  const [unreadMessages, setUnreadMessages] = useState([]);
 
   const timeOutIds = [];
 
@@ -44,8 +45,8 @@ function App() {
   useEffect(() => {
     if (currentUser.id) {
       fetch(`${fetchUrl}/messages_unread/${currentUser.id}`)
-      .then(res => res.json())
-      .then(setUnreadMessages)
+        .then((res) => res.json())
+        .then(setUnreadMessages);
 
       setShowFriends(false);
       setShowChats(false);
@@ -56,16 +57,16 @@ function App() {
 
   // track unread messages
   useEffect(() => {
-    let intervalId
+    let intervalId;
     if (currentUser.id) {
       intervalId = setInterval(() => {
         fetch(`${fetchUrl}/messages_unread/${currentUser.id}`)
-        .then(res => res.json())
-        .then(setUnreadMessages)
-      }, 2000)
+          .then((res) => res.json())
+          .then(setUnreadMessages);
+      }, 2000);
     }
 
-    return (() => clearInterval(intervalId))
+    return () => clearInterval(intervalId);
   }, [currentUser]);
 
   // to set intro animations
@@ -164,7 +165,9 @@ function App() {
         </div>
       ) : null}
       {onAlert ? <AlertBox setOnAlert={setOnAlert} alert={alert} /> : null}
-      {onWinLose ? <WinLossMessage setonWinLose={setonWinLose} winLose={winLose} /> : null}
+      {onWinLose ? (
+        <WinLossMessage setonWinLose={setonWinLose} winLose={winLose} />
+      ) : null}
       <Header loginFormPackage={loginFormPackage} />
       {/* only show the following list when corrsponding button are clicked */}
       {showFriends ? (
@@ -195,6 +198,7 @@ function App() {
             path="/tictactoe/:matcj_id"
             element={<TicTacToe ticTacToePackage={ticTacToePackage} />}
           />
+          <Route path="/connect4" element={<Connect4 />}></Route>
         </Routes>
       </div>
     </BrowserRouter>
