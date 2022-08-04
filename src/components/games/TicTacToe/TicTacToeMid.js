@@ -1,12 +1,12 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import styles from "./TicTacToe.module.css";
+import styles from "./TicTacToeMid.module.css";
 import { fetchUrl } from "../../../utilities/GlobalVariables";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function TicTacToe({ ticTacToePackage }) {
   const { currentUser, showWinLose } = ticTacToePackage;
-  const [board, setBoard] = useState(Array(9).fill(" "));
+  const [board, setBoard] = useState(Array(25).fill(" "));
   const [gameSettings, setGameSettings] = useState({"X":[0,""],"O":[0,""]});
   const [currentSide, setCurrentSide] = useState("");
   const [gameFinished, setGameFinished] = useState(false);
@@ -29,14 +29,37 @@ function TicTacToe({ ticTacToePackage }) {
   const fieldRef6 = useRef();
   const fieldRef7 = useRef();
   const fieldRef8 = useRef();
+  const fieldRef9 = useRef();
+  const fieldRef10 = useRef();
+  const fieldRef11 = useRef();
+  const fieldRef12 = useRef();
+  const fieldRef13 = useRef();
+  const fieldRef14 = useRef();
+  const fieldRef15 = useRef();
+  const fieldRef16 = useRef();
+  const fieldRef17 = useRef();
+  const fieldRef18 = useRef();
+  const fieldRef19 = useRef();
+  const fieldRef20 = useRef();
+  const fieldRef21 = useRef();
+  const fieldRef22 = useRef();
+  const fieldRef23 = useRef();
+  const fieldRef24 = useRef();
+
+  // const arr = [...Array(25).keys()]
+  // arr.forEach(i => {
+  //   fieldRefs.push(fieldRef`${i}` = useRef())
+  // })
   const fieldRefs = [
-    fieldRef0, fieldRef1, fieldRef2,
-    fieldRef3, fieldRef4, fieldRef5,
-    fieldRef6, fieldRef7, fieldRef8,
+    fieldRef0, fieldRef1, fieldRef2, fieldRef3, fieldRef4, 
+    fieldRef5, fieldRef6, fieldRef7, fieldRef8, fieldRef9,
+    fieldRef10, fieldRef11, fieldRef12, fieldRef13, fieldRef14,
+    fieldRef15, fieldRef16, fieldRef17, fieldRef18, fieldRef19,
+    fieldRef20, fieldRef21, fieldRef22, fieldRef23, fieldRef24
   ]
 
   useEffect(() => {
-    fetch(`${fetchUrl}/tic_tac_toe_match_data?match_id=${matchId}&length=9`)
+    fetch(`${fetchUrl}/tic_tac_toe_match_data?match_id=${matchId}&length=25`)
       .then((res) => res.json())
       .then((data) => {
         // console.log(data.match.game_status);
@@ -78,7 +101,7 @@ function TicTacToe({ ticTacToePackage }) {
       .then(history => {
         if (history) {
           if (board[history.position] != history.player) {
-            // console.log(history)
+            console.log(history)
             fieldRefs[history.position].current.textContent = history.player;
             history.player === "X"
               ? (fieldRefs[history.position].current.style.color = "red")
@@ -116,10 +139,13 @@ function TicTacToe({ ticTacToePackage }) {
   useEffect(() => {
     // if game is finished, no more need to fetching or access to the board
     if (gameFinished && boardRef) {
+      console.log(`${intervalId} stopped`)
       clearInterval(intervalId)
       boardRef.current.style.pointerEvents = "none";
     }
-  }, [gameFinished])
+
+    return (() => clearInterval(intervalId))
+  }, [gameFinished, intervalId])
 
 
   // console.log(board)
@@ -133,14 +159,20 @@ function TicTacToe({ ticTacToePackage }) {
 
   // --------------------------- tic tac toe logics -----------------------------
   const winCombinations = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
+    [0, 1, 2, 3], [1, 2, 3, 4],
+    [5, 6, 7, 8], [6, 7, 8 ,9],
+    [10, 11, 12, 13], [11, 12, 13, 14],
+    [15, 16, 17, 18], [16, 17, 18, 19],
+    [20, 21, 22, 23], [21, 22, 23, 24],
+    [0, 5, 10, 15], [5, 10, 15, 20],
+    [1, 6, 11, 16], [6, 11, 16, 21],
+    [2, 7, 12, 17], [7, 12, 17, 22],
+    [3, 8, 13, 18], [8, 13, 18, 23],
+    [4, 9, 14, 19], [9, 14, 19, 24],
+    [0, 6, 12, 18], [6, 12, 18, 24],
+    [4, 8, 12, 16], [8, 12, 16, 20],
+    [1, 7, 13, 19], [5, 11, 17, 23],
+    [3, 7, 11, 15], [9, 13, 17, 21],
   ];
 
   function move(index, currentSide) {
@@ -157,10 +189,10 @@ function TicTacToe({ ticTacToePackage }) {
       if (
         board[combo[0]] !== " " &&
         board[combo[0]] === board[combo[1]] &&
-        board[combo[1]] === board[combo[2]]
+        board[combo[1]] === board[combo[2]] &&
+        board[combo[2]] === board[combo[3]]
       ) {
         win = board[combo[0]];
-        console.log(intervalId)
         clearInterval(intervalId)
         if (gameSettings[win][0] === currentUser.id) {
           if (!gameFinished) {
@@ -262,7 +294,7 @@ function TicTacToe({ ticTacToePackage }) {
     }
   }
 
-  const arr = [...Array(9).keys()]
+  const arr = [...Array(25).keys()]
   const boardFields = arr.map(i => {
     return (
       <div key={i} className={styles.item}>

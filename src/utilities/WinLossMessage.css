@@ -31,8 +31,8 @@
   background: -webkit-linear-gradient(rgb(185, 23, 44), rgb(153, 80, 89));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-left: 100px;
-  margin-right: 100px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 #draw-message h1 {
