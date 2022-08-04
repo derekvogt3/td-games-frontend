@@ -6,8 +6,27 @@
 .match-row{
   display: flex;
   align-items: center;
+}
 
+.friend-name {
+  flex: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
 
+.friend-name p {
+  font-size: 20px;
+  margin: 0;
+}
+
+.match-info {
+  font-size: 12px;
+}
+
+.match-info i {
+  margin-right: 5px;
+  color: #3ea2b0;
 }
 
 .button-68 {

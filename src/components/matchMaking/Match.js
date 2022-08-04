@@ -63,6 +63,10 @@ export default function Match({ usermatch, friend, currentUser }) {
           {friend.username.slice(0, 1).toUpperCase()}
           {friend.username.slice(1)}
         </p>
+        <div className="match-info">
+          <i>#{usermatch.id}:</i>
+          <i>{usermatch.diffculty.slice(0, 1).toUpperCase()}{usermatch.diffculty.slice(1)}</i>
+        </div>
       </div>
 
       {}
