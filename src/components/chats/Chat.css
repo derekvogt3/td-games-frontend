@@ -18,3 +18,16 @@
   padding: 0;
   margin: 0;
 }
+
+.unread-messages {
+  position: relative;
+  top: 40px;
+  left: -20px;
+  width: 20px;
+  height: 20px;
+  color: white;
+  background-color: red;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 50%;
+}

@@ -4,7 +4,7 @@ import "./Chat.css"
 
 function Chat({chat, chatListPackage}) {
   const {id} = chat 
-  const {setChatId, setShowFriends, setShowChats, setShowMessages} = chatListPackage
+  const {setChatId, unreadMessages, setShowFriends, setShowChats, setShowMessages} = chatListPackage
   const [members, setMembers] = useState([])
 
   useEffect(() => {
@@ -47,6 +47,8 @@ function Chat({chat, chatListPackage}) {
     )
   })
 
+  const showUnreadMessages = unreadMessages.filter(message => message.chat_id === id)
+
   return (
     <div className="chat">
       <div className="chat-members">
@@ -55,6 +57,13 @@ function Chat({chat, chatListPackage}) {
       <div>
         <img className="start-message" src="https://img.icons8.com/cotton/64/000000/chat.png" onClick={goToChat}/>
       </div>
+      {
+        showUnreadMessages.length > 0 ? (
+          <div className="unread-messages">{showUnreadMessages.length > 9 ? "9+" : showUnreadMessages.length}</div>
+        ) : (
+          null
+        )
+      }
     </div>
   );
 }

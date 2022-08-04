@@ -15,6 +15,20 @@ function MyMessage({currentUser, usersStatus, message}) {
     fetch(`${fetchUrl}/users/${message.user_id}`)
     .then(res => res.json())
     .then(setSender)
+
+    if (!message.read && message.user_id != currentUser.id) {
+      fetch(`${fetchUrl}/messages/${message.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          read: true
+        })
+      })
+      .catch(console.error)
+    } 
   }, [])
 
   useEffect(() => {

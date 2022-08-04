@@ -26,6 +26,7 @@ function App() {
   const [onAlert, setOnAlert] = useState(false);
   const [alert, setAlert] = useState({ type: "alert", message: "alert" });
   const [chatId, setChatId] = useState("");
+  const [unreadMessages, setUnreadMessages] = useState([])
 
   const timeOutIds = [];
 
@@ -36,8 +37,13 @@ function App() {
     }
   }, []);
 
+  // close all lists when user changes
   useEffect(() => {
     if (currentUser.id) {
+      fetch(`${fetchUrl}/messages_unread/${currentUser.id}`)
+      .then(res => res.json())
+      .then(setUnreadMessages)
+
       setShowFriends(false);
       setShowChats(false);
       setShowMessages(false);
@@ -45,6 +51,21 @@ function App() {
     }
   }, [currentUser]);
 
+  // track unread messages
+  useEffect(() => {
+    let intervalId
+    if (currentUser.id) {
+      intervalId = setInterval(() => {
+        fetch(`${fetchUrl}/messages_unread/${currentUser.id}`)
+        .then(res => res.json())
+        .then(setUnreadMessages)
+      }, 2000)
+    }
+
+    return (() => clearInterval(intervalId))
+  }, [currentUser]);
+
+  // to set intro animations
   useEffect(() => {
     timeOutIds.push(
       setTimeout(() => {
@@ -78,6 +99,7 @@ function App() {
   // packages for all states and functions to carry down to children
   const loginFormPackage = {
     currentUser,
+    unreadMessages,
     setCurrentUser,
     setShowFriends,
     setShowChats,
@@ -87,6 +109,7 @@ function App() {
   };
   const friendListPackage = {
     currentUser,
+    unreadMessages,
     setChatId,
     setShowFriends,
     setShowChats,
@@ -96,6 +119,7 @@ function App() {
   };
   const chatListPackage = {
     currentUser,
+    unreadMessages,
     setChatId,
     setShowFriends,
     setShowChats,

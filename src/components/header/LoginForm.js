@@ -6,6 +6,7 @@ import "./LoginForm.css";
 function LoginForm({ loginFormPackage }) {
   const {
     currentUser,
+    unreadMessages,
     setCurrentUser,
     setShowFriends,
     setShowChats,
@@ -246,6 +247,13 @@ function LoginForm({ loginFormPackage }) {
             </div>
             <div id="show-chats" onClick={showChatList}>
               <p>Chats</p>
+              {
+                unreadMessages.length > 0 ? (
+                  <div id="all-unread-messages">{unreadMessages.length > 9 ? "9+" : unreadMessages.length}</div>
+                ) : (
+                  null
+                )
+              }
             </div>
             <div id="show-chats" onClick={showSettings}>
               <p>Settings</p>

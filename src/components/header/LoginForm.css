@@ -54,17 +54,30 @@
   height: 50%;
 }
 
-#user-options div {
+#user-options>div {
   width: 50%;
   height: 100%;
   align-items: center;
   cursor: pointer;
 }
 
-#user-options div:hover {
+#user-options>div:hover {
   background-color: rgb(44, 39, 39);
 }
 
-#user-options div p {
+#user-options>div p {
   text-align: center;
+}
+
+#all-unread-messages {
+  position: relative;
+  top: -22px;
+  left: 50px;
+  width: 20px;
+  height: 20px;
+  color: white;
+  background-color: red;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 50%;
 }
