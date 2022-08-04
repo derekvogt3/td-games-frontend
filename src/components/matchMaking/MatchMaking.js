@@ -30,7 +30,12 @@ export default function MatchMaking({ matchMakingPackage }) {
         <button
           className="button-49"
           role="button"
-          onClick={() => setShowInvite(true)}
+          onClick={() => {
+            if (gameId == "1") {
+              setShowInvite(true)
+            }
+          }
+          }
         >
           Invite Friend to Match
         </button>

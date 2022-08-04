@@ -1,6 +1,7 @@
 import React from "react";
 import { fetchUrl } from "../../utilities/GlobalVariables";
 import { useState, useEffect } from "react";
+import "./MatchFriend.css"
 
 export default function MatchFriend({ friend, currentUser, gameId }) {
   const [diffculty, setDiffculty] = useState("normal")
@@ -57,7 +58,7 @@ export default function MatchFriend({ friend, currentUser, gameId }) {
         )}
       </div>
       <div className="match-friend-diff">
-        <p>Diffculty</p>
+        <p>Diffculty:</p>
         <select value={diffculty} onChange={e => setDiffculty(e.target.value)}>
           <option value="normal">Normal</option>
           <option value="mid">Medium</option>
