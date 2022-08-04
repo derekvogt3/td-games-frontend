@@ -262,6 +262,20 @@ function TicTacToe({ ticTacToePackage }) {
     }
   }
 
+  const arr = [...Array(9).keys()]
+  const boardFields = arr.map(i => {
+    return (
+      <div key={i} className={styles.item}>
+        <div
+          className={styles.front}
+          onClick={(e) => play(e, i, currentSide)}
+        >
+          <div className={styles.back} ref={fieldRefs[i]}></div>
+        </div>
+      </div>
+    )
+  })
+
   return (
     <div className={styles.mainPageContainer}>
       <div className={styles.currentPlayer}>
@@ -317,78 +331,7 @@ function TicTacToe({ ticTacToePackage }) {
       </div>
       <div className={styles.gamePlayground}>
         <div className={styles.tttContainer} ref={boardRef}>
-          <div className={styles.item}>
-            <div
-              className={styles.front}
-              onClick={(e) => play(e, 0, currentSide)}
-            >
-              <div className={styles.back} ref={fieldRefs[0]}></div>
-            </div>
-          </div>
-          <div className={styles.item}>
-            <div
-              className={styles.front}
-              onClick={(e) => play(e, 1, currentSide)}
-            >
-              <div className={styles.back} ref={fieldRefs[1]}></div>
-            </div>
-          </div>
-          <div className={styles.item}>
-            <div
-              className={styles.front}
-              onClick={(e) => play(e, 2, currentSide)}
-            >
-              <div className={styles.back} ref={fieldRefs[2]}></div>
-            </div>
-          </div>
-          <div className={styles.item}>
-            <div
-              className={styles.front}
-              onClick={(e) => play(e, 3, currentSide)}
-            >
-              <div className={styles.back} ref={fieldRefs[3]}></div>
-            </div>
-          </div>
-          <div className={styles.item}>
-            <div
-              className={styles.front}
-              onClick={(e) => play(e, 4, currentSide)}
-            >
-              <div className={styles.back} ref={fieldRefs[4]}></div>
-            </div>
-          </div>
-          <div className={styles.item}>
-            <div
-              className={styles.front}
-              onClick={(e) => play(e, 5, currentSide)}
-            >
-              <div className={styles.back} ref={fieldRefs[5]}></div>
-            </div>
-          </div>
-          <div className={styles.item}>
-            <div
-              className={styles.front}
-              onClick={(e) => play(e, 6, currentSide)}
-            >
-              <div className={styles.back} ref={fieldRefs[6]}></div>
-            </div>
-          </div>
-          <div className={styles.item}>
-            <div
-              className={styles.front}
-              onClick={(e) => play(e, 7, currentSide)}
-            >
-              <div className={styles.back} ref={fieldRefs[7]}></div>
-            </div>
-          </div>
-          <div className={styles.item}>
-            <div
-              className={styles.front}
-              onClick={(e) => play(e, 8, currentSide)}
-            >
-              <div className={styles.back} ref={fieldRefs[8]}></div>
-            </div>
-          </div>
+          {boardFields}
         </div>
       </div>
     </div>
