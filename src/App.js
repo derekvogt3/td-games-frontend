@@ -26,8 +26,8 @@ function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [onAlert, setOnAlert] = useState(false);
   const [alert, setAlert] = useState({ type: "alert", message: "alert" });
-  const [onWinLose, setonWinLose] = useState(false);
-  const [winLose, setwinLose] = useState({type: "draw", message: "Draw"});
+  const [onWinLose, setonWinLose] = useState(true);
+  const [winLose, setwinLose] = useState({type: "win", message: "You Win!"});
   const [chatId, setChatId] = useState("");
   const [unreadMessages, setUnreadMessages] = useState([])
 
