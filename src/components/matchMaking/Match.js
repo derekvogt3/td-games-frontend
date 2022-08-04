@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Match.css";
 import { fetchUrl } from "../../utilities/GlobalVariables";
 import { useNavigate } from "react-router-dom";
 
 export default function Match({ usermatch, friend, currentUser }) {
+  const [gameUrl, setGameUrl] = useState("/tictactoe/")
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (usermatch.diffculty === "normal") {
+      setGameUrl("/tictactoe/")
+    } else if (usermatch.diffculty === "mid") {
+      setGameUrl("/tictactoemid/")
+    }
+  }, []);
 
   function handleAccept() {
     let obj = { match_id: usermatch.match_id };
@@ -83,7 +93,7 @@ export default function Match({ usermatch, friend, currentUser }) {
             {usermatch.status === "in match" ? (
               <button
                 className="button-70"
-                onClick={() => navigate("/tictactoe/" + usermatch.match_id)}
+                onClick={() => navigate(gameUrl + usermatch.match_id)}
               >
                 Go to Match
               </button>
@@ -100,7 +110,7 @@ export default function Match({ usermatch, friend, currentUser }) {
                     <button
                       className="button-71"
                       onClick={() =>
-                        navigate("/tictactoe/" + usermatch.match_id)
+                        navigate(gameUrl + usermatch.match_id)
                       }
                     >
                       See Results

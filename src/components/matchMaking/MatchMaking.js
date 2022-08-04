@@ -6,7 +6,8 @@ import AllMatches from "./AllMatches";
 import { useLocation } from "react-router-dom";
 import { fetchUrl } from "../../utilities/GlobalVariables";
 
-export default function MatchMaking({ currentUser }) {
+export default function MatchMaking({ matchMakingPackage }) {
+  const {currentUser} = matchMakingPackage
   let location = useLocation();
 
   const gameId = location.pathname.substring(

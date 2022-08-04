@@ -3,6 +3,7 @@ import { fetchUrl } from "../../utilities/GlobalVariables";
 import { useState, useEffect } from "react";
 
 export default function MatchFriend({ friend, currentUser, gameId }) {
+  const [diffculty, setDiffculty] = useState("normal")
   const [invited, setInvited] = useState(false);
 
   const Img = friend.profile_img
@@ -17,6 +18,7 @@ export default function MatchFriend({ friend, currentUser, gameId }) {
       user_id: currentUser.id,
       game_id: gameId,
       friend_id: friend.id,
+      diffculty: diffculty,
     };
     fetch(`${fetchUrl}/create_game`, {
       method: "POST",
@@ -29,7 +31,7 @@ export default function MatchFriend({ friend, currentUser, gameId }) {
       .then((res) => res.json())
       .then((data) => setInvited(true));
   }
-
+  console.log(diffculty)
   return (
     <div className="friend">
       <div className="profile-img-holder">
@@ -53,6 +55,13 @@ export default function MatchFriend({ friend, currentUser, gameId }) {
             Invite to Game
           </button>
         )}
+      </div>
+      <div className="match-friend-diff">
+        <p>Diffculty</p>
+        <select value={diffculty} onChange={e => setDiffculty(e.target.value)}>
+          <option value="normal">Normal</option>
+          <option value="mid">Medium</option>
+        </select>
       </div>
     </div>
   );

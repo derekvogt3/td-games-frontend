@@ -13,6 +13,7 @@ import Pixel from "./utilities/PixelArt";
 import AlertBox from "./utilities/AlertBox";
 import MatchMaking from "./components/matchMaking/MatchMaking";
 import TicTacToe from "./components/games/TicTacToe/TicTacToe";
+import TicTacToeMid from "./components/games/TicTacToe/TicTacToeMid";
 import Settings from "./components/settings/Settings";
 import WinLossMessage from "./utilities/WinLoseMessage";
 
@@ -26,7 +27,7 @@ function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [onAlert, setOnAlert] = useState(false);
   const [alert, setAlert] = useState({ type: "alert", message: "alert" });
-  const [onWinLose, setonWinLose] = useState(true);
+  const [onWinLose, setonWinLose] = useState(false);
   const [winLose, setwinLose] = useState({type: "win", message: "You Win!"});
   const [chatId, setChatId] = useState("");
   const [unreadMessages, setUnreadMessages] = useState([])
@@ -156,6 +157,10 @@ function App() {
     setCurrentUser,
   };
 
+  const matchMakingPackage = {
+    currentUser,
+  };
+
   return (
     <BrowserRouter>
       {firstEnter ? (
@@ -185,7 +190,7 @@ function App() {
             path="/match-making/:game_id"
             element={
               currentUser.id ? (
-                <MatchMaking currentUser={currentUser} gameId={1} />
+                <MatchMaking matchMakingPackage={matchMakingPackage}/>
               ) : (
                 <h1>Login to Play Game</h1>
               )
@@ -194,6 +199,10 @@ function App() {
           <Route
             path="/tictactoe/:matcj_id"
             element={<TicTacToe ticTacToePackage={ticTacToePackage} />}
+          />
+          <Route
+            path="/tictactoemid/:matcj_id"
+            element={<TicTacToeMid ticTacToePackage={ticTacToePackage} />}
           />
         </Routes>
       </div>
