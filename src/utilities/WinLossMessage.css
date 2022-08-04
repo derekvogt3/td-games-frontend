@@ -1,0 +1,42 @@
+#win-lose-box {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+}
+
+#win-message, #lose-message, #draw-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  font-size: 7vw;
+  font-weight: bolder;
+  opacity: 1;
+  word-wrap: break-word;
+}
+
+#win-message h1 {
+  background: -webkit-linear-gradient(rgb(84, 197, 31), rgb(12, 78, 26));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#lose-message h1 {
+  background: -webkit-linear-gradient(rgb(185, 23, 44), rgb(153, 80, 89));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+#draw-message h1 {
+  background: -webkit-linear-gradient(rgb(11, 14, 165), rgb(138, 141, 184));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

@@ -5,7 +5,7 @@ import { fetchUrl } from "../../../utilities/GlobalVariables";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function TicTacToe({ ticTacToePackage }) {
-  const { currentUser, showAlert } = ticTacToePackage;
+  const { currentUser, showWinLose } = ticTacToePackage;
   const [board, setBoard] = useState(Array(9).fill(" "));
   const [gameSettings, setGameSettings] = useState({"X":[0,""],"O":[0,""]});
   const [currentSide, setCurrentSide] = useState("");
@@ -165,13 +165,13 @@ function TicTacToe({ ticTacToePackage }) {
         if (gameSettings[win][0] === currentUser.id) {
           if (!gameFinished) {
             setTimeout(() => {
-              showAlert({ type: "winner", message: "You win!" });
+              showWinLose({ type: "win", message: "You Won!" });
             }, 1000);
           }
         } else {
           if (!gameFinished) {
             setTimeout(() => {
-              showAlert({ type: "alert", message: "You lose!" });
+              showWinLose({ type: "lose", message: "You Lose!" });
             }, 1000);
           }
         }
@@ -199,7 +199,7 @@ function TicTacToe({ ticTacToePackage }) {
         winner = "Draw"
         if (!gameFinished) {
           setTimeout(() => {
-            showAlert({ type: "alert", message: "Draw!" });
+            showWinLose({ type: "draw", message: "Draw!" });
           }, 1000);
         }
       } else if (won(board)) {

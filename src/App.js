@@ -14,6 +14,7 @@ import AlertBox from "./utilities/AlertBox";
 import MatchMaking from "./components/matchMaking/MatchMaking";
 import TicTacToe from "./components/games/TicTacToe/TicTacToe";
 import Settings from "./components/settings/Settings";
+import WinLossMessage from "./utilities/WinLoseMessage";
 
 function App() {
   const [firstEnter, setFirstEnter] = useState(true);
@@ -25,6 +26,8 @@ function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [onAlert, setOnAlert] = useState(false);
   const [alert, setAlert] = useState({ type: "alert", message: "alert" });
+  const [onWinLose, setonWinLose] = useState(false);
+  const [winLose, setwinLose] = useState({type: "draw", message: "Draw"});
   const [chatId, setChatId] = useState("");
   const [unreadMessages, setUnreadMessages] = useState([])
 
@@ -96,6 +99,12 @@ function App() {
     setOnAlert(true);
   }
 
+  // to show winLose box
+  function showWinLose(message) {
+    setwinLose(message);
+    setonWinLose(true);
+  }
+
   // packages for all states and functions to carry down to children
   const loginFormPackage = {
     currentUser,
@@ -135,7 +144,7 @@ function App() {
   };
   const ticTacToePackage = {
     currentUser,
-    showAlert,
+    showWinLose,
   };
 
   const showSettingsPackage = {
@@ -155,6 +164,7 @@ function App() {
         </div>
       ) : null}
       {onAlert ? <AlertBox setOnAlert={setOnAlert} alert={alert} /> : null}
+      {onWinLose ? <WinLossMessage setonWinLose={setonWinLose} winLose={winLose} /> : null}
       <Header loginFormPackage={loginFormPackage} />
       {/* only show the following list when corrsponding button are clicked */}
       {showFriends ? (

@@ -10,14 +10,14 @@
 
 #alert-box:before {
   content: "";
-  background-image: url("https://c8.alamy.com/comp/2BRDGB3/callouts-titles-in-hud-style-futuristic-ui-design-callout-titles-layout-elements-for-sci-fi-design-web-cyber-events-video-content-info-call-box-2BRDGB3.jpg");
+  background-image: url("https://imageio.forbes.com/specials-images/imageserve/944784934/Data-transfer-and-future-technology--cyber-security-concept-background--abstract-hi/960x0.jpg?format=jpg&width=960");
   background-size: cover;
   position: absolute;
   top: 0px;
   left: 0px;
   right: 0px;
   bottom: 0px;
-  opacity: 0.3;
+  opacity: 0.5;
 }
 
 #alert-message {
@@ -28,26 +28,16 @@
   width: 450px;
   opacity: 1;
   clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%);
-  color: white;
+  color: rgb(158, 10, 42);
+  background-color: red;
   font-size: 50px;
-  opacity: 1;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0.8;
   word-wrap: break-word;
 }
 
-#alert-message:before {
-  content: "";
-  /* background-image: url(https://img.freepik.com/premium-vector/text-box-internet-things_42077-3141.jpg?size=626&ext=jpg); */
-  /* background-size: contain; */
-  background-color: red;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  opacity: 0.7;
-}
-
-#win-message {
+#notice-message {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,21 +45,11 @@
   width: 450px;
   opacity: 1;
   clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%);
-  color: white;
-  font-size: 30px;
-  opacity: 1;
-  word-wrap: break-word;
-}
-
-#win-message:before {
-  content: "";
-  /* background-image: url(https://img.freepik.com/premium-vector/text-box-internet-things_42077-3141.jpg?size=626&ext=jpg);
-  background-size: contain; */
+  color: rgb(228, 236, 152);
   background-color: green;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  opacity: 0.7;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0.8;
+  word-wrap: break-word;
 }

@@ -20,7 +20,7 @@ function AlertBox({setOnAlert, alert}) {
       }
       {
         alert.type === "winner" ? (
-          <div id="win-message">
+          <div id="notice-message">
             <h1>{alert.message}</h1>
           </div>
         ) : (
