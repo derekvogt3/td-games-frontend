@@ -29,7 +29,7 @@ function MessageList({messageListPackage}) {
         setUsersStatus(status)
       })
       // console.log("run interval")
-    }, 2000)
+    }, 1000)
     
     return (() => {
       clearInterval(intervalId)

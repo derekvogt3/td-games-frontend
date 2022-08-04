@@ -29,7 +29,7 @@ function FriendList({friendListPackage}) {
       fetch(`${fetchUrl}/friends_pending/${currentUser.id}`)
       .then(res => res.json())
       .then(setFriendInvites)
-    }, 5000)
+    }, 1000)
 
     return (() => {
       clearInterval(intervalId)

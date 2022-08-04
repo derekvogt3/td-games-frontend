@@ -15,7 +15,7 @@ function Invites({currentUser, friend, showAlert}) {
       fetch(`${fetchUrl}/friends_relation?user_id=${currentUser.id}&friend_id=${friend.id}`)
       .then(res => res.json())
       .then(data => setInvite(data))
-    }, 5000)
+    }, 1000)
 
     return (() => {
       clearInterval(intervalId)

@@ -160,7 +160,6 @@ function TicTacToe({ ticTacToePackage }) {
         board[combo[1]] === board[combo[2]]
       ) {
         win = board[combo[0]];
-        console.log(intervalId)
         clearInterval(intervalId)
         if (gameSettings[win][0] === currentUser.id) {
           if (!gameFinished) {

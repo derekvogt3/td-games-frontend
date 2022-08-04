@@ -139,13 +139,10 @@ function TicTacToe({ ticTacToePackage }) {
   useEffect(() => {
     // if game is finished, no more need to fetching or access to the board
     if (gameFinished && boardRef) {
-      console.log(`${intervalId} stopped`)
       clearInterval(intervalId)
       boardRef.current.style.pointerEvents = "none";
     }
-
-    return (() => clearInterval(intervalId))
-  }, [gameFinished, intervalId])
+  }, [gameFinished])
 
 
   // console.log(board)

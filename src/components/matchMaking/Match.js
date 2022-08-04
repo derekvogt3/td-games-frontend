@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Match({ usermatch, friend, currentUser }) {
   const [gameUrl, setGameUrl] = useState("/tictactoe/")
+  const [currentMove, setCurrentMove] = useState("");
 
   const navigate = useNavigate();
 
@@ -14,6 +15,28 @@ export default function Match({ usermatch, friend, currentUser }) {
     } else if (usermatch.diffculty === "medium") {
       setGameUrl("/tictactoemid/")
     }
+
+    const intervalId = setInterval(() => {
+      fetch(`${fetchUrl}/tic_tac_toe_match_last_history/${usermatch.match_id}`)
+      .then(res => res.json())
+      .then(history => {
+        if (history) {
+          if (history.user_id !== currentUser.id) {
+            setCurrentMove("Your Move!")
+          } else {
+            setCurrentMove("Waiting for opponent move...")
+          }
+        } else {
+          if (usermatch.invited_by === currentUser.id) {
+            setCurrentMove("Your Move!")
+          } else {
+            setCurrentMove("Waiting for opponent move...")
+          }
+        }
+      })
+    }, 1000)
+
+    return (() => clearInterval(intervalId))
   }, []);
 
   function handleAccept() {
@@ -64,7 +87,7 @@ export default function Match({ usermatch, friend, currentUser }) {
           {friend.username.slice(1)}
         </p>
         <div className="match-info">
-          <i>#{usermatch.id}:</i>
+          <i>#{usermatch.match_id}:</i>
           <i>{usermatch.diffculty.slice(0, 1).toUpperCase()}{usermatch.diffculty.slice(1)}</i>
         </div>
       </div>
@@ -95,12 +118,17 @@ export default function Match({ usermatch, friend, currentUser }) {
         ) : (
           <>
             {usermatch.status === "in match" ? (
-              <button
-                className="button-70"
-                onClick={() => navigate(gameUrl + usermatch.match_id)}
-              >
-                Go to Match
-              </button>
+              <div>
+                <button
+                  className="button-70"
+                  onClick={() => navigate(gameUrl + usermatch.match_id)}
+                >
+                  Go to Match
+                </button>
+                <div>
+                  {currentMove}
+                </div>
+              </div>
             ) : (
               <>
                 {usermatch.status === "finished" ? (

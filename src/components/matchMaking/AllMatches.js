@@ -10,7 +10,7 @@ export default function AllMatches({ currentUser, gameId }) {
     getMatches();
     const intervalId = setInterval(() => {
       getMatches();
-    }, 500);
+    }, 1000);
 
     return () => {
       clearInterval(intervalId);
