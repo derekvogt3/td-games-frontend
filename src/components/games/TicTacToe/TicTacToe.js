@@ -11,6 +11,7 @@ function TicTacToe({ ticTacToePackage }) {
   const [currentSide, setCurrentSide] = useState("");
   const [gameFinished, setGameFinished] = useState(false);
   const [gameContinue, setGameContinue] = useState(false);
+  const [replay, setReplay] = useState(false)
   const [intervalId, setIntervalId] = useState(0)
 
   const navigate = useNavigate()
@@ -359,7 +360,16 @@ function TicTacToe({ ticTacToePackage }) {
             null
           )
         ) : (
-          null
+          !replay ? (
+            <div className={styles.replay} onClick={() => setReplay(true)} style={{cursor: "pointer"}}>
+              <img src="https://img.icons8.com/color/96/000000/replay--v1.png"/>
+              <h1>Replay</h1>
+            </div>
+          ) : (
+            <div className={styles.replay}>
+              <h1>Replaying...</h1>
+            </div>
+          )
         )
       }
     </div>
