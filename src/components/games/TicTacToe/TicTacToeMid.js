@@ -10,6 +10,7 @@ function TicTacToe({ ticTacToePackage }) {
   const [gameSettings, setGameSettings] = useState({"X":[0,""],"O":[0,""]});
   const [currentSide, setCurrentSide] = useState("");
   const [gameFinished, setGameFinished] = useState(false);
+  const [gameContinue, setGameContinue] = useState(false);
   const [intervalId, setIntervalId] = useState(0)
 
   const navigate = useNavigate()
@@ -88,41 +89,47 @@ function TicTacToe({ ticTacToePackage }) {
         setGameSettings(JSON.parse(data.match.game_settings))
         if (data.match.finished) {
           setGameFinished(true)
+        } else {
+          setGameContinue(true)
         }
       });
   }, []);
 
   // get latest game history every second and update the board
   useEffect(() => {
-    const id = setInterval(() => {
-      fetch(`${fetchUrl}/tic_tac_toe_match_last_history/${matchId}`)
-      .then(res => res.json())
-      .then(history => {
-        if (history) {
-          // console.log(history)
-          if (board[history.position] != history.player) {
-            fieldRefs[history.position].current.textContent = history.player;
-            history.player === "X"
-              ? (fieldRefs[history.position].current.style.color = "red")
-              : (fieldRefs[history.position].current.style.color = "blue");
-            fieldRefs[history.position].current.parentNode.style.transform = "rotateY(180deg)";
-            fieldRefs[history.position].current.parentNode.style.pointerEvents = "none";
-            board[history.position] = history.player
-            if (checkWinner(board)) {
-              setGameFinished(true)
-              setBoard(board)
-            } else {
-              setCurrentSide(history.player === "X" ? "O" : "X");
-              setBoard(board)
+    let id = 0
+    if (gameContinue) {
+      id = setInterval(() => {
+        fetch(`${fetchUrl}/tic_tac_toe_match_last_history/${matchId}`)
+        .then(res => res.json())
+        .then(history => {
+          if (history) {
+            // console.log(history)
+            console.log(board)
+            if (board[history.position] != history.player) {
+              fieldRefs[history.position].current.textContent = history.player;
+              history.player === "X"
+                ? (fieldRefs[history.position].current.style.color = "red")
+                : (fieldRefs[history.position].current.style.color = "blue");
+              fieldRefs[history.position].current.parentNode.style.transform = "rotateY(180deg)";
+              fieldRefs[history.position].current.parentNode.style.pointerEvents = "none";
+              board[history.position] = history.player
+              if (checkWinner(board)) {
+                setGameFinished(true)
+                setBoard(board)
+              } else {
+                setCurrentSide(history.player === "X" ? "O" : "X");
+                setBoard(board)
+              }
             }
           }
-        }
-      })
-    }, 1000)
+        })
+      }, 1000)
+    }
     setIntervalId(id)
 
     return (() => clearInterval(id))
-  }, [])
+  }, [gameContinue])
 
   // to disable board if not current player
   useEffect(() => {
