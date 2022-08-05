@@ -49,7 +49,7 @@ export default function MatchFriend({ friend, currentUser, gameId }) {
       <div className="match-row">
         {invited ? (
           <p>
-            <i>Invite Sent</i>
+            <i onClick={() => setInvited(!invited)}>Invite Sent</i>
           </p>
         ) : (
           <button className="button-70" onClick={inviteFriend}>

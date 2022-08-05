@@ -36,7 +36,7 @@ function TicTacToe({ ticTacToePackage }) {
   ]
 
   useEffect(() => {
-    fetch(`${fetchUrl}/tic_tac_toe_match_data?match_id=${matchId}&length=9`)
+    fetch(`${fetchUrl}/tic_tac_toe_match_data?match_id=${matchId}&length=25`)
       .then((res) => res.json())
       .then((data) => {
         // console.log(data.match.game_status);
@@ -57,14 +57,13 @@ function TicTacToe({ ticTacToePackage }) {
             }
           })
           setCurrentSide(data.history.player === "X" ? "O" : "X");
+          console.log(fetchBoard)
           setBoard(fetchBoard)
         }
         // console.log(data);
         // console.log(JSON.parse(data.match.game_settings));
         setGameSettings(JSON.parse(data.match.game_settings))
-        if (data.match.finished === false) {
-          checkWinner(fetchBoard)
-        } else {
+        if (data.match.finished) {
           setGameFinished(true)
         }
       });
@@ -77,8 +76,8 @@ function TicTacToe({ ticTacToePackage }) {
       .then(res => res.json())
       .then(history => {
         if (history) {
+          // console.log(history)
           if (board[history.position] != history.player) {
-            // console.log(history)
             fieldRefs[history.position].current.textContent = history.player;
             history.player === "X"
               ? (fieldRefs[history.position].current.style.color = "red")
@@ -101,6 +100,7 @@ function TicTacToe({ ticTacToePackage }) {
 
     return (() => clearInterval(id))
   }, [])
+
 
   // to disable board if not current player
   useEffect(() => {
@@ -207,7 +207,7 @@ function TicTacToe({ ticTacToePackage }) {
       }
       return true
     } else {
-      console.log("continue");
+      // console.log("continue");
       return false
     }
   }
@@ -279,6 +279,9 @@ function TicTacToe({ ticTacToePackage }) {
 
   return (
     <div className={styles.mainPageContainer}>
+      <div id={styles.backBtn} onClick={() => navigate("/match-making/1")}>
+        <img src="https://img.icons8.com/officel/80/000000/return.png" alt="return button"/>
+      </div>
       <div className={styles.currentPlayer}>
         {
           gameFinished ? (
@@ -340,10 +343,14 @@ function TicTacToe({ ticTacToePackage }) {
         </div>
       </div>
       {
-        gameSettings[currentSide] ? (
-          <div className={styles.instruction}>
-            Connect 3 <div style={gameSettings["X"][0] == currentUser.id ? {color: "red"} : {color: "blue"}}>{gameSettings["X"][0] == currentUser.id ? "X" : "O"}</div> to win.
-          </div>
+        !gameFinished ? (
+          gameSettings[currentSide] ? (
+            <div className={styles.instruction}>
+              Connect 3 <div style={gameSettings["X"][0] == currentUser.id ? {color: "red"} : {color: "blue"}}>{gameSettings["X"][0] == currentUser.id ? "X" : "O"}</div> to win.
+            </div>
+          ) : (
+            null
+          )
         ) : (
           null
         )

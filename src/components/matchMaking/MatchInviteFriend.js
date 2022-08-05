@@ -30,7 +30,7 @@ export default function MatchInviteFriend({
       fetch(`${fetchUrl}/friends_pending/${currentUser.id}`)
         .then((res) => res.json())
         .then(setFriendInvites);
-    }, 1000);
+    }, 2000);
 
     return () => {
       clearInterval(intervalId);

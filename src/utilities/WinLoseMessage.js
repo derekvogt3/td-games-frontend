@@ -13,7 +13,6 @@ function WinLossMessage({setonWinLose, winLose}) {
         setclasses("")
         intervalIds.push(setTimeout(() => {
           setclasses("animate__animated animate__bounce")
-          console.log("win")
         }, 100))
       }, 2000))
     } else if (winLose.type === "lose") {

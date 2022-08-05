@@ -1,9 +1,20 @@
-
 .mainPageContainer{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+#backBtn {
+    cursor: pointer;
+    position: absolute;
+    top: 120px;
+    left: 50px;
+}
+
+#backBtn img {
+    width: 50px;
+    height: 50px;
 }
 
 .gamePlayground{

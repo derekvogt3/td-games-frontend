@@ -80,14 +80,13 @@ function TicTacToe({ ticTacToePackage }) {
             }
           })
           setCurrentSide(data.history.player === "X" ? "O" : "X");
+          console.log(fetchBoard)
           setBoard(fetchBoard)
         }
         // console.log(data);
         // console.log(JSON.parse(data.match.game_settings));
         setGameSettings(JSON.parse(data.match.game_settings))
-        if (data.match.finished === false) {
-          checkWinner(fetchBoard)
-        } else {
+        if (data.match.finished) {
           setGameFinished(true)
         }
       });
@@ -100,8 +99,8 @@ function TicTacToe({ ticTacToePackage }) {
       .then(res => res.json())
       .then(history => {
         if (history) {
+          // console.log(history)
           if (board[history.position] != history.player) {
-            console.log(history)
             fieldRefs[history.position].current.textContent = history.player;
             history.player === "X"
               ? (fieldRefs[history.position].current.style.color = "red")
@@ -144,15 +143,16 @@ function TicTacToe({ ticTacToePackage }) {
     }
   }, [gameFinished])
 
-
-  // console.log(board)
+  console.log("==========")
+  console.log(board)
   // if (gameSettings[currentSide]) {
   //   console.log(gameSettings[currentSide][1])
   //   console.log(gameSettings[currentSide === "X" ? "O" : "X"][1])
   // }
   // console.log(currentSide)
-  // console.log(gameFinished)
+  console.log(gameFinished)
   // console.log(intervalId)
+  console.log("XXXXXXXXXX")
 
   // --------------------------- tic tac toe logics -----------------------------
   const winCombinations = [
@@ -309,6 +309,9 @@ function TicTacToe({ ticTacToePackage }) {
 
   return (
     <div className={styles.mainPageContainer}>
+      <div id={styles.backBtn} onClick={() => navigate("/match-making/1")}>
+        <img src="https://img.icons8.com/officel/80/000000/return.png" alt="return button"/>
+      </div>
       <div className={styles.currentPlayer}>
         {
           gameFinished ? (
@@ -370,10 +373,14 @@ function TicTacToe({ ticTacToePackage }) {
         </div>
       </div>
       {
-        gameSettings[currentSide] ? (
-          <div className={styles.instruction}>
-            Connect 4 <div style={gameSettings["X"][0] == currentUser.id ? {color: "red"} : {color: "blue"}}>{gameSettings["X"][0] == currentUser.id ? "X" : "O"}</div> to win.
-          </div>
+        !gameFinished ? (
+          gameSettings[currentSide] ? (
+            <div className={styles.instruction}>
+              Connect 4 <div style={gameSettings["X"][0] == currentUser.id ? {color: "red"} : {color: "blue"}}>{gameSettings["X"][0] == currentUser.id ? "X" : "O"}</div> to win.
+            </div>
+          ) : (
+            null
+          )
         ) : (
           null
         )

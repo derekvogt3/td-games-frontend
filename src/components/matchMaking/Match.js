@@ -22,13 +22,13 @@ export default function Match({ usermatch, friend, currentUser }) {
       .then(history => {
         if (history) {
           if (history.user_id !== currentUser.id) {
-            setCurrentMove("Your Move!")
+            setCurrentMove("Your turn!")
           } else {
             setCurrentMove("Waiting for opponent move...")
           }
         } else {
           if (usermatch.invited_by === currentUser.id) {
-            setCurrentMove("Your Move!")
+            setCurrentMove("Your turn!")
           } else {
             setCurrentMove("Waiting for opponent move...")
           }

@@ -29,6 +29,7 @@
   top: 50px;
   width: 500px;
   height: 500px;
+  border-radius: 10px;
   overflow-y: hidden;
   overflow-x: hidden;
   scroll-behavior: smooth;
@@ -41,6 +42,7 @@
   top: 150px;
   width: 500px;
   height: 500px;
+  border-radius: 10px;
   background: transparent;
   opacity: 1;
   overflow-y: hidden;
@@ -64,13 +66,16 @@
 
 .game-poster div h3 {
   font-size: 40px;
-  margin: 10px;
+  margin: 0px;
+  text-align: center;
   animation: rainbow 6s linear 0s infinite;
 }
 
 .game-poster div p {
-  font-size: 30px;
   margin: 0;
+  font-size: 30px;
+  text-align: center;
+  font-weight: bold;
   animation: rainbow 6s linear 0s infinite;
 }
 
