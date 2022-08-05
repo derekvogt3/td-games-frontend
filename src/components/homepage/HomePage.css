@@ -23,6 +23,10 @@
   margin-right: 10px;
 }
 
+#left-btn:hover, #right-btn:hover {
+  animation: heartbeat 1s linear 0s infinite;
+}
+
 #games-showcase-back {
   display: flex;
   position: relative;
@@ -100,5 +104,23 @@
   }
   100% {
     color: #6666ff;
+  }
+}
+
+@keyframes heartbeat {
+  from {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  75% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
   }
 }
