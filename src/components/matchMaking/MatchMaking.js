@@ -37,7 +37,7 @@ export default function MatchMaking({ matchMakingPackage }) {
           }
           }
         >
-          Invite Friend to Match
+          {gameId == 1 ? "Invite Friend to Match" : "Coming Soon!"}
         </button>
 
         {showInvite ? (
