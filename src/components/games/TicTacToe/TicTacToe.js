@@ -59,7 +59,7 @@ function TicTacToe({ ticTacToePackage }) {
             }
           })
           setCurrentSide(data.history.player === "X" ? "O" : "X");
-          console.log(fetchBoard)
+          // console.log(fetchBoard)
           setBoard(fetchBoard)
         }
         // console.log(data);
@@ -128,6 +128,46 @@ function TicTacToe({ ticTacToePackage }) {
       boardRef.current.style.pointerEvents = "none";
     }
   }, [gameFinished])
+
+  // replay function
+  useEffect(() => {
+    let intervalIds = []
+    if (replay && boardRef.current) {
+      boardRef.current.style.pointerEvents = "none"
+      fieldRefs.forEach(field => {
+        field.current.parentNode.style.transform = "rotateY(0deg)";
+      })
+      fetch(`${fetchUrl}/tic_tac_toe_match_histories/${matchId}`)
+        .then(res => res.json())
+        .then(histories => {
+          let timer = 1000;
+          const replayBoard = Array(9).fill(" ")
+          histories.forEach(history => {
+            intervalIds.push(setTimeout(() => {
+              fieldRefs[history.position].current.textContent = history.player;
+              history.player === "X"
+                ? (fieldRefs[history.position].current.style.color = "red")
+                : (fieldRefs[history.position].current.style.color = "blue");
+              fieldRefs[history.position].current.parentNode.style.transform = "rotateY(180deg)";
+              fieldRefs[history.position].current.parentNode.style.pointerEvents = "none";
+              replayBoard[history.position] = history.player
+              setCurrentSide(history.player === "X" ? "X" : "O");
+            }, timer))
+            timer += 2000;
+          })
+          intervalIds.push(setTimeout(() => {
+            // console.log(replayBoard)
+            if (checkWinner(replayBoard)) {
+              setGameFinished(true)
+              setReplay(false)
+              // console.log("finished")
+            }
+          }, timer -= 500))
+        })
+    }
+
+    return (() => intervalIds.forEach(id => clearInterval(id)))
+  }, [replay, gameFinished]);
 
 
   // console.log(board)
@@ -283,7 +323,10 @@ function TicTacToe({ ticTacToePackage }) {
     )
   })
 
-  const winner = won(board)
+  let winner
+  if (!replay) {
+    winner = won(board)
+  }
 
   return (
     <div className={styles.mainPageContainer}>
@@ -353,22 +396,32 @@ function TicTacToe({ ticTacToePackage }) {
       {
         !gameFinished ? (
           gameSettings[currentSide] ? (
-            <div className={styles.instruction}>
-              Connect 3 <div style={gameSettings["X"][0] == currentUser.id ? {color: "red"} : {color: "blue"}}>{gameSettings["X"][0] == currentUser.id ? "X" : "O"}</div> to win.
-            </div>
+            !replay ? (
+              <div className={styles.instruction}>
+                Connect 3 <div style={gameSettings["X"][0] == currentUser.id ? {color: "red"} : {color: "blue"}}>{gameSettings["X"][0] == currentUser.id ? "X" : "O"}</div> to win.
+              </div>
+            ) : (
+              <div className={styles.replay}>
+                <h1>Replaying...</h1>
+              </div>
+            )
           ) : (
             null
           )
         ) : (
           !replay ? (
-            <div className={styles.replay} onClick={() => setReplay(true)} style={{cursor: "pointer"}}>
+            <div className={styles.replay}
+             onClick={() => {
+              setReplay(true) 
+              setGameFinished(false)
+              }} 
+              style={{cursor: "pointer"}}
+            >
               <img src="https://img.icons8.com/color/96/000000/replay--v1.png"/>
               <h1>Replay</h1>
             </div>
           ) : (
-            <div className={styles.replay}>
-              <h1>Replaying...</h1>
-            </div>
+            null
           )
         )
       }

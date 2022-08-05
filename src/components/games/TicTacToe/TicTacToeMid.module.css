@@ -8,7 +8,7 @@
 
 #backBtn {
     cursor: pointer;
-    position: absolute;
+    position: fixed;
     top: 120px;
     left: 50px;
 }
