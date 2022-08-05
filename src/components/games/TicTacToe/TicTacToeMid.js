@@ -201,7 +201,7 @@ function TicTacToe({ ticTacToePackage }) {
         if (gameSettings[win][0] === currentUser.id) {
           if (!gameFinished) {
             setTimeout(() => {
-              showWinLose({ type: "win", message: "You Won!" });
+              showWinLose({ type: "win", message: "You Win!" });
             }, 1000);
           }
         } else {
