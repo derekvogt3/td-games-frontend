@@ -17,7 +17,7 @@ function ChatList({chatListPackage}) {
       fetch(`${fetchUrl}/chats/${currentUser.id}`)
       .then(res => res.json())
       .then(setUserChats)
-    }, 1000)
+    }, 2000)
 
     return (() => {
       clearInterval(intervalId)

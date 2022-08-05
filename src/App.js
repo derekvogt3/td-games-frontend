@@ -64,7 +64,7 @@ function App() {
         fetch(`${fetchUrl}/messages_unread/${currentUser.id}`)
           .then((res) => res.json())
           .then(setUnreadMessages);
-      }, 1000);
+      }, 2000);
     }
 
     return () => clearInterval(intervalId);
