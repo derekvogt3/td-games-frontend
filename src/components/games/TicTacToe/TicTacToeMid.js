@@ -428,7 +428,7 @@ function TicTacToe({ ticTacToePackage }) {
           gameSettings[currentSide] ? (
             !replay ? (
               <div className={styles.instruction}>
-                Connect 3 <div style={gameSettings["X"][0] == currentUser.id ? {color: "red"} : {color: "blue"}}>{gameSettings["X"][0] == currentUser.id ? "X" : "O"}</div> to win.
+                Connect 4 <div style={gameSettings["X"][0] == currentUser.id ? {color: "red"} : {color: "blue"}}>{gameSettings["X"][0] == currentUser.id ? "X" : "O"}</div> to win.
               </div>
             ) : (
               <div className={styles.replay}>
