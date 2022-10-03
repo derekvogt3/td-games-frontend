@@ -1,7 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import "./MatchInviteFriend.css";
-import { fetchUrl } from "../../utilities/GlobalVariables";
 import MatchFriend from "./MatchFriend";
 
 export default function MatchInviteFriend({
@@ -13,21 +12,21 @@ export default function MatchInviteFriend({
   const [friendInvites, setFriendInvites] = useState([]);
 
   useEffect(() => {
-    fetch(`${fetchUrl}/friends/${currentUser.id}`)
+    fetch(`/friends/${currentUser.id}`)
       .then((res) => res.json())
       .then(setUserFriends);
 
-    fetch(`${fetchUrl}/friends_pending/${currentUser.id}`)
+    fetch(`/friends_pending/${currentUser.id}`)
       .then((res) => res.json())
       .then(setFriendInvites);
 
     // keep checking friends online status
     const intervalId = setInterval(() => {
-      fetch(`${fetchUrl}/friends/${currentUser.id}`)
+      fetch(`/friends/${currentUser.id}`)
         .then((res) => res.json())
         .then(setUserFriends);
 
-      fetch(`${fetchUrl}/friends_pending/${currentUser.id}`)
+      fetch(`/friends_pending/${currentUser.id}`)
         .then((res) => res.json())
         .then(setFriendInvites);
     }, 2000);

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { fetchUrl } from "../../utilities/GlobalVariables";
 import "./ProfPicForm.css";
 
 export default function ProfPicForm({
@@ -14,7 +13,7 @@ export default function ProfPicForm({
 
     let obj = { photo_url: picURL };
 
-    fetch(fetchUrl + "/update_prof_pic/" + currentUser.id, {
+    fetch("/update_prof_pic/" + currentUser.id, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

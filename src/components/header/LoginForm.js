@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchUrl } from "../../utilities/GlobalVariables";
 import "./LoginForm.css";
 
 function LoginForm({ loginFormPackage }) {
@@ -33,12 +32,12 @@ function LoginForm({ loginFormPackage }) {
   // ------------------------------------------------- logic for login / logout ------------------------------------------------
 
   function checkUserExist(name) {
-    return fetch(`${fetchUrl}/user_check/${name}`).then((res) => res.json());
+    return fetch(`/user_check/${name}`).then((res) => res.json());
   }
 
   function checkPassword(name, pw) {
-    return fetch(`${fetchUrl}/password_check?name=${name}&pw=${pw}`).then(
-      (res) => res.json()
+    return fetch(`/password_check?name=${name}&pw=${pw}`).then((res) =>
+      res.json()
     );
   }
 
@@ -71,7 +70,7 @@ function LoginForm({ loginFormPackage }) {
         ).then((match) => {
           if (match.matched) {
             console.log("user logged in");
-            fetch(`${fetchUrl}/users/${result.id}`, {
+            fetch(`/users/${result.id}`, {
               method: "PATCH",
               headers: {
                 "Content-Type": "application/json",
@@ -102,7 +101,7 @@ function LoginForm({ loginFormPackage }) {
   }
 
   function onLogout() {
-    fetch(`${fetchUrl}/users/${currentUser.id}`, {
+    fetch(`/users/${currentUser.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -146,7 +145,7 @@ function LoginForm({ loginFormPackage }) {
                     formInput.password
                   ).toString();
                   // console.log(password)
-                  fetch(`${fetchUrl}/users`, {
+                  fetch(`/users`, {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",
@@ -155,7 +154,7 @@ function LoginForm({ loginFormPackage }) {
                     body: JSON.stringify({
                       username: name,
                       password: password,
-                      is_login: true
+                      is_login: true,
                     }),
                   })
                     .then((res) => res.json())
@@ -247,13 +246,11 @@ function LoginForm({ loginFormPackage }) {
             </div>
             <div id="show-chats" onClick={showChatList}>
               <p>Chats</p>
-              {
-                unreadMessages.length > 0 ? (
-                  <div id="all-unread-messages">{unreadMessages.length > 9 ? "9+" : unreadMessages.length}</div>
-                ) : (
-                  null
-                )
-              }
+              {unreadMessages.length > 0 ? (
+                <div id="all-unread-messages">
+                  {unreadMessages.length > 9 ? "9+" : unreadMessages.length}
+                </div>
+              ) : null}
             </div>
             <div id="show-chats" onClick={showSettings}>
               <p>Settings</p>

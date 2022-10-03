@@ -1,7 +1,6 @@
 import React from "react";
 import "./AllMatches.css";
 import { useEffect, useState } from "react";
-import { fetchUrl } from "../../utilities/GlobalVariables";
 import Match from "./Match";
 
 export default function AllMatches({ currentUser, gameId }) {
@@ -18,7 +17,7 @@ export default function AllMatches({ currentUser, gameId }) {
   }, []);
 
   function getMatches() {
-    fetch(`${fetchUrl}/all_matches?user_id=${currentUser.id}&game_id=${gameId}`)
+    fetch(`/all_matches?user_id=${currentUser.id}&game_id=${gameId}`)
       .then((res) => {
         return res.json();
       })

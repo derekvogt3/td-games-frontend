@@ -1,7 +1,5 @@
-import ReactDOM from "react-dom/client";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { fetchUrl } from "./utilities/GlobalVariables";
 
 import "./App.css";
 import Header from "./components/header/Header";
@@ -29,7 +27,7 @@ function App() {
   const [onAlert, setOnAlert] = useState(false);
   const [alert, setAlert] = useState({ type: "alert", message: "alert" });
   const [onWinLose, setonWinLose] = useState(false);
-  const [winLose, setwinLose] = useState({type: "win", message: "You Win!"});
+  const [winLose, setwinLose] = useState({ type: "win", message: "You Win!" });
   const [chatId, setChatId] = useState("");
   const [unreadMessages, setUnreadMessages] = useState([]);
 
@@ -45,7 +43,7 @@ function App() {
   // close all lists when user changes
   useEffect(() => {
     if (currentUser.id) {
-      fetch(`${fetchUrl}/messages_unread/${currentUser.id}`)
+      fetch(`/messages_unread/${currentUser.id}`)
         .then((res) => res.json())
         .then(setUnreadMessages);
 
@@ -61,7 +59,7 @@ function App() {
     let intervalId;
     if (currentUser.id) {
       intervalId = setInterval(() => {
-        fetch(`${fetchUrl}/messages_unread/${currentUser.id}`)
+        fetch(`/messages_unread/${currentUser.id}`)
           .then((res) => res.json())
           .then(setUnreadMessages);
       }, 2000);
@@ -193,7 +191,7 @@ function App() {
             path="/match-making/:game_id"
             element={
               currentUser.id ? (
-                <MatchMaking matchMakingPackage={matchMakingPackage}/>
+                <MatchMaking matchMakingPackage={matchMakingPackage} />
               ) : (
                 <h1>Login to Play Game</h1>
               )

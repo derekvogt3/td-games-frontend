@@ -4,10 +4,9 @@ import { useState, useEffect } from "react";
 import MatchInviteFriend from "./MatchInviteFriend";
 import AllMatches from "./AllMatches";
 import { useLocation } from "react-router-dom";
-import { fetchUrl } from "../../utilities/GlobalVariables";
 
 export default function MatchMaking({ matchMakingPackage }) {
-  const {currentUser} = matchMakingPackage
+  const { currentUser } = matchMakingPackage;
   let location = useLocation();
 
   const gameId = location.pathname.substring(
@@ -18,7 +17,7 @@ export default function MatchMaking({ matchMakingPackage }) {
   const [game, setGame] = useState({});
 
   useEffect(() => {
-    fetch(fetchUrl + "/games/" + gameId)
+    fetch("/games/" + gameId)
       .then((res) => res.json())
       .then((data) => setGame(data));
   }, []);
@@ -32,10 +31,9 @@ export default function MatchMaking({ matchMakingPackage }) {
           role="button"
           onClick={() => {
             if (gameId == "1") {
-              setShowInvite(true)
+              setShowInvite(true);
             }
-          }
-          }
+          }}
         >
           {gameId == 1 ? "Invite Friend to Match" : "Coming Soon!"}
         </button>

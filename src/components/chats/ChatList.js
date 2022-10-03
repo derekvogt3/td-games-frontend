@@ -1,35 +1,39 @@
 import { useEffect, useState } from "react";
-import { fetchUrl } from "../../utilities/GlobalVariables";
-import "./ChatList.css"
+import "./ChatList.css";
 import Chat from "./Chat";
 
-function ChatList({chatListPackage}) {
-  const {currentUser, setShowChats} = chatListPackage
-  const [userChats, setUserChats] = useState([])
+function ChatList({ chatListPackage }) {
+  const { currentUser, setShowChats } = chatListPackage;
+  const [userChats, setUserChats] = useState([]);
 
   useEffect(() => {
-    fetch(`${fetchUrl}/chats/${currentUser.id}`)
-      .then(res => res.json())
-      .then(setUserChats)
+    fetch(`/chats/${currentUser.id}`)
+      .then((res) => res.json())
+      .then(setUserChats);
 
     // keep checking friends online status
     const intervalId = setInterval(() => {
-      fetch(`${fetchUrl}/chats/${currentUser.id}`)
-      .then(res => res.json())
-      .then(setUserChats)
-    }, 2000)
+      fetch(`/chats/${currentUser.id}`)
+        .then((res) => res.json())
+        .then(setUserChats);
+    }, 2000);
 
-    return (() => {
-      clearInterval(intervalId)
-    })
-  }, [])
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
 
-  const showChats = userChats.map(chat => <Chat key={chat.id} chat={chat} chatListPackage={chatListPackage} />)
-  
+  const showChats = userChats.map((chat) => (
+    <Chat key={chat.id} chat={chat} chatListPackage={chatListPackage} />
+  ));
+
   return (
     <div id="chat-list">
       <div className="list-header">
-        <p>{currentUser.username.slice(0, 1).toUpperCase()}{currentUser.username.slice(1)}'s chat list</p>
+        <p>
+          {currentUser.username.slice(0, 1).toUpperCase()}
+          {currentUser.username.slice(1)}'s chat list
+        </p>
         <div className="exit-button" onClick={() => setShowChats(false)}>
           <p>x</p>
         </div>

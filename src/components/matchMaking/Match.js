@@ -1,48 +1,47 @@
 import React, { useEffect, useState } from "react";
 import "./Match.css";
-import { fetchUrl } from "../../utilities/GlobalVariables";
 import { useNavigate } from "react-router-dom";
 
 export default function Match({ usermatch, friend, currentUser }) {
-  const [gameUrl, setGameUrl] = useState("/tictactoe/")
+  const [gameUrl, setGameUrl] = useState("/tictactoe/");
   const [currentMove, setCurrentMove] = useState("");
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (usermatch.diffculty === "normal") {
-      setGameUrl("/tictactoe/")
+      setGameUrl("/tictactoe/");
     } else if (usermatch.diffculty === "medium") {
-      setGameUrl("/tictactoemid/")
+      setGameUrl("/tictactoemid/");
     }
 
     const intervalId = setInterval(() => {
-      fetch(`${fetchUrl}/tic_tac_toe_match_last_history/${usermatch.match_id}`)
-      .then(res => res.json())
-      .then(history => {
-        if (history) {
-          if (history.user_id !== currentUser.id) {
-            setCurrentMove("Your turn!")
+      fetch(`/tic_tac_toe_match_last_history/${usermatch.match_id}`)
+        .then((res) => res.json())
+        .then((history) => {
+          if (history) {
+            if (history.user_id !== currentUser.id) {
+              setCurrentMove("Your turn!");
+            } else {
+              setCurrentMove("Waiting for opponent move...");
+            }
           } else {
-            setCurrentMove("Waiting for opponent move...")
+            if (usermatch.invited_by === currentUser.id) {
+              setCurrentMove("Your turn!");
+            } else {
+              setCurrentMove("Waiting for opponent move...");
+            }
           }
-        } else {
-          if (usermatch.invited_by === currentUser.id) {
-            setCurrentMove("Your turn!")
-          } else {
-            setCurrentMove("Waiting for opponent move...")
-          }
-        }
-      })
-    }, 1000)
+        });
+    }, 1000);
 
-    return (() => clearInterval(intervalId))
+    return () => clearInterval(intervalId);
   }, []);
 
   function handleAccept() {
     let obj = { match_id: usermatch.match_id };
 
-    fetch(`${fetchUrl}/accept_invite`, {
+    fetch(`/accept_invite`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +55,7 @@ export default function Match({ usermatch, friend, currentUser }) {
 
   function handleReject() {
     let obj = { match_id: usermatch.match_id };
-    fetch(`${fetchUrl}/reject_invite`, {
+    fetch(`/reject_invite`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -88,7 +87,10 @@ export default function Match({ usermatch, friend, currentUser }) {
         </p>
         <div className="match-info">
           <i>#{usermatch.match_id}:</i>
-          <i>{usermatch.diffculty.slice(0, 1).toUpperCase()}{usermatch.diffculty.slice(1)}</i>
+          <i>
+            {usermatch.diffculty.slice(0, 1).toUpperCase()}
+            {usermatch.diffculty.slice(1)}
+          </i>
         </div>
       </div>
 
@@ -125,9 +127,7 @@ export default function Match({ usermatch, friend, currentUser }) {
                 >
                   Go to Match
                 </button>
-                <div>
-                  {currentMove}
-                </div>
+                <div>{currentMove}</div>
               </div>
             ) : (
               <>
@@ -141,9 +141,7 @@ export default function Match({ usermatch, friend, currentUser }) {
                     </p>
                     <button
                       className="button-71"
-                      onClick={() =>
-                        navigate(gameUrl + usermatch.match_id)
-                      }
+                      onClick={() => navigate(gameUrl + usermatch.match_id)}
                     >
                       See Results
                     </button>
