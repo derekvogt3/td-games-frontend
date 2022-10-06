@@ -32,7 +32,7 @@
 
 - Install packages: npm install
 - Start server: npm start
-- open [locolhost:3021](http://localhost:4000/) on your browser
+- open [localhost:3021](http://localhost:4000/) on your browser
 
 ## Backend (Sinatra):
 
