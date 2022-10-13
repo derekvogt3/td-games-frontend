@@ -14,7 +14,7 @@
 
 # Descriptions
 
-- Designed simple games like Tic Tac Toe that can be played with friends online.
+- Designed simple games, like Tic Tac Toe, that can be played with friends online in real-time.
 - Provided users with instant messaging functions between friends and monitored their online status.
 - Tracked unread messages and shown as a badge on the navigation menu.
 - Employed SQLite database to store game histories and user data.
